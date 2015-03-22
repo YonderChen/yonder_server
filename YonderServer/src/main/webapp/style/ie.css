@@ -1,0 +1,18 @@
+/*!
+ * @名称:  Lost Rhino
+ * @功能:  ie
+ * @作者:  Ricky
+ * @版本:  1.0.0
+*/
+.container{ width:940px; margin:0 auto;}
+ .naver{ display:none;}
+ .main-nav .other-nav-item{ width:250px;}
+    .main-nav .nav li{ margin-left: 8px;}
+    .main-nav .nav a{ padding:12px 8px; font-size:14px;}   
+    .bs-docs-sidenav.affix{top: 150px;}
+
+    .bs-docs-sidenav{ width:178px;}
+    .bs-docs-sidenav li a{ display:block; padding:14px 12px;}
+    
+    .cart-mod{ top:12px;}
+    .main-nav{ position:absolute; top:52px; z-index:1002;}

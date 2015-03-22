@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+    <!--外部properties资源文件配置，如jdbc.properties-->
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:/config/properties/jdbc.properties</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!--转移系统所需的配置环境,不依赖数据库-->
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+       <property name="basenames">
+           <list>
+				<value>config/properties/system</value>
+          </list>
+        </property>
+    </bean>
+	
+    <bean id="dataSource" class="org.logicalcobwebs.proxool.ProxoolDataSource">
+		<property name="driver">
+			<value>${database.driver}</value>
+		</property>
+		<property name="driverUrl">
+			<value>${database.url}</value>
+		</property>
+		<property name="user">
+			<value>${database.user}</value>
+		</property>
+		<property name="password">
+			<value>${database.password}</value>
+		</property>
+		<property name="alias">
+			<value>mysql</value>
+		</property>
+		<property name="prototypeCount">
+			<value>5</value>
+		</property>
+		<property name="trace">
+            <value>true</value>
+        </property>
+        <property name="verbose">
+            <value>true</value>
+        </property>
+        	<property name="maximumActiveTime">
+			<value>3600000</value>
+		</property>
+		<property name="maximumConnectionCount">
+			<value>${database.maximumConnectionCount}</value>
+		</property>
+		<property name="minimumConnectionCount">
+			<value>${database.minimumConnectionCount}</value>
+		</property>
+		<property name="houseKeepingTestSql">
+			<value>select 1 from dual</value>
+		</property>
+	</bean>
+	
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource"/>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.connection.provider_class">org.hibernate.connection.ProxoolConnectionProvider</prop>
+				<prop key="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.bytecode.use_reflection_optimizer">true</prop>
+				<prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
+				<prop key="hibernate.cache.use_second_level_cache">false</prop>
+				<prop key="hibernate.cache.use_query_cache">false</prop>
+				<prop key="hibernate.cache.provider_configuration_file_resource_path">/config/ehcache/ehcache-hibernate.xml</prop>
+				<prop key="hibernate.jdbc.fetch_size">50</prop>
+				<prop key="hibernate.jdbc.batch_size">30</prop>
+				<prop key="hibernate.use_outer_join">true</prop>
+				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.proxool.pool_alias">mysql</prop>
+				<prop key="hibernate.hbm2ddl.auto">none</prop>
+			</props>
+		</property>
+		<property name="eventListeners">
+			<map>
+				<entry key="merge">
+					<bean class="org.springframework.orm.hibernate3.support.IdTransferringMergeEventListener" />
+				</entry>
+			</map>
+		</property>
+		<!--hibernate O/R mapping文件位置-->
+		<property name="packagesToScan">
+			<list>
+				<value>com.meat.yonder.pojo</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource">
+			<ref local="dataSource" />
+		</property>
+	</bean>
+	
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	
+	<bean id="hibernateDao" class="com.meat.yonder.dao.HibernateDao">
+		<property name="hibernateTemplate">
+			<ref local="hibernateTemplate"/>
+		</property>
+	</bean>
+
+	<!-- hibernate 事物管理器  hibernate专用-->
+	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	
+	<context:component-scan base-package="com.meat.yonder.*" />
+	
+	<bean id="transactionInterceptor" class="org.springframework.transaction.interceptor.TransactionInterceptor">
+		<property name="transactionManager">
+			<ref bean="transactionManager" />
+		</property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="get*">readOnly</prop>
+				<prop key="query*">readOnly</prop>
+				<prop key="add*">PROPAGATION_REQUIRED</prop>
+				<prop key="update*">PROPAGATION_REQUIRED</prop>
+				<prop key="delete*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+		<property name="beanNames">
+			<list>
+				<value>*Service</value>
+			</list>
+		</property>
+		<property name="interceptorNames">
+			<list>
+				<value>transactionInterceptor</value>
+			</list>
+		</property>
+	</bean>
+
+
+	<!-- 通知  -->
+	<bean id="notifyTask" class="com.meat.yonder.task.TriggerTask" />
+	
+	<bean id="notifyJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="notifyTask" />
+		</property>
+		<property name="targetMethod">
+			<value>run</value>
+		</property>
+	</bean>
+
+	
+	
+	<!--6月份,11月份,每天早上9点开始-->
+	 <bean id="notifyTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="notifyJob" />
+		</property>
+		<property name="cronExpression">
+			 <value>0 0 9 ? 6,11 *</value> 
+		</property>
+	</bean> 
+	
+	
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref local="notifyTrigger" />
+			</list>
+		</property>
+	</bean>
+    
+</beans>

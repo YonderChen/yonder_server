@@ -1,0 +1,11 @@
+@CHARSET "UTF-8";
+.no-found{margin:28px auto;width:200px;padding:40px;text-align:center;font-size:14px;font-weight:700;color:#F16508;}
+
+.picture,#picture{
+	width: 96px;
+	height: 96px;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
