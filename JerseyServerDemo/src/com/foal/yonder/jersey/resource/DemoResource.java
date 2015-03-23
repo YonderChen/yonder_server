@@ -9,7 +9,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import org.codehaus.jettison.json.JSONObject;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 /**
  * 
  * @author yonder
@@ -18,9 +19,15 @@ import org.codehaus.jettison.json.JSONObject;
 @Path("/jersey_path")
 public class DemoResource
 {
+	/**
+	 * 处理GET请求<br>
+	 * <br>
+	 * url : http://localhost:8080/JerseyServerDemo/rs/jersey_path/getHello<br>
+	 * result : Hello Jersey<br>
+	 */
 	@GET
 	@Path("/getHello")
-	@Produces( { MediaType.APPLICATION_JSON })
+	@Produces( { MediaType.TEXT_HTML })
 	public String HelloResource()
 	{
 		return "Hello Jersey";
@@ -28,62 +35,34 @@ public class DemoResource
 	/**
 	 * 处理GET请求，url路径作为参数<br>
 	 * <br>
-	 * url : http://localhost:8080/JerseyServerDemo/rs/jersey_path/yonder<br>
+	 * url : http://localhost:8080/JerseyServerDemo/rs/jersey_path/user/yonder<br>
 	 * result : {"username":"yonder","data":"this is a test getPathParamData by 'GET'"}<br>
-	 * 
-	 * @param username
-	 * @return
 	 */
 	@GET
-	@Path("{username}")
-	@Produces( { MediaType.APPLICATION_JSON })
-	@SuppressWarnings("finally")
+	@Path("/user/{username}")
+	@Produces( { MediaType.TEXT_HTML })
 	public String getPathParamData(@PathParam(value = "username") String username)
 	{
-		JSONObject retValue = new JSONObject();
-		try
-		{
-			retValue.put("username", username);
-			retValue.put("data", "this is a test getPathParamData by 'GET'");
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-		finally
-		{
-			return retValue.toString();
-		}
+		JsonObject retValue = new JsonObject();
+		retValue.addProperty("username", username);
+		retValue.addProperty("data", "this is a test getPathParamData by 'GET'");
+		return retValue.toString();
 	}
 	/**
 	 * 处理http的GET请求，url中?后面的参数对应QueryParam<br>
 	 * <br>
 	 * url : http://localhost:8080/JerseyServerDemo/rs/jersey_path/getQueryParamData?username=yonder<br>
 	 * ret : {"username":"yonder","data":"this is a test getQueryParamData by 'GET'"}<br>
-	 * 
-	 * @param username
-	 * @return
 	 */
 	@GET
 	@Path("getQueryParamData")
-	@Produces( { MediaType.APPLICATION_JSON })
-	@SuppressWarnings("finally")
+	@Produces( { MediaType.TEXT_HTML })
 	public String getQueryParamData(@QueryParam(value = "username") String username)
 	{
-		JSONObject retValue = new JSONObject();
-		try
-		{
-			retValue.put("username", username);
-			retValue.put("data", "this is a test getQueryParamData by 'GET'");
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-		finally
-		{
-			return retValue.toString();
-		}
+		JsonObject retValue = new JsonObject();
+		retValue.addProperty("username", username);
+		retValue.addProperty("data", "this is a test getQueryParamData by 'GET'");
+		return retValue.toString();
 	}
 	/**
 	 * 处理网页表单POST请求<br>
@@ -91,60 +70,35 @@ public class DemoResource
 	 * url : http://localhost:8080/JerseyServerDemo/rs/jersey_path/postFormData<br>
 	 * param : username=yonder<br>
 	 * ret : {"username":"yonder","data":"this is a test postFormData by 'GET'"}<br>
-	 * 
-	 * @param json
-	 * @return
 	 */
 	@POST
 	@Path("/postFormData")
-	@Produces( { MediaType.APPLICATION_JSON })
-	@SuppressWarnings("finally")
+	@Produces( { MediaType.TEXT_HTML })
 	public String postFormData(@FormParam(value = "username") String username)
 	{
-		JSONObject retValue = new JSONObject();
-		try
-		{
-			retValue.put("username", username);
-			retValue.put("data", "this is a test postFormData by 'POST'");
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-		finally
-		{
-			return retValue.toString();
-		}
+		JsonObject retValue = new JsonObject();
+		retValue.addProperty("username", username);
+		retValue.addProperty("data", "this is a test postFormData by 'POST'");
+		return retValue.toString();
 	}
 	/**
 	 * 处理Jersey Client发送的POST请求<br>
 	 * <br>
 	 * 示例 : ClientDemo
-	 * ret :　{"param":{"username":"yonder"},"username":"yonder","data":"this is a test postData by 'POST'"}
-	 * @param json
-	 * @return
+	 * ret :　{"id":23,"param":{"username":"yonder"},"username":"yonder","data":"this is a test postData by 'POST'"}
 	 */
 	@POST
 	@Path("/postData")
-	@Produces( { MediaType.APPLICATION_JSON })
-	@SuppressWarnings("finally")
-	public String postData(JSONObject json)
+	@Produces( { MediaType.TEXT_HTML })
+	public String postData(@QueryParam(value = "id") int id, String param)
 	{
-		JSONObject retValue = new JSONObject();
-		try
-		{
-			retValue.put("param", json);
-			String username = json.optString("username", "default_param");
-			retValue.put("username", username);
-			retValue.put("data", "this is a test postData by 'POST'");
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-		finally
-		{
-			return retValue.toString();
-		}
+		JsonObject paramJson = new JsonParser().parse(param).getAsJsonObject();
+		JsonObject retValue = new JsonObject();
+		retValue.addProperty("id", id);
+		retValue.addProperty("param", param);
+		String username = paramJson.get("username") == null ? "" : paramJson.get("username").getAsString();
+		retValue.addProperty("username", username);
+		retValue.addProperty("data", "this is a test postData by 'POST'");
+		return retValue.toString();
 	}
 }

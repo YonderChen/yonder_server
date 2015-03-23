@@ -23,7 +23,6 @@
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/elasticsearch-1.4.1.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/flyway-core-2.3.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/freemarker-2.3.18.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/gson-2.2.2.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/guava-17.0.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/hawtbuf-1.10.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/hibernate-annotations-3.4.0.GA.jar"/>
@@ -84,5 +83,6 @@
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/akka-remote_2.11-2.3.4.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/akka-slf4j_2.11-2.3.4.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/gson-2.3.jar"/>
 	<classpathentry kind="output" path="src/main/webapp/WEB-INF/classes"/>
 </classpath>
