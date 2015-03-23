@@ -1,0 +1,163 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>特色功能</title>
+    <link href="App_Themes/Global/feature.css" rel="stylesheet" type="text/css" />
+    <link href="App_Themes/Global/common.css" rel="stylesheet" type="text/css" />
+    <script src="Common/Scripts/JQuery/jquery.min.js" type="text/javascript"></script>
+    <script src="Common/Scripts/JQuery/common.js" type="text/javascript"></script>
+    <!--[if IE 6]><script type="text/javascript" src="Common/Scripts/DD_belatedPNG.js"></script><![endif]-->
+    <script type="text/javascript">
+        $(function () {
+            $(".feature_subnav").parent().hover(function () {
+                $(".menu_ground").slideDown();
+            }, function () {
+                $(".menu_ground").hide();
+            });
+
+            commonClick($(".ft_sidebar dd a"), "warning_sl");
+        });
+    </script>
+</head>
+<body>
+    <div class="ft_wrap">
+        <div class="header">
+            <div class="headerContent clearfix">
+                <div class="logo_header pngFix">
+                </div>
+                <div class="nav_header">
+                    <ul class="nav clearfix pngFix">
+                        <li><a href="Main_page.htm" class="home_subnav ">首页</a></li>
+                        <li><a href="#" class="feature_subnav feature_subnav_sl">特色功能</a>
+                            <ul class="menu_ground">
+                                <li><a href="#">站点监控</a></li>
+                                <li><a href="#">站点监控</a></li>
+                                <li><a href="#">丰富报表统计</a></li><li><a href="#">丰富报表统计</a></li>
+                                <li><a href="#">告警通知</a></li>
+                                <li><a href="#">告警通知</a></li>
+                                <li><a href="#">故障统计</a></li>
+                                <li><a href="#">故障统计</a></li>
+                                <li><a href="#">自定义警告</a></li>
+                                <li><a href="#">自定义警告</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="Who_use.htm" class="subnav">案 例</a></li>
+                        <li><a href="Intro.htm" class="subnav">价 格</a></li>
+                        <li><a href="Help.htm" class="help_subnav">帮助与支持</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="banner">
+            <img src="App_Themes/Global/images/feature/baneerPic.png" /></div>
+        <div class="ft_content clearfix">
+            <div class="ft_sidebar">
+                <dl>
+                    <dt class="ft_sidbar_title"></dt>
+                    <dd>
+                        <a href="#"><span class="imgDiv">
+                            <img src="App_Themes/Global/images/feature/ft_icon1.png" class="pngFix" /></span> <span class="lfContent"><span
+                                class="title">站点监控</span> <span class="content">监控您网站的可用率和响应时间</span> </span>
+                        </a>
+                    </dd>
+                    <dd>
+                        <a href="#"><span class="imgDiv">
+                            <img src="App_Themes/Global/images/feature/ft_icon2.png" class="pngFix" /></span> <span class="lfContent"><span
+                                class="title">丰富报表统计</span> <span class="content">提供丰富的日报、周报、月报、轻松了解您的网站运营</span>
+                            </span></a>
+                    </dd>
+                    <dd>
+                        <a href="#"><span class="imgDiv">
+                            <img src="App_Themes/Global/images/feature/ft_icon3.png" class="pngFix" /></span> <span class="lfContent"><span
+                                class="title">告警通知</span> <span class="content">提供邮件和短信的通知方式</span> </span>
+                        </a>
+                    </dd>
+                    <dd>
+                        <a href="#"><span class="imgDiv">
+                            <img src="App_Themes/Global/images/feature/ft_icon4.png" class="pngFix" /></span> <span class="lfContent"><span
+                                class="title">故障统计</span> <span class="content">统计网站故障的历史记录</span> </span>
+                        </a>
+                    </dd>
+                    <dd>
+                        <a href="#" class="warning_sl"><span class="imgDiv">
+                            <img src="App_Themes/Global/images/feature/ft_icon5.png" class="pngFix" /></span> <span class="lfContent"><span
+                                class="title">自定义警告</span> <span class="content">灵活的报警规则配置</span> </span>
+                        </a>
+                    </dd>
+                </dl>
+            </div>
+            <div class="ft_main">
+                <div class="ft_topContent">
+                    <h2>
+                        灵活的自定义告警设置</h2>
+                    <p>
+                        网宿科技质量监测系统对各种监控项目支持自定义告警设置，这样您可以更加灵活的设置告警阈值，比如PING响应时间连续3次超过200ms，或者服务器CPU最近5分钟平均负载超过10。</p>
+                </div>
+                <div class="ft_modular">
+                    <div class="ft_title">
+                        <div class="ft_titleContent">
+                            站点监控自定义告警
+                        </div>
+                    </div>
+                    <div class="content">
+                        <img src="App_Themes/Global/images/feature/ft_pic1.png" width="343px" height="111px" />
+                        <p>
+                            为站点可用率设置告警阈值，比如可用率小于98%的时候触发告警。</p>
+                        <p class="marging_content">
+                            同时，您还可以针对分布式监测点设置响应时间告警阈值，比如来自监控宝电信分布式监测点的HTTP请求响应时间大于2s的时候触发告警。</p>
+                    </div>
+                </div>
+                <div class="ft_modular">
+                    <div class="ft_title">
+                        <div class="ft_titleContent">
+                            快速创建自定义告警
+                        </div>
+                    </div>
+                    <div class="content">
+                        <img src="App_Themes/Global/images/feature/ft_pic2.png" width="441px" height="214px" />
+                        <p>
+                            虽然自定义告警非常强大，但是创建和设置它却非常的简单，其中，指标取决于监控项目类型的不同，比如对于PING监控类型，您可以使用的指标为可用率、响应时间、丢包率等。</p>
+                        <p class="marging_content">
+                            自定义告警的触发条件也非常的灵活，根据不同的监控项目类型，可以有大于、小于、涨幅大于、降幅大于、涨幅百分比超过、降幅百分比超过等。</p>
+                        <p class="marging_content">
+                            对于付费版的用户，除了针对不同运营商分布式监测点的自定义告警之外，您还可以针对不同的地域分布式监测点设置自 定义告警。</p>
+                    </div>
+                </div>
+                <div class="ft_modular">
+                    <div class="ft_title">
+                        <div class="ft_titleContent">
+                            自定义告警敏感度设置
+                        </div>
+                    </div>
+                    <div class="content">
+                        <img src="App_Themes/Global/images/feature/ft_pic3.png" width="272px" height="110px" />
+                        <p>
+                            通常情况下，一些性能数据会存在突发情况或者颠簸，为了尽量由于这些情况而造成的无效告警，您可以根据情况来设置自定义告警敏度度，即连续触发多少次后才进行告警。</p>
+                    </div>
+                </div>
+                <div class="ft_modular">
+                    <div class="ft_title">
+                        <div class="ft_titleContent">
+                            服务器监控的自定义告警
+                        </div>
+                    </div>
+                    <div class="content">
+                        <img src="App_Themes/Global/images/feature/ft_pic4.png" width="441px" height="133px" />
+                        <p>
+                            在服务器监控项目中应用自定义告警，可以帮助我们更加及时的捕捉到服务器性能的突发变化，从而进行性能调优和必要的容量扩展。</p>
+                        <p class="marging_content">
+                            服务器监控项目同样支持丰富的自定义告警指标，它们几乎可以满足您对服务器性能管理的任何需要。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="footerContent">
+                Copyright 2010-2011 ChinaNetCenter.All Right Reserved 跨地区增值电信业务经营许可证（IDC、ISP）
+                <br />
+                编号B1.B2-20050405 京公网安备 11010502000007 沪公网安备 3101040105 沪ICP证B2-20030144
+            </div>
+        </div>
+    </div>
+</body>
+</html>

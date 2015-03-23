@@ -1,0 +1,152 @@
+﻿/*单选下拉框样式*/
+.mainCon
+{
+    position: relative;
+    display: inline;
+    z-index: 500;
+}
+div.selectbox-wrapper
+{
+    border: #dee1e3 1px solid; /*展开层边框色*/
+    position: absolute;
+    background-color: #fff;
+    text-align: left;
+    z-index: 100;
+    display: block;
+    left: 0px;
+	top:18px;
+	>top:25px;
+	 font-size:12px;
+	 color:#222222;
+}
+div.selectbox-wrapper ul li.selected
+{
+    background-color: #d3e8f3; /*选中项背景色*/
+}
+div.selectbox-wrapper ul li.current
+{
+    color: #fff;
+    background-color: #0FA2E3; /*鼠标移入项背景色*/
+}
+div.selectbox-wrapper ul li.group
+{
+    font-weight: bold;
+    background-image: url(img/selArr.gif);
+    background-repeat: no-repeat;
+    background-position: 0% 50%;
+    padding-left: 15px;
+    _width: 80%;
+}
+div.selectbox-wrapper ul li
+{
+    padding-right: 3px;
+    padding-left: 3px;
+    padding-bottom: 3px;
+    cursor: pointer;
+    line-height: 20px;
+    padding-top: 3px;
+    _width: 100%;
+}
+.selectbox
+{
+    border: none;
+    cursor: pointer;    
+    font-size: 12px;
+    height: 22px;
+    line-height: 22px;
+    border-left: solid 1px #e1e1e1;
+    border-top: solid 1px #e1e1e1;
+    border-bottom: solid 1px #e1e1e1;
+    background:url(img/selBg.png) repeat-x left center; 
+    padding-left: 4px;
+    min-width: 30px;
+    color:#8c8d8d;
+    min-width:60px;
+}
+.selectboxFont
+{
+    font-family:"宋体", "Lucida Console" , "Eras Medium ITC" , "Goudy Old Style" ,Default;
+}
+.tipColor
+{
+    color: gray;
+}
+.selBtn
+{
+    background: url(img/selBtn.png) no-repeat center center;
+    width: 22px;
+    height: 24px;
+    border: 0;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    padding:3px 0 6px 0;
+    padding:0\9;
+}
+/************* webkit **************************/ 
+ @media screen and (-webkit-min-device-pixel-ratio:0){ 
+.selBtn{
+  background-image: url(img/selBtn.png) no-repeat;
+  width: 22px;
+  height:24px;
+  border:0;
+  cursor: pointer;
+  padding:0 0 6px 0; position:relative;top:-3px; left:0px; 
+}}
+/************* webkit end **************************/ 
+
+.selBtn_ie9
+{
+    padding: 8px 0 1px 0 !important;
+    border-bottom: 0 !important;
+}
+.selBtn_safari
+{
+    background-image: url(img/selBtn.jpg);
+    width: 22px;
+    height: 24px;
+    border: 0;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    padding: 0;
+    border-bottom: solid 1px #bdcfde;
+}
+.selBtn_linux
+{
+    background-image: url(img/selBtn.jpg);
+    width: 22px;
+    height: 24px;
+    border: 0;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    padding: 1px 0 8px 0;
+}
+.loader
+{
+    position: absolute;
+    z-index: 500;
+    left: 0px;
+    top: -8px;
+    padding-left: 5px;
+    padding-top: 3px;
+    width: 100%;
+    height: 30px;
+    -moz-opacity: 0.8;
+    background-color: white;
+}
+.li_left
+{
+    float: left;
+}
+.mainCon .inputDisabled
+{
+    background-color: #eeeeee !important;
+    background-image: none !important;
+    color: #c0bfbf !important;
+    cursor: default !important;
+}
+.selBtn_disabled
+{
+    background-image: url(img/selBtn_disabled.jpg) !important;
+    cursor: default !important;
+}
+/*单选下拉框样式*/

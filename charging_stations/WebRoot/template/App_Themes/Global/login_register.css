@@ -1,0 +1,161 @@
+﻿/**************** login.htm *****************************/
+
+.login_bg
+{
+ width:983px; height:401px; display:block; margin:10px auto 0 auto; padding-bottom:10px; background:url(images/login_register/login_bg.jpg) no-repeat;
+}
+.login_content
+{
+ width:382px; height:284px; float:right; position:relative;top:85px; right:61px;_display:inline; 
+}
+.login_content table
+{
+  margin:4px auto 0 auto; padding:0; border:none; width:92%;
+}
+.login_content table td
+{
+  height:48px; vertical-align:middle;   
+}
+.login_content table .title
+{
+  font-size:14px; color:Black;width:23%; text-align:right; padding-right:5px;
+ }
+.login_content table .content
+{
+  font-size:13px; text-align:left; vertical-align:middle;   
+}
+.login_content table .content a
+{
+  font-size:13px; color:#118ae6;  
+}
+.login_content table .content .box
+{
+  float:left; margin-right:5px;
+}
+.login_content table .content img
+{
+ display:inline-block; border:none;  height:28px;width:68px;  margin-top:1px;
+}
+.orther_login
+{
+  color:#54656f; font-size:13px;   
+}
+.orther_login a
+{
+ height:28px; line-height:28px; color:#4c5356; text-align:right; padding-right:5px; text-decoration:none; cursor:pointer; margin-right:3px;
+}
+.sina_btn
+{
+  width:74px;  background:url(images/login_register/xinlang_btn.png) no-repeat;display:inline-block;border:none;
+}
+.QQ_btn
+{
+  width:61px; background:url(images/login_register/qq_btn.png) no-repeat; display:inline-block; border:none;   
+}
+.wangyi_btn
+{
+  width:67px; background:url(images/login_register/163_btn.png) no-repeat; display:inline-block;border:none;    
+}
+.add_new_user
+{
+  position:relative; top:-6px; left:4px; display:inline-block;
+}
+.login_txt
+{
+  width:210px; height:29px; line-height:29px; padding-left:30px; background:url(images/login_register/login_txt_bg.png) no-repeat; color:#000000; font-size:13px; border:none;
+}
+.login_pwd
+{
+  width:210px; height:29px; line-height:29px; padding-left:30px; background:url(images/login_register/login_key_bg.png) no-repeat; color:#000000; font-size:13px; border:none;
+}
+.check_txt
+{
+  width:136px; height:29px; line-height:29px; padding-left:10px; background:url(images/login_register/check_txt.png) no-repeat; color:#000000; font-size:13px; border:none;
+}
+.rememberMe {
+    vertical-align: -2px;
+    vertical-align: -2px \9;
+    *vertical-align: -4px;
+    _vertical-align: -4px;
+    margin-right: 4px;
+    margin-left: 5px;font-size:13px; color:#586972;
+}
+.login_btn2
+{
+  width:96px; height:31px; line-height:31px; display:inline-block; text-align:center; border:none; background:url(images/login_register/login_btn.png) no-repeat; letter-spacing:10px; color:#fff; font-size:14px; cursor:pointer;
+}
+
+
+/***************************** login.htm end ********************************/
+
+/*****************************  register.htm start *********************************/
+
+.register_content
+{
+ width:983px; min-height:810px;*height:auto !important;_height:810px; margin:0 auto; background:#f5f5f5;  margin-bottom:10px;
+}
+.register_content .top_title
+{
+ width:100%; height:79px; background:url(images/login_register/register_title_bg.jpg) no-repeat; display:inline-block;
+}
+.register_content .top_title h5
+{
+   font-size:14px; color:#0463b1; font-weight:bold; padding-top:46px; text-align:center;
+ }
+.register_content table{
+ width:98%; margin:10px auto 0 auto; padding:0; 
+}
+.register_content table td
+{
+  vertical-align:middle;
+}
+.register_content table .notice
+{
+  height:21px; font-size:12px; color:#9c9c9c;padding-left:5px;
+}
+.register_content table .title
+{
+  background:none; width:32%; text-align:right; padding-right:10px; height:50px; font-size:13px;
+}
+.register_content table .title .remark
+{
+  color:Red;    
+}
+.font_weight
+{
+  font-weight:bold;
+}
+.register_content table .content
+{
+  background:none; width:66%; text-align:left; padding-left:5px; font-size:12px;  height:50px;
+}
+.register_content table .content div
+{
+   float:left;
+}
+.register_content table .content .common_textbox
+{
+  width:378px; height:28px; line-height:28px; border:1px solid #d7d7d7; text-align:left; padding:0 6px 0 6px;    
+}
+.register_content table .content .small_text
+{
+  width:164px;height:28px;line-height:28px; border:1px solid #d7d7d7; text-align:left; padding:0 6px 0 6px;     
+}
+.register_content table .content .check_img
+{
+  width:80px; height:30px; border:none; position:relative; top:1px; left:15px; 
+}
+.refresh_btn
+{
+  height:30px; line-height:30px; font-size:12px; color:#137ec1; position:relative;left:25px; text-decoration:none; display:inline-block;
+}
+.foot_line
+{
+  width:99%; margin:30px auto 0 auto; border:none; border-top:1px solid #dddddd;    
+}
+.foot_line .register_btn
+{
+  width:139px; height:35px; background:url(images/login_register/register_btn.png) no-repeat; border:none; position:relative;top:20px; left:320px; cursor:pointer;
+}
+
+/*****************************  register.htm end *********************************/

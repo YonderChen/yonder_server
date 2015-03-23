@@ -1,0 +1,293 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>创建站点监控</title>
+    <link href="Common/Scripts/JQuery/jquery.d.checkbox/css/jquery.d.checkbox.css" rel="stylesheet"
+        type="text/css" />
+    <link href="Common/Scripts/JQuery/selectbox/css/selectbox.css" rel="stylesheet" type="text/css" />
+    <link href="App_Themes/Global/system.css" rel="stylesheet" type="text/css" />
+    <link href="Common/Scripts/JQuery/JqueryUI/themes/redmond/jquery.ui.all.css" rel="stylesheet"
+        type="text/css" />
+    <link href="App_Themes/EasyUI/default.css" rel="stylesheet" type="text/css" />
+    <link href="App_Themes/EasyUI/Themes/icon.css" rel="stylesheet" type="text/css" />
+    <link href="App_Themes/EasyUI/Themes/default/easyui.css" rel="stylesheet" type="text/css" />
+    <link href="Common/Scripts/JQuery/Scrollpane/scrollpane.css" rel="stylesheet" type="text/css" />
+    <script src="Common/Scripts/JQuery/jquery.min.js" type="text/javascript"></script>
+    <script src="Common/Scripts/JQuery/jquery.d.checkbox/js/jquery.d.checkbox.min.js"
+        type="text/javascript"></script>
+    <script src="Common/Scripts/JQuery/selectbox/select_split.js" type="text/javascript"></script>
+    
+    <script src="Common/Scripts/JQuery/JqueryUI/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="Common/Scripts/JQuery/JqueryUI/commonjqueryui.js" type="text/javascript"></script>
+    <script src="Common/Scripts/JQuery/EasyUI/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="Common/Scripts/JQuery/EasyUI/locale/easyui-lang-zh_CN.js" type="text/javascript"></script>
+    <script src="Common/Scripts/JQuery/EasyUI/commoneasyui.js" type="text/javascript"></script>
+   
+    <script src="Common/Scripts/JQuery/jquery.cookie.js" type="text/javascript"></script>
+    <!--[if IE 6]><script type="text/javascript" src="Common/Scripts/DD_belatedPNG.js"></script>
+   
+    <![endif]-->
+</head>
+    <body>
+        <div id="north" class="default_head" style="display: block;">
+    </div>
+    <script type="text/javascript">
+        $('#north').load('_data/_north.htm')
+    </script>
+    <div style="width: 100%">
+        <table style="padding: 0; margin: 0; vertical-align: top; width: 100%">
+            <tr>
+                <td style="width: 201px; vertical-align: top;">
+                    <div id="nav" class="easyui-accordion" fit="false" border="false" style="width: 199px;"
+                        enabled="false">
+                        <!--  导航内容 -->
+                    </div>
+                </td>
+                <td  class="space">
+                       <!--当前页面路径-->
+                    <div class="location_layer clearfix">
+                        <div id="pageTitle" class="pageTitle">
+                           <span></span>
+                        </div>
+                        <div id="pagePath" class="pagePath">
+                            
+                        </div>
+                    </div>
+                    <div class="account_layer">
+                        <div class="common_list_out_layer">
+                            <div class="account_content">
+                                <div class="inf_modular">
+                                    <div class="titleDiv clearfix">
+                                        <div class="title_L">
+                                            填写监控信息
+                                        </div>
+                                        <div class="title_R">
+                                            <a class="drop_down_icon pngFix "></a>
+                                        </div>
+                                    </div>
+                                    <div class="content">
+                                        <div class="content_main">
+                                            <div class="add_content">
+                                                <div class="add_option">
+                                                    <table cellpadding="0" cellspacing="0" class="add_site_tb" style="margin: 17px 0 11px 0;">
+                                                        <tr>
+                                                            <th>
+                                                                监控项目名称:
+                                                            </th>
+                                                            <td class="add_site_padding td_height">
+                                                                <input type="text" class="txtCss_site1" />&nbsp;&nbsp;&nbsp;是否加入分类?
+                                                                <select id="Select3" autowidth="true">
+                                                                    <option>不加入分类 </option>
+                                                                    <option>加入分类</option>
+                                                                </select>&nbsp;<a class="link_site" href="#">创建分类?</a>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>
+                                                            </th>
+                                                            <td class="add_site_padding td_height">
+                                                                给监控项目起一个名字,比如:店铺装修工具.
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>
+                                                                URL:
+                                                            </th>
+                                                            <td class="add_site_padding td_height">
+                                                                <input type="text" class="txtCss_site2" value="http://" />
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>
+                                                            </th>
+                                                            <td class="add_site_padding td_line_height">
+                                                                填写被监控的网址,可以是网站首页或其他页面,也可以是图片或其他Web组件.
+                                                                <br />
+                                                                比如:<br />
+                                                                www.domain.com/index.php<br />
+                                                                www.domain.com/user/sigini<br />
+                                                                www.domain.com/logo.gif
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                                <div class="shareUser">
+                                                    <input id="Button1" class="setup_btn" type="button" value="更多高级设置" /></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="inf_modular">
+                                    <div class="titleDiv clearfix">
+                                        <div class="title_L">
+                                            设置监控选项
+                                        </div>
+                                        <div class="title_R">
+                                            <a class="drop_down_icon pngFix "></a>
+                                        </div>
+                                    </div>
+                                    <div class="content">
+                                        <div class="content_main">
+                                            <div class="add_content">
+                                                <div class="add_option">
+                                                    <table cellpadding="0" cellspacing="0" class="add_site_tb" style="margin: 13px 0 23px 0;">
+                                                        <tr>
+                                                            <th>
+                                                                监控频率:
+                                                            </th>
+                                                            <td class="add_site_padding">
+                                                                <div class="radio_L">
+                                                                    <input id="Radio1" type="radio" class="vertica_css2" name="vertica" /><label>2分钟(<span
+                                                                                                                                                         class="span_css">0</span>)</label><br />
+                                                                    <input id="Radio3" type="radio" class="vertica_css2" name="vertica" /><label>10分钟(<span
+                                                                                                                                                          class="span_css">0</span>)</label>
+                                                                    <br />
+                                                                    <input id="Radio5" type="radio" class="vertica_css2" name="vertica" /><label>20分钟(<span
+                                                                                                                                                          class="span_css">0</span>)</label><br />
+                                                                    <input id="Radio7" type="radio" class="vertica_css2" name="vertica" /><label>30分钟(<span
+                                                                                                                                                          class="span_css">0</span>)</label><br />
+                                                                    <input id="Radio9" type="radio" class="vertica_css2" name="vertica" /><label>40分钟(<span
+                                                                                                                                                          class="span_css">0</span>)</label>
+                                                                </div>
+                                                                <div class="radio_M">
+                                                                    <input id="Radio2" type="radio" class="vertica_css2" name="vertica" /><label>5分钟(<span
+                                                                                                                                                         class="span_css">0</span>)</label><br />
+                                                                    <input id="Radio4" type="radio" class="vertica_css2" name="vertica" /><label>15分钟(<span
+                                                                                                                                                          class="span_css">0</span>)</label><br />
+                                                                    <input id="Radio6" type="radio" class="vertica_css2" name="vertica" /><label>25分钟(<span
+                                                                                                                                                          class="span_css">0</span>)</label><br />
+                                                                    <input id="Radio8" type="radio" class="vertica_css2" name="vertica" /><label>35分钟(<span
+                                                                                                                                                          class="span_css">0</span>)</label><br />
+                                                                    <input id="Radio10" type="radio" class="vertica_css2" name="vertica" /><label>60分钟(<span
+                                                                                                                                                           class="span_css">0</span>)</label></div>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                                <div class="add_option">
+                                                    <table cellpadding="0" cellspacing="0" class="add_site_tb" style="margin: 26px 0 35px 0;">
+                                                        <tr>
+                                                            <th>
+                                                                重试几次后告警:
+                                                            </th>
+                                                            <td class="add_site_padding">
+                                                                <div class="radio_L">
+                                                                    <input id="Radio11" type="radio" class="vertica_css2" name="vertica" /><label>1次</label></div>
+                                                                <div class="radio_M">
+                                                                    <input id="Radio12" type="radio" class="vertica_css2" name="vertica" /><label>2次</label>
+                                                                </div>
+                                                                <div class="radio_R">
+                                                                    <input id="Radio13" type="radio" class="vertica_css2" name="vertica" /><label>3次</label></div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>
+                                                            </th>
+                                                            <td class="add_site_padding">
+                                                                <div class="notic_side">
+                                                                    发现故障后自动进行了以上次数的重试,多次重试都失败后,才会触发故障告警.<br />
+                                                                    重试时间间隔目前固定为一分钟.
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                                <div class="add_option">
+                                                    <table cellpadding="0" cellspacing="0" class="add_site_tb" style="margin: 24px 0 13px 0;">
+                                                        <tr>
+                                                            <th>
+                                                                连续告警提醒:
+                                                            </th>
+                                                            <td class="add_site_padding">
+                                                                <div class="radio_L">
+                                                                    <input id="Radio14" type="radio" class="vertica_css2" name="vertica" /><label>无</label>
+                                                                    <br />
+                                                                    <input id="Radio16" type="radio" class="vertica_css2" name="vertica" /><label>30分钟</label><br />
+                                                                    <input id="Radio18" type="radio" class="vertica_css2" name="vertica" /><label>75分钟</label><br />
+                                                                    <input id="Radio20" type="radio" class="vertica_css2" name="vertica" /><label>300分钟</label></div>
+                                                                <div class="radio_M">
+                                                                    <input id="Radio15" type="radio" class="vertica_css2" name="vertica" /><label>15分钟</label><br />
+                                                                    <input id="Radio17" type="radio" class="vertica_css2" name="vertica" /><label>45分钟</label><br />
+                                                                    <input id="Radio19" type="radio" class="vertica_css2" name="vertica" /><label>50分钟</label><br />
+                                                                    <input id="Radio21" type="radio" class="vertica_css2" name="vertica" /><label>450分钟</label>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="inf_modular">
+                                    <div class="titleDiv clearfix">
+                                        <div class="title_L">
+                                            设置常规告警通知
+                                        </div>
+                                        <div class="title_R">
+                                            <a class="drop_down_icon pngFix"></a>
+                                        </div>
+                                    </div>
+                                    <div class="content">
+                                        <div class="content_main">
+                                            <div class="add_content">
+                                                <div class="add_option">
+                                                    <ul class="notic_side_ul clearfix">
+                                                        <li class="user_site pngFix">用户</li>
+                                                        <li class="Email_site pngFix">Email</li>
+                                                        <li class="phone_site pngFix">手机短信</li>
+                                                        <li class="MSN_site pngFix" >MSN</li>
+                                                        <li class="Gtalk_site pngFix">Gtalk</li>
+                                                        <li class="time_site pngFix">连续提醒</li>
+                                                        <li class="width_site1">我(diji538@163.com)</li>
+                                                        <li class="width_site2">
+                                                            <input type="checkbox" name="checkbox" /></li>
+                                                        <li class="width_site3">
+                                                            <input type="checkbox" name="checkbox" /></li>
+                                                        <li class="width_site4 pngFix">
+                                                            <input type="checkbox" name="checkbox" /></li>
+                                                        <li class="width_site5 pngFix ">
+                                                            <input type="checkbox" name="checkbox" /></li>
+                                                        <li class="width_site6">
+                                                            <input type="checkbox" name="checkbox" /></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="shareUser">
+                                                    <input id="shareUserBtn" class="shareUser_btn pngFix" type="button" value="添加共享用户" /></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="button_site">
+                                    <input id="applicationBtn" type="button" value="" class="saveBtn" />&nbsp;
+                                    <input id="resetBtn" type="button" value="" class="resetBtn" /></div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+        <script type="text/javascript">
+            $(function () {
+                $(".drop_down_icon").click(function () {
+                    if ($(this).parent().parent().next().is(":hidden"))
+                        $(this).removeClass("contraction_icon");
+                    else
+                        $(this).addClass("contraction_icon");
+                    $(this).parent().parent().next().slideToggle();
+                });
+                $(":radio").d_radio();
+                $(':checkbox').d_checkbox();
+                $("select").selectbox();
+                //框架高度调整
+                if (window.parent.adjustHeiht) {
+                    var height = $(document).height() + 20;
+                    window.parent.adjustHeiht(height);
+                }
+            });
+            
+            
+        </script>
+    </body>
+</html>

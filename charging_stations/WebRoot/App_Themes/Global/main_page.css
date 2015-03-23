@@ -1,0 +1,483 @@
+/*baseinfo*/
+.MainBody {
+    width: 100%;
+    text-align:center;
+    background: url(images/main_page/topGrayBg.gif) top center repeat-x;
+}
+
+.Main_page {
+    width: 983px;
+    min-height: 500px;
+    margin: 0 auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+    background: #fff;
+}
+
+.Tb_Common {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    vertical-align: middle;
+    word-break: break-all;
+    font-size: 12px;
+    font-weight: normal;
+}
+
+.Tb_Common td {
+    border: none;
+    line-height: 20px;
+    padding: 1px 3px 1px 3px;
+         /* height:25px; */
+}
+/*main_top*/
+.main_top {
+    overflow: hidden;
+}
+
+.leftAdMenu {
+    float: left;
+    width: 705px;
+    height: 250px;
+}
+
+.imgDiv {
+    z-index: -999;
+    height: 250px;
+    width:705px;
+}
+
+.imgDiv img {
+    width: 705px;
+    height: 250px;
+    border: none; 
+}
+
+.imgMenu {
+    overflow: hidden;
+    width: 705px;
+    margin-top: -41px;
+    z-index: 999;
+    position: relative;
+    height: 41px;
+}
+
+.imgMenu li {
+    float: left;
+    height: 41px;
+    line-height: 41px;
+    background: url(images/main_page/topMenuRepeat.png) repeat-x;
+    cursor: pointer;
+}
+
+.imgMenu .LiSelectd {
+    float: left;
+    height: 41px;
+    background:url(images/main_page/topMenuSelected.png) repeat-x;
+    filter: alpha(opacity=70);  /*IE5、IE5.5、IE6、IE7*/
+    opacity: 0.70;  /*Opera9.0+、Firefox1.5+、Safari、Chrome*/
+}
+
+.imgMenu .LiSelectd a {
+    color: #005da1;
+}
+
+.imgMenu li a {
+    color: #ffffff;
+    padding-left: 33px;
+    vertical-align: middle;
+    padding-right: 33px;
+    text-decoration: none;
+    font-size: 12px;
+    font-family: 宋体;
+    background: url(images/main_page/topMenuLine.gif) top right no-repeat;
+    height: 41px;
+    line-height: 41px;
+    display:inline-block;
+    /* wlh change old:display:block;*/
+}
+
+.imgMenu li .bgNone {
+    background: none;
+    padding-right: 48px;
+}
+
+.rightLogin {
+    float: right;
+    background: url(images/main_page/loginBox.png) no-repeat;
+    width: 273px;
+    height: 250px;
+}
+
+.LoginBoxDiv {
+    margin: 53px auto auto auto;
+    width: 90%;
+    overflow: hidden;
+}
+
+.login_Tb td #userNameBtn {
+    width: 137px;
+    padding-left: 35px;
+    height: 26px;
+    line-height: 26px;
+    border: none;
+    background: url(images/main_page/userName.png) no-repeat;
+}
+
+.login_Tb td #pswBtn {
+    width: 137px;
+    padding-left: 35px;
+    height: 26px;
+    line-height: 26px;
+    border: none;
+    background: url(images/main_page/Password.png) no-repeat;
+}
+
+.login_Tb td #verifyTxtBox {
+    width: 90px;
+    padding-left: 6px;
+    height: 26px;
+    line-height: 26px;
+    border: none;
+    background: url(images/main_page/verificationBox.png) no-repeat;
+    vertical-align: middle;
+    margin-right: 4px;
+}
+
+.login_Tb td {
+    color: #657073;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.login_Tb .td_right {
+    text-align: right;
+}
+
+.verifyImg {
+    width: 66px;
+    height: 26px;
+    border: 1px solid #cde6fc;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.rememberMe {
+    vertical-align: -2px;
+    vertical-align: -2px \9;
+    *vertical-align: -4px;
+    _vertical-align: -4px;
+    margin-right: 4px;
+    margin-left: 5px;
+}
+
+.login_Tb span {
+    color: #000100;
+}
+
+.loginLink {
+    color: #118ae6;
+    text-decoration: underline;
+}
+
+.forgetPSW {
+    margin-left: 10px;
+}
+
+.loginBtns {
+    width: 94px;
+    height: 30px;
+    color: #118ae6;
+    cursor: pointer;
+    border: none;
+    background: url(images/main_page/loginBtn.png) no-repeat;
+    vertical-align: middle;
+}
+
+.loginBtns_pressed {
+    width: 94px;
+    height: 30px;
+    color: red;
+    cursor: pointer;
+    border: none;
+    background: url(images/main_page/loginBtn.png) no-repeat;
+    vertical-align: middle;
+}
+
+.login_Tb .loginBtnTd {
+    padding-top: 2px;
+}
+
+.login_Tb .RememberMeTd {
+    padding-top: 0;
+}
+/*center*/
+.main_center {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.main_center ul {
+    overflow: hidden;
+}
+
+.main_center ul li {
+    float: left;
+}
+
+.main_center ul li a {
+    text-decoration: underline;
+    color: #fff;
+    display: block;
+    text-align: left;
+    font-size: 12px;
+    line-height: 20px;
+}
+
+.main_center ul li .subMenu1 {
+    width: 129px;
+    padding-left: 20px;
+    padding-right: 96px;
+    padding-top: 57px;
+    height: 75px;
+    background: url(images/main_page/subMenu1.png) no-repeat;
+}
+
+.main_center ul li .subMenu2 {
+    width: 131px;
+    padding-left: 20px;
+    padding-right: 96px;
+    padding-top: 57px;
+    height: 75px;
+    background: url(images/main_page/subMenu2.png) no-repeat;
+}
+
+.main_center ul li .subMenu3 {
+    width: 131px;
+    padding-left: 20px;
+    padding-right: 96px;
+    padding-top: 57px;
+    height: 75px;
+    background: url(images/main_page/subMenu3.png) no-repeat;
+}
+
+.main_center ul li .subMenu4 {
+    width: 128px;
+    padding-left: 20px;
+    padding-right: 96px;
+    padding-top: 57px;
+    height: 75px;
+    background: url(images/main_page/subMenu4.png) no-repeat;
+}
+/*bottom*/
+.main_bottom {
+    width: 981px;
+    border: 1px solid #ebebeb;
+    font-family: 宋体;
+}
+
+.main_bottom .title {
+    background: url(images/main_page/bottom_title.png) repeat-x;
+    height: 46px;
+    line-height: 45px;
+    overflow: hidden;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.leftTitle {
+     background: url(images/main_page/shadow.png) right center no-repeat;
+    height: 46px;
+    float: left;
+    color: #014294;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: left;
+     width:740px;
+}
+
+.shadowRight {
+   background: url(images/main_page/titleIcon.png) 23px center no-repeat;
+    height: 46px;
+    padding-left: 58px;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: 宋体;
+}
+
+.rightTab {
+    float: right; width:241px; height:46px;
+    overflow: hidden;
+}
+
+.rightTab ul {
+    overflow: hidden; width:241px; height:46px;
+    padding: 0;
+    margin: 0;
+    margin-left: -1px;
+}
+
+.rightTab ul li {
+    float: right;
+    margin: 0;
+    padding: 0; width: 241px;
+    height: 46px;
+}
+
+.rightTab ul li a {
+    color: #172737;
+    font-size: 14px;
+    font-weight: normal;
+    text-align: center;
+    text-decoration: none;
+    font-family: 宋体;
+    cursor: pointer;
+    background: url(images/main_page/tabNormal.png) no-repeat;
+    width: 241px;
+    height: 46px;
+    line-height: 46px;
+    display: block;
+}
+
+.rightTab ul li .a_selected {
+    background: url(images/main_page/tabSelected.png) no-repeat;
+    width: 241px;
+    height: 46px;
+    line-height: 46px;
+    color: #217bbe;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: 宋体;
+}
+
+.bottom_content {
+    overflow: hidden;
+}
+
+.bottom_content .map {
+    float: left;
+}
+
+.bottom_content .map img {
+    width: 981px;
+    height: 450px;
+}
+
+.content_list {
+    float: right;
+}
+
+.content_list .contentInner {
+    margin-right: 14px;
+}
+
+.list_top {
+    border-bottom: 2px solid #e1e1e1;
+    width: 452px;
+    margin-left: 26px;
+    text-align: left;
+}
+
+.list_top b {
+    color: #757575;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 32px;
+    padding-bottom: 10px;
+    width: 133px;
+    margin-bottom: -2px;
+    text-align: right;
+    border-bottom: 2px solid #208edd;
+    display: block;
+}
+
+.list_all {
+    overflow: hidden;
+    padding-top: 6px;
+    width: 478px;
+}
+/*The existing monitoring point--start*/
+.monitoringPoint td {
+    margin: 0;
+    padding: 0;
+    padding-bottom: 16px;
+    padding-top: 20px;
+}
+
+.monitoringPoint .listTitle {
+    color: #1d74ba;
+    font-size: 14px;
+    width: 91px;
+    padding-left: 42px;_display:inline;
+    text-align: left;
+    font-weight: bold;
+    background: url(images/main_page/listTitleBg.gif) bottom center no-repeat;
+    vertical-align: middle;
+}
+
+.monitoringPoint .listLink {
+    background: url(images/main_page/td_bg.gif) center bottom repeat-x;
+    overflow: hidden;
+    display: block;
+}
+
+.listLink ul {
+    overflow: hidden;
+    display: block;
+    margin-left: -17px; width:340px;
+}
+
+.listLink a {
+    color: #494d51;
+    text-decoration: none;
+    font-size: 12px;
+    line-height: 20px;
+    cursor: pointer;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+.listLink a:hover {
+    color: #1d74ba;
+}
+
+.listLink li {
+    float: left;
+    width: 68px;
+    padding-left: 17px;
+    word-break: break-all;
+    word-wrap: break-word;
+    text-align: left;
+    background: url(images/main_page/Y_dashLine.gif) right center no-repeat;
+}
+{padding-left:0;
+}
+
+.listLink .bg_none {
+background: none;
+}
+/*The existing monitoring point--end*/
+/*expansion start*/
+.expansion {
+width: 13px;
+height: 16px;
+cursor: pointer;
+margin-bottom: -11px;
+}
+
+.unfold {
+background: url(images/main_page/up.png) no-repeat;
+}
+
+.fold {
+background: url(images/main_page/down.png) no-repeat;
+}
+
+.monitoringPoint .rightTd {
+vertical-align: bottom;
+width: 13px;
+background: url(images/main_page/td_bg.gif) center bottom repeat-x;
+padding-right: 4px;
+}
+/*expansion end*/

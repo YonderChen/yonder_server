@@ -1,0 +1,5 @@
+F:\projuc\Items\2012\QS_UI\QS_UI\QS_UI_2\bin\QS_UI_2.dll
+F:\projuc\Items\2012\QS_UI\QS_UI\QS_UI_2\bin\QS_UI_2.pdb
+F:\projuc\Items\2012\QS_UI\QS_UI\QS_UI_2\obj\Debug\ResolveAssemblyReference.cache
+F:\projuc\Items\2012\QS_UI\QS_UI\QS_UI_2\obj\Debug\QS_UI_2.dll
+F:\projuc\Items\2012\QS_UI\QS_UI\QS_UI_2\obj\Debug\QS_UI_2.pdb

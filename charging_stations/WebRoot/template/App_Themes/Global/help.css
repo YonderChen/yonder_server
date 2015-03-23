@@ -1,0 +1,217 @@
+﻿/*****  Help.htm   *****/
+
+/******   help_content    *****/
+
+.help_content {
+    width: 983px;
+    margin: 0 auto;
+    overflow: hidden;
+    padding-bottom: 62px;
+}
+
+/******   help_sidebar   *****/
+.help_sidebar {
+    width: 227px;
+    overflow: hidden;
+    float: left;
+    text-align: left;
+}
+
+.help_sidebar {
+    width: 227px;
+}
+
+.help_sidebar .help_sidbar_title {
+    width: 227px;
+    height: 48px;
+    background: url(images/help/help_sidbar_title.png) no-repeat top left;
+}
+
+.help_sidebar .help_menu_dd {
+    width: 223px;
+    min-height: 110px;
+    height: auto !important;
+    height: 110px;
+    padding: 1px;
+    border: 1px solid #c4def5;
+    border-top: none;
+    display: block;
+    font-size: 14px;
+}
+
+.help_sidebar .help_menu_dd dl {
+    width: 100%;
+    min-height: 110px;
+    height: auto !important;
+    height: 110px;
+    display: block;
+    background: #f9fdff;
+}
+
+.help_sidebar .help_menu_dd dl:hover,.help_sidebar dl .help_menu_dd dl:active {
+    background: url(images/help/help_dd_hover.png) repeat-x left center;
+}
+
+.help_sidebar .help_menu_dd dl dt {
+    height: 77px;
+    width: 223px;
+    background: url(images/help/help_menu_line.png) no-repeat bottom center;
+}
+
+.help_sidebar .help_menu_dd dl dt a {
+    padding: 34px 0 0 64px;
+    height: 43px;
+    color: #777;
+    text-decoration: none;
+    width: 159px;
+    font-weight: bold;
+    display: block;
+    cursor: pointer;
+}
+
+.help_sidebar .help_menu_dd dl dt .help_video {
+    background: url(images/help/help_icon1.png) no-repeat 9px 23px;
+}
+
+.help_sidebar .help_menu_dd dl dt .help_NOUN {
+    background: url(images/help/help_icon2.png) no-repeat 9px 23px;
+}
+
+.help_sidebar .help_menu_dd dl dt .help_FAQ {
+    background: url(images/help/help_icon3.png) no-repeat 9px 23px;
+}
+
+.help_sidebar .help_menu_dd dl dt a:hover,.help_sidebar dl dd dl dt a:active {
+    color: #1a6bba;
+}
+
+.help_sidebar .help_menu_dd dl dd {
+    height: 33px;
+    background: url(images/help/help_menu_line.png) no-repeat bottom center;
+    width: 223px;
+}
+
+.help_sidebar .help_menu_dd dl dd.Bg_none {
+    height: 33px;
+    background: none;
+    width: 223px;
+}
+
+.help_sidebar .help_menu_dd dl dd a {
+    padding: 0 0 0 64px;
+    height: 33px;
+    line-height: 33px;
+    color: #777;
+    text-decoration: none;
+    width: 159px;
+    display: block;
+    cursor: pointer;
+}
+
+.help_sidebar .help_menu_dd dl dd a:hover,.help_sidebar dl dd dl dd a:active {
+    color: #1a6bba;
+}
+
+.help_sidebar .help_menu_dd dl.help_dl_sl {
+    background: url(images/help/help_dd_hover.png) repeat-x left center;
+}
+
+.help_sidebar .help_menu_dd dl.help_dl_sl dt a {
+    color: #1a6bba;
+}
+
+.help_sidebar .help_menu_dd dl dd a.help_menu_sl {
+    color: #1a6bba;
+}
+
+/******  help_main   *****/
+
+.help_main {
+    width: 726px;
+    min-height: 570px;
+    height: auto !important;
+    height: 570px;
+    float: left;
+    background: url(images/ft_main_bg.png) no-repeat top left;
+    text-align: left;
+    padding: 0 0 0 30px;
+    _display: inline;
+    text-align: left;
+}
+
+.help_main_title {
+    width: 698px;
+    padding: 30px 0 0 28px;
+    height: 24px;
+    color: #1b1b1b;
+    font-size: 14px;
+    border-bottom: 1px solid #e5e5e5;
+    font-weight: bold;
+}
+
+.help_task_content {
+    width: 726px;
+    padding: 10px 0 0 0;
+    overflow: hidden;
+}
+
+.help_task_pic {
+    width: 726px;
+    height: 543px;
+    background: url(images/help/help_videoPic.png) no-repeat top center;
+}
+
+.help_side_content {
+    width: 726px;
+    padding: 22px 0 0 0;
+    overflow: hidden;
+}
+
+.help_side_content li {
+    width: 701px;
+    padding: 0 0 0 25px;
+    height: 33px;
+    line-height: 33px;
+    background: url(images/help/help_li_line.png) repeat-x bottom left;
+}
+
+.help_side_content li a {
+    height: 33px;
+    line-height: 33px;
+    display: block;
+    color: #000;
+    font-size: 13px;
+    text-decoration: none;
+}
+
+.help_side_content li a:hover {
+    color: #1a6bba;
+}
+
+.help_time_content {
+    width: 692px;
+    padding: 27px 6px 0 28px;
+    overflow: hidden;
+    font-size: 13px;
+    color: #000;
+    line-height: 26px;
+}
+
+.help_time_content p {
+    padding-bottom: 26px;
+}
+
+.help_time_font {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.help_time_content .time_pic {
+    height: 128px;
+    width: 242px;
+    background: url(images/help/help_pic1.png) no-repeat left center;
+    display: block;
+}
+
+
+

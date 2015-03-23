@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>响应时间</title>
+    <link href="App_Themes/Global/common.css" rel="stylesheet" type="text/css" />
+    <link href="App_Themes/Global/help.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <h2 class="help_main_title">
+        响应时间</h2>
+    <div class="help_time_content">
+        <p>
+            首先，任何时候我们都希望响应时间越短越好，这意味着用户可以更快的访问您的站点或服务器。 我们对响应时间进行了颜色的标注，它们的意思是：
+        </p>
+        <p>
+            <span class="help_time_font">•</span>绿色：表示响应时间在正常范围，比较快；<br />
+            <span class="help_time_font">•</span>黄色：表示响应时间有点慢，需要引起注意；<br />
+            <span class="help_time_font">•</span>蓝色：表示响应时间比较慢，需要引起注意；<br />
+            <span class="help_time_font">•</span>红色：表示响应时间非常慢，需要想办法优化；</p>
+        <p>
+            那么响应时间的具体定义是什么呢？它是指从用户对站点或服务器发送请求开始，一直到目标内容下载到用户端，这段时间就是响应时间。</p>
+        <p>
+            对于网页/HTTP类型的站点监控，响应时间只针对网页本身，包括了从DNS解析、与网站服务器建立网络连接、网站服务器处理到下载网页内容等多个环节，监控宝详细记录了每次的检查快照，您可以通过这些数据来分析如何优化性能。您可以参考：HTTP响应时间详细分析<br />
+            <span class="time_pic"></span>需要注意的是，网页的响应时间不包括网页中其它组件（比如CSS、Javascript脚本）的下载时间。</p>
+        <p>
+            对于Ping类型监控，响应时间其实就是我们经常在命令行中用ping命令看到的time值，也就是我们常说的Ping值。
+        </p>
+    </div>
+</body>
+</html>

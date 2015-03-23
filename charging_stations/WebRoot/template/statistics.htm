@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>报表统计</title>
+      <link href="Common/Scripts/JQuery/jquery.d.checkbox/css/jquery.d.checkbox.css" rel="stylesheet"
+        type="text/css" />
+    <link href="App_Themes/Global/system.css" rel="stylesheet" type="text/css" />
+    <link href="App_Themes/EasyUI/default.css" rel="stylesheet" type="text/css" />
+    <link href="App_Themes/EasyUI/Themes/icon.css" rel="stylesheet" type="text/css" />
+    <link href="App_Themes/EasyUI/Themes/default/easyui.css" rel="stylesheet" type="text/css" />
+
+    <script src="Common/Scripts/JQuery/jquery.min.js" type="text/javascript"></script>
+    <script src="Common/Scripts/JQuery/EasyUI/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="Common/Scripts/JQuery/EasyUI/locale/easyui-lang-zh_CN.js" type="text/javascript"></script>
+    
+    
+    <script src="Common/Scripts/JQuery/EasyUI/commoneasyui.js" type="text/javascript"></script>
+    <script src="Common/Scripts/JQuery/Scrollpane/mousewheel.js" type="text/javascript"></script>
+    <script src="Common/Scripts/JQuery/Scrollpane/scrollpane.min.js" type="text/javascript"></script>
+    <script src="Common/Scripts/JQuery/Scrollpane/scrollpane.load.js" type="text/javascript"></script>
+    <script src="Common/Scripts/My97DatePicker/WdatePicker.js" type="text/javascript"></script>
+    <script src="Common/Scripts/JQuery/jquery.d.checkbox/js/jquery.d.checkbox.min.js"
+        type="text/javascript"></script>
+          
+    <script src="Common/Scripts/JQuery/jquery.cookie.js" type="text/javascript"></script>
+    <!--[if IE 6]><script type="text/javascript" src="Common/Scripts/DD_belatedPNG.js"></script><![endif]-->
+    
+<script src="Common/Scripts/JQuery/jquery.cookie.js" type="text/javascript"></script>
+</head>
+<body>
+    <div id="north" class="default_head" style="display: block;">
+    </div>
+    <script type="text/javascript">
+        $('#north').load('_data/_north.htm')
+    </script>
+    <div style="width: 100%">
+        <table style="padding: 0; margin: 0; vertical-align: top; width: 100%">
+            <tr>
+                <td style="width: 201px; vertical-align: top;">
+                    <div id="nav" class="easyui-accordion" fit="false" border="false" style="width: 199px;"
+                         enabled="false">
+                        <!--  导航内容 -->
+                    </div>
+                </td>
+                <td style=" vertical-align:top; " class="space"> 
+                       <!--当前页面路径-->
+                    <div class="location_layer clearfix">
+                        <div id="pageTitle" class="pageTitle">
+                            <span></span>
+                        </div>
+                        <div id="pagePath" class="pagePath">
+                            
+                        </div>
+                    </div>
+                    <div class="common_list_out_layer">
+                     
+
+                        <div class="CH_map_content">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+      <div id="st_list_menu" style="display: none;">
+        <div class="st_list_menu">
+            <div class="list_title clearfix">
+                <div class="list_title_L">
+                    任务列表
+                </div>
+                <div class="list_title_R">
+                    <input id="choice_moreBtn" type="button" value="" class="choice_more_btn" />
+                </div>
+            </div>
+            <div class="list_content">
+                <div class="st_sl_pic">
+                    网宿加速图片监测</div>
+                <div class="st_sl_option">
+                    <a>监测1</a><a>监测2</a><a>监测3</a><a>监测4</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="st_quick_menu" style="display: none;">
+        <div class="st_quick_menu">
+            <div class="quick_title">
+                <div class="quick_title_L pngFix">
+                    快捷选项
+                </div>
+                <div class="quick_title_R">
+                    <input id="choice_seniorBtn" type="button" value="" class="choice_senior_btn" />
+                </div>
+            </div>
+            <div class="quick_content">
+                <table class="quick_tb" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td colspan="2">
+                            <input id="Radio1" type="radio" class="vertica_css2" name="vertica" /><label>相对时间</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            最近
+                        </td>
+                        <td>
+                            <div class="sl_date">
+                                <a class="st_sl_date">1天</a>
+                                <div class="st_sl_date_option" style="display: none">
+                                    <a>2天</a><a>3天</a><a>4天</a><a>5天</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <input id="Radio2" type="radio" class="vertica_css2" name="vertica" /><label>绝对时间</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            开始
+                        </td>
+                        <td>
+                            <input class="st_date vertica_css" id="strTime" onclick="WdatePicker({el:'strTime'})" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            结束
+                        </td>
+                        <td>
+                            <input class="st_date vertica_css" id="endTime" onclick="WdatePicker({el:'endTime'})" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_right" colspan="2">
+                            <input id="ggBtn" type="button" value="" class="ggtBtn" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,92 @@
+﻿.ft_sidebar .lfContent {
+    height: 45px;
+    padding-top: 19px;
+    padding-bottom: 19px;
+}
+
+.ft_sidebar dl .ft_sidbar_title {
+    background: url(images/who_use/who_use_title.png) no-repeat;
+}
+
+.case_topContent {
+    padding-left: 29px;
+    width: 717px;
+    border-top: 1px solid #ebebeb;
+}
+
+.case_topContent ul {
+    overflow: hidden;
+    margin-top: 29px;
+}
+
+.case_topContent ul li {
+    float: left;width:239px;height:124px;/* wlh width and height */
+}
+
+.case_topContent ul li a {
+    background: url(images/who_use/ad_bg.png) no-repeat;
+    cursor: pointer;
+    width: 215px;
+    height: 95px;
+    display: block;
+    margin-right: 36px;*margin-right:36px !important;* margin-right:18px;/* wlh add hack */
+   /*  margin-bottom: 29px; wlh del*/ 
+}
+
+.case_topContent ul li a img {
+    width: 200px;
+    height: 80px;
+    border: 1px solid #f2f2f2;
+    margin: 7px;
+    vertical-align: middle;
+}
+
+.case_topContent ul li .right {
+    margin-right: 0;
+}
+
+.case_topContent ul li .bottom {
+    margin-bottom: 0;
+}
+
+.grayLine {
+    background: url(images/who_use/pagingTopBg.gif) bottom center no-repeat;
+    width: 983px;
+    height: 27px;
+    overflow: hidden;
+    clear: both;
+}
+
+.case_bottom {
+    padding-bottom: 65px;
+    width: 76%;
+    float: right;
+}
+
+.case_bottom .pageOuterDiv {
+    margin-top: 15px;
+    margin-right: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

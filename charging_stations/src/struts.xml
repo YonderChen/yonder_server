@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="welcome" extends="struts-default">
+		<action name="welcome" class="com.charging_stations.web.WelcomeAction" method="welcome">
+			<result name="success">/station/myStation.jsp</result>
+		</action>
+	</package>	
+	
+	<package name="public" extends="struts-default">
+		<action name="carOwnerLogin" class="com.charging_stations.web.LoginAction" method="carOwnerLogin">
+		</action>
+		<action name="stationLogin" class="com.charging_stations.web.LoginAction" method="stationLogin">
+		</action>
+		<action name="sysAdminLogin" class="com.charging_stations.web.LoginAction" method="sysAdminLogin">
+		</action>
+		<action name="logout" class="com.charging_stations.web.LoginAction" method="logout">
+			<result name="success">/home/home.jsp</result>
+		</action>
+		<action name="registerCarOwner" class="com.charging_stations.web.RegisterAction" method="registerCarOwner">
+		</action>
+		<action name="registerStation" class="com.charging_stations.web.RegisterAction" method="registerStation">
+		</action>
+		<action name="checkEmail" class="com.charging_stations.web.RegisterAction" method="checkEmail">
+		</action>
+	</package>
+	
+	<package name="admin" extends="struts-default">
+		<action name="getAdminInformation" class="com.charging_stations.web.AdminAction" method="getAdminInformation">
+		</action>
+		<action name="getStationList" class="com.charging_stations.web.AdminAction" method="getStationList">
+		</action>
+		<action name="getUnverifyStationList" class="com.charging_stations.web.AdminAction" method="getUnverifyStationList">
+		</action>
+		<action name="verifyStation" class="com.charging_stations.web.AdminAction" method="verifyStation">
+		</action>
+		<action name="getCarOwnerList" class="com.charging_stations.web.AdminAction" method="getCarOwnerList">
+		</action>
+		<action name="getUnverifyCarOwnerList" class="com.charging_stations.web.AdminAction" method="getUnverifyCarOwnerList">
+		</action>
+		<action name="verifyCarOwner" class="com.charging_stations.web.AdminAction" method="verifyCarOwner">
+		</action>
+	</package>
+	
+	<package name="station" namespace="/station" extends="struts-default">
+		<action name="getChargingPileList" class="com.charging_stations.web.StationAction" method="getChargingPileList">
+		</action>
+		<action name="getChargingOrdersList" class="com.charging_stations.web.StationAction" method="getChargingOrdersList">
+		</action>
+		<action name="getChargingUserList" class="com.charging_stations.web.StationAction" method="getChargingUserList">
+		</action>
+		<action name="getStationInformation" class="com.charging_stations.web.StationAction" method="getStationInformation">
+		</action>
+		<action name="updateStationInformation" class="com.charging_stations.web.StationAction" method="updateStationInformation">
+		</action>
+		<action name="addPile" class="com.charging_stations.web.StationAction" method="addPile">
+		</action>
+		<action name="delPile" class="com.charging_stations.web.StationAction" method="delPile">
+		</action>
+		<action name="toEditPile" class="com.charging_stations.web.StationAction" method="toEditPile">
+		</action>
+		<action name="updatePile" class="com.charging_stations.web.StationAction" method="updatePile">
+		</action>
+		<action name="charge" class="com.charging_stations.web.StationAction" method="charge">
+		</action>
+		<action name="endCharge" class="com.charging_stations.web.StationAction" method="endCharge">
+		</action>
+	</package>
+	
+	<package name="carOwner" namespace="/carOwner" extends="struts-default">
+		<action name="getCarOwnerInformation" class="com.charging_stations.web.CarOwnerAction" method="getCarOwnerInformation">
+		</action>
+		<action name="getIdlePileStationShow" class="com.charging_stations.web.CarOwnerAction" method="getIdlePileStationShow">
+		</action>
+		<action name="getStationShow" class="com.charging_stations.web.CarOwnerAction" method="getStationShow">
+		</action>
+		<action name="getChargingPileList" class="com.charging_stations.web.CarOwnerAction" method="getChargingPileList">
+		</action>
+		<action name="chargingDetial" class="com.charging_stations.web.CarOwnerAction" method="chargingDetial">
+		</action>
+		<action name="getStationByPosition" class="com.charging_stations.web.CarOwnerAction" method="getStationByPosition">
+		</action>
+		<action name="reserve" class="com.charging_stations.web.CarOwnerAction" method="reserve">
+		</action>
+		<action name="getChargingOrdersList" class="com.charging_stations.web.CarOwnerAction" method="getChargingOrdersList">
+		</action>
+		<action name="getCheckNumbersShowList" class="com.charging_stations.web.CarOwnerAction" method="getCheckNumbersShowList">
+		</action>
+	</package>
+	
+	<package name="charge" namespace="/charge" extends="struts-default">
+		<action name="reservedLogin" class="com.charging_stations.web.ChargeAction" method="reservedLogin">
+		</action>
+		<action name="getChargingPileList" class="com.charging_stations.web.ChargeAction" method="getChargingPileList">
+		</action>
+	</package>
+</struts>    

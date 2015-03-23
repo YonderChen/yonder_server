@@ -1,0 +1,1 @@
+$(function() { $('#west').jScrollPane(); setInterval(function() { $('#west').jScrollPane(); }, 500); })

@@ -1,0 +1,34 @@
+.zogo-form-checkbox{
+	height:16px;
+	line-height:18px;
+	padding-left:20px;
+	margin-right:5px;
+	background:url(../images/checkbox.png) no-repeat left 0px;
+	cursor:pointer;
+
+	display: -moz-inline-stack;  /*Firefox only code*/
+	display: inline-block;       /*some standard browsers*/
+	zoom: 1;                     /*IE only*/
+	*display: inline;            /*Only IE know this code (CSS Hack)*/
+}
+
+.zogo-form-checkbox-hover{background-position:left -16px;}
+.zogo-form-checkbox-checked{background-position:left -32px !important;}
+
+.zogo-form-radio{
+	height:16px;
+	line-height:16px;
+	padding-left:20px;
+	_padding-top:2px;
+	margin-right:5px;
+	background:url(../images/radio_un_select.gif) no-repeat left center;
+	cursor:pointer;
+    margin:4px 5px 4px 0;
+	display: -moz-inline-stack;  /*Firefox only code*/
+	display: inline-block;       /*some standard browsers*/
+	zoom: 1;                     /*IE only*/
+	*display: inline;            /*Only IE know this code (CSS Hack)*/
+}
+
+.zogo-form-radio-hover{background:url(../images/radio_un_select.gif) no-repeat left center;}
+.zogo-form-radio-checked{background:url(../images/radio_select.gif) no-repeat left center;}

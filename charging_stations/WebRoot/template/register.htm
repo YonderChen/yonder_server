@@ -1,0 +1,191 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>注册页面</title>
+    <link href="App_Themes/Global/login_register.css" rel="stylesheet" type="text/css" />
+    <link href="App_Themes/Global/common.css" rel="stylesheet" type="text/css" />
+    <script src="Common/Scripts/JQuery/jquery.min.js" type="text/javascript"></script>
+    <script src="Common/Scripts/JQuery/common.js" type="text/javascript"></script>
+    <!--[if IE 6]><script type="text/javascript" src="Common/Scripts/DD_belatedPNG.js"></script><![endif]-->
+    <script type="text/javascript">
+        $(function () {
+            $(".feature_subnav").parent().hover(function () {
+                $(".menu_ground").slideDown();
+            }, function () {
+                $(".menu_ground").hide();
+            });
+
+            commonClick($(".ft_sidebar dd a"), "warning_sl");
+        });
+    </script>
+</head>
+<body>
+    <div class="ft_wrap">
+        <div class="header">
+            <div class="headerContent clearfix">
+                <div class="logo_header pngFix">
+                </div>
+                <div class="nav_header">
+                    <ul class="nav clearfix pngFix">
+                        <li><a href="Main_page.htm" class="home_subnav ">首页</a></li>
+                        <li><a href="#" class="feature_subnav feature_subnav_sl">特色功能</a>
+                            <ul class="menu_ground">
+                                <li><a href="#">站点监控</a></li>
+                                <li><a href="#">站点监控</a></li>
+                                <li><a href="#">丰富报表统计</a></li><li><a href="#">丰富报表统计</a></li>
+                                <li><a href="#">告警通知</a></li>
+                                <li><a href="#">告警通知</a></li>
+                                <li><a href="#">故障统计</a></li>
+                                <li><a href="#">故障统计</a></li>
+                                <li><a href="#">自定义警告</a></li>
+                                <li><a href="#">自定义警告</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="Who_use.htm" class="subnav">案 例</a></li>
+                        <li><a href="Intro.htm" class="subnav">价 格</a></li>
+                        <li><a href="Help.htm" class="help_subnav">帮助与支持</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="banner">
+            <img src="App_Themes/Global/images/feature/baneerPic.png" /></div>
+        <div class="register_content">
+            <div class="top_title">
+                <h5>
+                    填写注册信息</h5>
+            </div>
+            <table>
+                <tr>
+                    <td class="title">
+                       <span class="remark"> *</span> <span class="font_weight"> Email:</span>
+                    </td>
+                    <td class="content">
+                        <input id="Text1" type="text" class="common_textbox" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="notice_title">
+                    </td>
+                    <td class="notice">
+                    Email将是您的登录帐号，同时也接收故障通知和性能报告。
+                    </td>
+                </tr>
+                <tr>
+                    <td class="title">
+                       <span class="remark"> *</span><span class="font_weight"> 密码:</span>
+                    </td>
+                    <td class="content">
+                    <input id="Text2" type="text" class="common_textbox" />
+                    </td>
+                </tr>
+                 <tr>
+                    <td class="title">
+                       <span class="remark"> *</span> <span class="font_weight"> 重复密码:</span>
+                    </td>
+                    <td class="content">
+                    <input id="Text9" type="text" class="common_textbox" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="title">
+                        公司名称:
+                    </td>
+                    <td class="content">
+                    <input id="Text3" type="text" class="common_textbox" />
+                    </td>
+                </tr>
+                    <tr>
+                    <td class="notice_title">
+                    </td>
+                    <td class="notice">
+                      我们对企业用户定期发送宣传资料及促销信息。
+                    </td>
+                </tr>
+              
+                <tr>
+                    <td class="title">
+                        网站URL:
+                    </td>
+                    <td class="content">
+                    <input id="Text4" type="text" class="common_textbox" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="notice_title">
+                    </td>
+                    <td class="notice">
+                    您希望监控的网站URL。比如：http://www.qq.com
+                    </td>
+                </tr>
+                <tr>
+                    <td class="title">
+                        联系人:
+                    </td>
+                    <td class="content">
+                    <input id="Text5" type="text" class="small_text" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="notice_title">
+                    </td>
+                    <td class="notice">
+                    认证手机号码后，您可以免费获赠10条短信配额，用于接收告警通知。
+                    </td>
+                </tr>
+                <tr>
+                    <td class="title">
+                        手机号码:
+                    </td>
+                    <td class="content">
+                    <input id="Text6" type="text" class="small_text" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="title">
+                        QQ号码:
+                    </td>
+                    <td class="content">
+                    <input id="Text7" type="text" class="small_text" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="title">
+                        如何知道晕慧眼？
+                    </td>
+                    <td class="content">
+                        <select id="Select1">
+                            <option>请选择</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="title">
+                        验证码：
+                    </td>
+                    <td class="content clearfix">
+                    <div><input id="Text8" type="text" class="small_text" /></div>
+                    <div>
+                        <img alt="" src="App_Themes/Global/images/login_register/check_example.png" class="check_img" /></div>
+                    <div><a href="#" class="refresh_btn">点击刷新</a></div>
+                    </td>
+                </tr>
+                <tr>
+                  <td colspan="2">
+                    <div class="foot_line">
+                        <input id="Button1" type="button" value="" class="register_btn" />
+                    </div>
+                  </td>
+                </tr>
+            </table>
+        </div>
+        <div class="footer">
+            <div class="footerContent">
+                Copyright 2010-2011 ChinaNetCenter.All Right Reserved 跨地区增值电信业务经营许可证（IDC、ISP）
+                <br />
+                编号B1.B2-20050405 京公网安备 11010502000007 沪公网安备 3101040105 沪ICP证B2-20030144
+            </div>
+        </div>
+    </div>
+</body>
+</html>

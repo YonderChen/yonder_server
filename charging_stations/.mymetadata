@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="charging_stations"
+  id="myeclipse.1365418654579"
+  context-root="/charging_stations"
+  j2ee-spec="6.0"
+  archive="charging_stations.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+

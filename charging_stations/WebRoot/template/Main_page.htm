@@ -1,0 +1,310 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>主页</title>
+    <link href="App_Themes/Global/common.css" rel="stylesheet" type="text/css" />
+    <link href="App_Themes/Global/feature.css" rel="stylesheet" type="text/css" />
+    <link href="App_Themes/Global/main_page.css" rel="stylesheet" type="text/css" />
+    <script src="Common/Scripts/JQuery/jquery.min.js" type="text/javascript"></script>
+    <script src="Common/Scripts/JQuery/common.js" type="text/javascript"></script>
+     <!--[if IE 6]><script type="text/javascript" src="Common/Scripts/DD_belatedPNG.js"></script><![endif]-->
+    
+    <script type="text/javascript">
+        var Num = 1;
+        $(function () {
+            commonHover($(".loginBtns"), "loginBtns_pressed");
+            commonClick($(".rightTab li a"), "a_selected");
+            $(".feature_subnav").parent().hover(function () {
+                $(".menu_ground").slideDown();
+            }, function () {
+                $(".menu_ground").hide();
+            });
+
+            $(".rightTd .expansion").click(function () {
+                if ($(this).hasClass("fold")) {
+                    $(this).removeClass("fold");
+                    $(this).parent().prev().find("ul:eq(1)").slideDown();
+                } else {
+                    $(this).addClass("fold");
+                    $(this).parent().prev().find("ul:eq(1)").slideUp();
+                }
+            });
+
+            var intervalTime;
+            $(".imgMenu li").each(function (i) {
+                $(this).bind('mouseenter', function () {
+                    clearInterval(intervalTime);
+
+                    Num = i;
+                    Interval();
+                }).mouseleave(function () {
+                    intervalTime = setInterval(Interval, 5000);
+                });
+            });
+
+            intervalTime = setInterval(Interval, 5000);
+        });
+        function Interval() {
+            if (Num > 4) Num = 0;
+            $(".LiSelectd").removeClass("LiSelectd");
+            $(".imgMenu li").eq(Num).addClass("LiSelectd");
+            $(".imgDiv img").hide();
+            $(".imgDiv img").eq(Num).fadeIn("fast");
+
+            Num += 1;
+        }
+    </script>
+</head>
+<body class="MainBody">
+    <div class="ft_wrap">
+        <div class="header">
+            <div class="headerContent clearfix">
+                <div class="logo_header pngFix">
+                </div>
+                <div class="nav_header">
+                    <ul class="nav clearfix pngFix">
+                        <li ><a href="#" class="home_subnav home_subnav_sl">首页</a></li>
+                        <li><a href="Feature.htm" class="feature_subnav">特色功能</a>
+                            <ul class="menu_ground">
+                                <li><a href="#">站点监控</a></li>
+                                <li><a href="#">站点监控</a></li>
+                                <li><a href="#">丰富报表统计</a></li><li><a href="#">丰富报表统计</a></li>
+                                <li><a href="#">告警通知</a></li>
+                                <li><a href="#">告警通知</a></li>
+                                <li><a href="#">故障统计</a></li>
+                                <li><a href="#">故障统计</a></li>
+                                <li><a href="#">自定义警告</a></li>
+                                <li class="pngFix"><a href="#">自定义警告</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="Who_use.htm" class="subnav">案 例</a></li>
+                        <li><a href="Intro.htm" class="subnav">价 格</a></li>
+                        <li><a href="Help.htm" class="help_subnav pngFix">帮助与支持</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="Main_page">
+            <div class="main_top clearfix">
+                <div class="leftAdMenu">
+                    <div class="imgDiv">
+                        <img alt="什么是QS" src="App_Themes/Global/images/main_page/flash1.jpg" class="pngFix" />
+                        <img alt="站点访问质量" src="App_Themes/Global/images/main_page/flash2.jpg" style="display: none;" class=" pngFix" />
+                        <img alt="视频播放效果" src="App_Themes/Global/images/main_page/flash3.jpg" style="display: none;" class=" pngFix" />
+                        <img alt="丰富的报表统计" src="App_Themes/Global/images/main_page/flash4.jpg" style="display: none;" class=" pngFix" />
+                        <img alt="故障自动化通知" src="App_Themes/Global/images/main_page/flash5.jpg" style="display: none;" class=" pngFix" />
+                    </div>
+                    <ul class="imgMenu pngFix">
+                        <li class="LiSelectd pngFix"><a>什么是QS</a></li>
+                        <li class="pngFix"><a>站点访问质量</a></li>
+                        <li class="pngFix"><a>视频播放效果</a></li>
+                        <li class="pngFix"><a>丰富的报表统计</a></li>
+                        <li class="pngFix"><a class="bgNone">故障自动化通知</a></li>
+                    </ul>
+                </div>
+                <div class="rightLogin">
+                    <div class="LoginBoxDiv">
+                        <table cellpadding="0" cellspacing="0" class="Tb_Common login_Tb">
+                            <tr>
+                                <td class="td_right" style="width: 25%;">
+                                    登录名：
+                                </td>
+                                <td colspan="2">
+                                    <input id="userNameBtn" type="text" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_right">
+                                    密&nbsp 码：
+                                </td>
+                                <td colspan="2">
+                                    <input id="pswBtn" type="text" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_right" style="width: 24%;">
+                                    较验码：
+                                </td>
+                                <td>
+                                    <input id="verifyTxtBox" type="text" />
+                                    <img alt="" src="App_Themes/Global/images/main_page/verifyImg.png" class="verifyImg" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" class="RememberMeTd">
+                                    <input id="Checkbox1" type="checkbox" value="" class="rememberMe" /><span>记住密码</span>&nbsp<a
+                                        href="#" class="loginLink forgetPSW">忘记密码</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" class="loginBtnTd">
+                                    <input id="loginBtn" type="button" class="loginBtns" value="登  陆" /><a href="#" class="loginLink forgetPSW">新用户注册</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="main_center">
+                <ul>
+                    <li>
+                        <div class="subMenu1">
+                            <a href="#">遍布全球的监测点7X24小时检测您的网站</a></div>
+                    </li>
+                    <li>
+                        <div class="subMenu2">
+                            <a href="#">提供丰富的日报、周报、月报、轻松了解您的网站运营</a></div>
+                    </li>
+                    <li>
+                        <div class="subMenu3">
+                            <a href="#">提供邮件和短信的通知方式</a></div>
+                    </li>
+                    <li>
+                        <div class="subMenu4">
+                            <a href="#">统计网站故障的历史记录</a></div>
+                    </li>
+                </ul>
+            </div>
+            <div class="main_bottom">
+                <div class="title clearfix">
+                    <div class="leftTitle">
+                        <div class="shadowRight">
+                            全球监测点分布</div>
+                    </div>
+                    <div class="rightTab ">
+                        <ul class="clearfix">
+                            <li><a class="a_selected">全国监测点</a></li>
+                            <li><a>海外监测点</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="bottom_content">
+                    <div class="map">
+                        <img alt="" src="App_Themes/Global/images/main_page/map.png" /></div>
+                    <div class="content_list">
+                        <div class="contentInner">
+                            <div class="list_top">
+                                <b>目前已有的监测点</b></div>
+                            <div class="list_all">
+                                <table cellpadding="0" cellspacing="0" class="Tb_Common monitoringPoint">
+                                    <tr>
+                                        <td class="listTitle">
+                                            <b>电 信</b>
+                                        </td>
+                                        <td class="listLink clearfix">
+                                            <ul>
+                                                <li><a>泉州电信 </a></li>
+                                                <li><a>杭州电信</a></li>
+                                                <li><a>深圳电信</a> </li>
+                                                <li class="bg_none"><a href="#">南昌电信 </a></li>
+                                                <li><a>九江电信</a></li>
+                                                <li><a>秦皇岛电信 </a></li>
+                                                <li><a>重庆电信</a></li>
+                                                <li class="bg_none"><a href="#">上海电信</a></li>
+                                            </ul>
+                                            <ul style="display: none;">
+                                                <li><a>泉州电信 </a></li>
+                                                <li><a>杭州电信</a></li>
+                                                <li><a>深圳电信</a> </li>
+                                                <li class="bg_none"><a href="#">南昌电信 </a></li>
+                                                <li><a>九江电信</a></li>
+                                                <li><a>秦皇岛电信 </a></li>
+                                                <li><a>重庆电信</a></li>
+                                                <li class="bg_none"><a>上海电信</a></li>
+                                            </ul>
+                                        </td>
+                                        <td class="rightTd">
+                                            <div class="expansion unfold fold">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="listTitle">
+                                            <b>联 通</b>
+                                        </td>
+                                         <td class="listLink clearfix">
+                                            <ul>
+                                                <li><a>北京联通 </a></li>
+                                                <li><a>黑龙江联通 </a></li>
+                                                <li><a>河南联通</a></li>
+                                                <li class="bg_none"><a>辽宁联通</a></li>
+                                            </ul>
+                                    
+                                        </td>
+                                        <td class="rightTd">
+                                            <div class="expansion">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="listTitle">
+                                            <b>移 动</b>
+                                        </td>
+                                         <td class="listLink clearfix">
+                                            <ul>
+                                                <li><a>浙江移动 </a></li>
+                                                <li><a>上海移动 </a></li>
+                                                <li><a>厦门移动</a> </li>
+                                                <li class="bg_none"><a>江西移动</a> </li>
+                                            </ul>
+                                        
+                                        </td>
+                                        <td class="rightTd">
+                                            <div class="expansion">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="listTitle">
+                                            <b>教育网</b>
+                                        </td>
+                                          <td class="listLink clearfix">
+                                            <ul>
+                                                <li><a>上海交大 </a></li>
+                                                <li><a>集美大学 </a></li>
+                                                <li><a>浙江大学</a></li>
+                                                <li class="bg_none"><a></a></li>
+                                            </ul>
+                                   
+                                        </td>
+                                        <td class="rightTd">
+                                            <div class="expansion">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="listTitle">
+                                            <b>小运营商</b>
+                                        </td>
+                                          <td class="listLink clearfix">
+                                            <ul>
+                                                <li><a>深圳长宽 </a></li>
+                                                <li><a>江苏E家宽</a> </li>
+                                                <li><a>北京中电 </a></li>
+                                                <li class="bg_none"><a>江苏长宽</a></li>
+                                                <li><a>广州E家宽</a> </li>
+                                            </ul>
+                                   
+                                        </td>
+                                        <td class="rightTd">
+                                             <div class="expansion">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="footerContent">
+                Copyright 2010-2011 ChinaNetCenter.All Right Reserved 跨地区增值电信业务经营许可证（IDC、ISP）
+                <br />
+                编号B1.B2-20050405 京公网安备 11010502000007 沪公网安备 3101040105 沪ICP证B2-20030144
+            </div>
+        </div>
+    </div>
+</body>
+</html>

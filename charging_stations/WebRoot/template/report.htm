@@ -1,0 +1,481 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>报告</title>
+    <link href="Common/Scripts/JQuery/JqueryUI/themes/redmond/jquery.ui.all.css" rel="stylesheet"
+        type="text/css" />
+    <link href="App_Themes/Global/system.css" rel="stylesheet" type="text/css" />
+    <link href="Common/Scripts/JQuery/jquery.d.checkbox/css/jquery.d.checkbox.css" rel="stylesheet"
+        type="text/css" />
+    <link href="App_Themes/EasyUI/default.css" rel="stylesheet" type="text/css" />
+    <link href="App_Themes/EasyUI/Themes/icon.css" rel="stylesheet" type="text/css" />
+    <link href="App_Themes/EasyUI/Themes/default/easyui.css" rel="stylesheet" type="text/css" />
+    <link href="Common/Scripts/JQuery/Scrollpane/scrollpane.css" rel="stylesheet" type="text/css" />
+    <link href="Common/Scripts/JQuery/jquery.d.checkbox/css/jquery.d.checkbox.css" rel="stylesheet"
+        type="text/css" />
+    <script src="Common/Scripts/JQuery/jquery.min.js" type="text/javascript"></script>
+    <script src="Common/Scripts/JQuery/JqueryUI/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="Common/Scripts/JQuery/JqueryUI/commonjqueryui.js" type="text/javascript"></script>
+    <script src="Common/Scripts/JQuery/EasyUI/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="Common/Scripts/JQuery/EasyUI/locale/easyui-lang-zh_CN.js" type="text/javascript"></script>
+    <script src="Common/Scripts/JQuery/EasyUI/commoneasyui.js" type="text/javascript"></script>
+    <script src="Common/Scripts/JQuery/jquery.d.checkbox/js/jquery.d.checkbox.min.js"
+        type="text/javascript"></script>
+    <script src="Common/Scripts/JQuery/jquery.cookie.js" type="text/javascript"></script>
+     <!--[if IE 6]><script type="text/javascript" src="Common/Scripts/DD_belatedPNG.js"></script><![endif]-->
+
+        
+</head>
+<body>
+    <div id="north" class="default_head" style="display: block;">
+    </div>
+    <script type="text/javascript">
+        $('#north').load('_data/_north.htm')
+    </script>
+    <div class="page_out_layer">
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <td style="width: 201px; vertical-align: top;">
+                    <div id="nav" class="easyui-accordion" fit="false" border="false" style="width: 199px;"
+                        enabled="false">
+                        <!--  导航内容 -->
+                    </div>
+                </td>
+                <td class="space">
+                    <!--当前页面路径-->
+                    <div class="location_layer clearfix">
+                        <div id="pageTitle" class="pageTitle">
+                            <span></span>
+                        </div>
+                        <div id="pagePath" class="pagePath">
+                            
+                        </div>
+                    </div>
+                    <!-- 列表-->
+                    <div class="common_list_out_layer">
+                        <div class="operate_layer">
+                            <ul class="left">
+                                <li class="firstLi"><a href="#" class="search_btn pngFix">搜索</a></li>
+                                <li><a href="#" class="add_btn pngFix" id="add">新增</a></li>
+                                <li><a href="#" class="check_btn pngFix">审核选定</a></li>
+                                <li><a href="#" class="delete_btn pngFix">删除选定</a></li>
+                                <li><a href="#" class="export_btn pngFix">导出</a></li>
+                                <li style="background: none;"><a href="#" class="print_btn">打 印</a></li>
+                            </ul>
+                        </div>
+                        <table cellpadding="0" cellspacing="0" class="common_list">
+                            <tr>
+                                <th class="borderLeftNone" style="width: 5%;">
+                                    <input type="checkbox" value="checkbox" name="checkboxAll" id="ckbAll" />
+                                </th>
+                                <th style="width: 10%;">
+                                    <a class="order_reverse">序号</a>
+                                </th>
+                                <th style="width: 20%;">
+                                    <a class="order">站点名称</a>
+                                </th>
+                                <th style="width: 15%">
+                                    <a class="order">告警时间</a>
+                                </th>
+                                <th style="width: 10%;">
+                                    告警区域
+                                </th>
+                                <th style="width: 25%;">
+                                    告警原因
+                                </th>
+                                <th class="borderRightNone" style="width: 15%;">
+                                    邮件发送时间
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="checkbox" />
+                                </td>
+                                <td>
+                                    1
+                                </td>
+                                <td>
+                                    网宿科技
+                                </td>
+                                <td>
+                                    2012-09-10
+                                </td>
+                                <td>
+                                    北京网通
+                                </td>
+                                <td>
+                                    DNS解析失败
+                                </td>
+                                <td>
+                                    2012-09-20
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="checkbox" />
+                                </td>
+                                <td>
+                                    2
+                                </td>
+                                <td>
+                                    网宿科技
+                                </td>
+                                <td>
+                                    2012-09-10
+                                </td>
+                                <td>
+                                    北京网通
+                                </td>
+                                <td>
+                                    DNS解析失败
+                                </td>
+                                <td>
+                                    2012-09-20
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="checkbox" />
+                                </td>
+                                <td>
+                                    3
+                                </td>
+                                <td>
+                                    网宿科技
+                                </td>
+                                <td>
+                                    2012-09-10
+                                </td>
+                                <td>
+                                    北京网通
+                                </td>
+                                <td>
+                                    DNS解析失败
+                                </td>
+                                <td>
+                                    2012-09-20
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="checkbox" />
+                                </td>
+                                <td>
+                                    4
+                                </td>
+                                <td>
+                                    网宿科技
+                                </td>
+                                <td>
+                                    2012-09-10
+                                </td>
+                                <td>
+                                    北京网通
+                                </td>
+                                <td>
+                                    DNS解析失败
+                                </td>
+                                <td>
+                                    2012-09-20
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="checkbox" />
+                                </td>
+                                <td>
+                                    5
+                                </td>
+                                <td>
+                                    网宿科技
+                                </td>
+                                <td>
+                                    2012-09-10
+                                </td>
+                                <td>
+                                    北京网通
+                                </td>
+                                <td>
+                                    DNS解析失败
+                                </td>
+                                <td>
+                                    2012-09-20
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="checkbox" />
+                                </td>
+                                <td>
+                                    6
+                                </td>
+                                <td>
+                                    网宿科技
+                                </td>
+                                <td>
+                                    2012-09-10
+                                </td>
+                                <td>
+                                    北京网通
+                                </td>
+                                <td>
+                                    DNS解析失败
+                                </td>
+                                <td>
+                                    2012-09-20
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="checkbox" />
+                                </td>
+                                <td>
+                                    7
+                                </td>
+                                <td>
+                                    网宿科技
+                                </td>
+                                <td>
+                                    2012-09-10
+                                </td>
+                                <td>
+                                    北京网通
+                                </td>
+                                <td>
+                                    DNS解析失败
+                                </td>
+                                <td>
+                                    2012-09-20
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="checkbox" />
+                                </td>
+                                <td>
+                                    8
+                                </td>
+                                <td>
+                                    网宿科技
+                                </td>
+                                <td>
+                                    2012-09-10
+                                </td>
+                                <td>
+                                    北京网通
+                                </td>
+                                <td>
+                                    DNS解析失败
+                                </td>
+                                <td>
+                                    2012-09-20
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="checkbox" />
+                                </td>
+                                <td>
+                                    9
+                                </td>
+                                <td>
+                                    网宿科技
+                                </td>
+                                <td>
+                                    2012-09-10
+                                </td>
+                                <td>
+                                    北京网通
+                                </td>
+                                <td>
+                                    DNS解析失败
+                                </td>
+                                <td>
+                                    2012-09-20
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="checkbox" />
+                                </td>
+                                <td>
+                                    10
+                                </td>
+                                <td>
+                                    网宿科技
+                                </td>
+                                <td>
+                                    2012-09-10
+                                </td>
+                                <td>
+                                    北京网通
+                                </td>
+                                <td>
+                                    DNS解析失败
+                                </td>
+                                <td>
+                                    2012-09-20
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="checkbox" />
+                                </td>
+                                <td>
+                                    11
+                                </td>
+                                <td>
+                                    网宿科技
+                                </td>
+                                <td>
+                                    2012-09-10
+                                </td>
+                                <td>
+                                    北京网通
+                                </td>
+                                <td>
+                                    DNS解析失败
+                                </td>
+                                <td>
+                                    2012-09-20
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="checkbox" />
+                                </td>
+                                <td>
+                                    12
+                                </td>
+                                <td>
+                                    网宿科技
+                                </td>
+                                <td>
+                                    2012-09-10
+                                </td>
+                                <td>
+                                    北京网通
+                                </td>
+                                <td>
+                                    DNS解析失败
+                                </td>
+                                <td>
+                                    2012-09-20
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="checkbox" />
+                                </td>
+                                <td>
+                                    13
+                                </td>
+                                <td>
+                                    网宿科技
+                                </td>
+                                <td>
+                                    2012-09-10
+                                </td>
+                                <td>
+                                    北京网通
+                                </td>
+                                <td>
+                                    DNS解析失败
+                                </td>
+                                <td>
+                                    2012-09-20
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="checkbox" />
+                                </td>
+                                <td>
+                                    14
+                                </td>
+                                <td>
+                                    网宿科技
+                                </td>
+                                <td>
+                                    2012-09-10
+                                </td>
+                                <td>
+                                    北京网通
+                                </td>
+                                <td>
+                                    DNS解析失败
+                                </td>
+                                <td>
+                                    2012-09-20
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="checkbox" />
+                                </td>
+                                <td>
+                                    15
+                                </td>
+                                <td>
+                                    网宿科技
+                                </td>
+                                <td>
+                                    2012-09-10
+                                </td>
+                                <td>
+                                    北京网通
+                                </td>
+                                <td>
+                                    DNS解析失败
+                                </td>
+                                <td>
+                                    2012-09-20
+                                </td>
+                            </tr>
+                        </table>
+                        <!-- 分页-->
+                        <div class="paginator pageOuterDiv">
+                            <table cellpadding="0" cellspacing="0" class="pageTab">
+                                <tr>
+                                    <td class="customInfo" nowrap="true" style="width: 40%;">
+                                        共12条记录，当前第1/1页，每页12条记录
+                                    </td>
+                                    <td class="paginator" nowrap="true" style="width: 60%;">
+                                        <a class="link_class" disabled="disabled">首页</a><a class="link_class" disabled="disabled">前一页</a><span
+                                            class="link_acted">1</span><a href="#" class="list_ye">2</a><a href="#" class="list_ye">3</a><a
+                                                href="#" class="list_ye">4</a><a href="#" class="list_ye">5</a><a class="link_class"
+                                                    href="#">后一页</a><a class="link_class" href="#">末页</a> <span>转到 <span>
+                                                        <input id="txtPageCouter" type="text" class="txtPageCouter" />
+                                                    </span>页</span> <a class="link_class" href="#">确定</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <!-- 分页结束-->
+                    </div>
+                    <!--列表结束-->
+                </td>
+            </tr>
+        </table>
+    </div>
+    <script type="text/javascript">
+        $(function () {
+            $(':checkbox').d_checkbox();
+            $(".trcls a").click(function () {
+                if ($(this).hasClass("order_reverse")) {
+                    $(this).removeClass("order_reverse").addClass("order");
+                } else {
+                    $(this).removeClass("order").addClass("order_reverse");
+                }
+            });
+
+            //框架高度调整
+            if (window.parent.adjustHeiht) {
+                var height = $(document).height();
+                window.parent.adjustHeiht(height);
+            }
+        });
+    </script>
+ 
+</body>
+</html>

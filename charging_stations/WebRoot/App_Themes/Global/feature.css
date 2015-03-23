@@ -1,0 +1,249 @@
+﻿.ft_wrap {
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+/******   ft_content    *****/
+
+.ft_content {
+    width: 983px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+/******   ft_sidebar   *****/
+
+.ft_sidebar {
+    width: 227px;
+    overflow: hidden;
+    float: left;
+    text-align: left;
+}
+
+.ft_sidebar dl {
+    width: 227px;
+}
+
+.ft_sidebar dl .ft_sidbar_title {
+    width: 227px;
+    height: 48px;
+    background: url(images/feature/ft_sidbar_title.png) no-repeat top left;
+}
+
+.ft_sidebar dl dd {
+    width: 223px;
+    height: 83px;
+    padding: 1px;
+    border: 1px solid #c4def5;
+    border-top: none;
+    display: block;
+}
+
+.ft_sidebar dl dd a {
+    width: 214px;
+    height: 83px;
+    display: block;
+    background: #f9fdff;
+    color: #777777;
+    padding-left: 9px;
+    text-decoration: none;
+}
+
+.ft_sidebar dl dd a:hover,.ft_sidebar dl dd a:active {
+    background: url(images/feature/ft_Menu_hover.png) repeat-x left center;
+    color: #1a6bba;
+    cursor: pointer;
+    display: block;
+    width: 214px;
+    height: 83px;
+}
+
+.ft_sidebar dl dd a span {
+    display: block;
+}
+
+.ft_sidebar .imgDiv {
+    width: 45px;
+    height: 45px;
+    padding: 19px 10px 19px 0;
+    float: left;
+    display: block;
+    _display: inline-block;
+}
+
+.ft_sidebar .imgDiv img {
+    width: 45px;
+    height: 45px;
+    display: block;
+}
+
+.ft_sidebar .lfContent {
+    width: 150px;
+    float: left;
+    height: 83px;
+    break-word: break-all;
+    word-warp: break-word;
+    display: block;
+    _display: inline-block;
+}
+
+.ft_sidebar .lfContent .title {
+    font-size: 14px;
+    font-weight: bold;
+    width: 150px;
+    padding-top: 12px;
+    line-height: 20px;
+}
+
+.ft_sidebar .lfContent .content {
+    font-size: 12px;
+    line-height: 20px;
+    width: 150px;
+    padding-top: 2px;
+}
+
+.ft_sidebar dl dd a.monitor_sl {
+    background: url(images/ft_Menu_hover.png) repeat-x left center;
+    color: #1a6bba;
+    cursor: pointer;
+    display: block;
+    width: 214px;
+    height: 83px;
+}
+
+.ft_sidebar dl dd a.reportForm_sl {
+    background: url(images/feature/ft_Menu_hover.png) repeat-x left center;
+    color: #1a6bba;
+    cursor: pointer;
+    display: block;
+    width: 214px;
+    height: 83px;
+}
+
+.ft_sidebar dl dd a.notice_sl {
+    background: url(images/feature/ft_Menu_hover.png) repeat-x left center;
+    color: #1a6bba;
+    cursor: pointer;
+    display: block;
+    width: 214px;
+    height: 83px;
+}
+
+.ft_sidebar dl dd a.statistics_sl {
+    background: url(images/feature/ft_Menu_hover.png) repeat-x left center;
+    color: #1a6bba;
+    cursor: pointer;
+    display: block;
+    width: 214px;
+    height: 83px;
+}
+
+.ft_sidebar dl dd a.warning_sl {
+    background: url(images/feature/ft_Menu_hover.png) repeat-x left center;
+    color: #1a6bba;
+    cursor: pointer;
+    display: block;
+    width: 214px;
+    height: 83px;
+}
+
+
+/******   ft_main   *****/
+
+.ft_main {
+    width: 746px;
+    overflow: hidden;
+    float: left;
+    background: url(images/feature/ft_main_bg.png) no-repeat top left;
+    text-align: left;
+    padding: 0 0 24px 10px;
+    _display: inline;
+    text-align: left;
+}
+
+.ft_topContent {
+    width: 694px;
+    height: 142px;
+    border-top: 1px solid #ebebeb;
+    padding: 0 22px 0 30px;
+    break-word: break-all;
+    word-warp: break-word;
+}
+
+.ft_topContent h2 {
+    width: 694px;
+    line-height: 42px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #333333;
+    font-family: "微软雅黑";
+    padding-top: 18px;
+}
+
+.ft_topContent p {
+    width: 694px;
+    font-size: 14px;
+    line-height: 23px;
+    color: #666666;
+}
+
+.ft_modular {
+    width: 736px;
+    padding: 0 10px 0 0;
+    break-word: break-all;
+    word-warp: break-word;
+    min-height: 196px;
+    height: auto !important;
+    height: 196px;
+    font-size: 13px;
+    line-height: 23px;
+    color: #666666;
+}
+
+.ft_modular .ft_title {
+    width: 716px;
+    height: 36px;
+    padding-left: 30px;
+    background: url(images/feature/ft_titleBg.png) no-repeat top left;
+}
+
+.ft_modular .ft_titleContent {
+    padding-left: 34px;
+    line-height: 36px;
+    height: 36px;
+    width: 300px;
+    color: #005ea7;
+    font-size: 14px;
+    font-weight: bold;
+    background: url(images/feature/ft_titleIcon.png) no-repeat center left;
+}
+
+.ft_modular .content {
+    width: 706px;
+    padding: 10px 10px 40px 30px;
+    min-height: 110px;
+    height: auto !important;
+    height: 110px;
+    font-size: 13px;
+    line-height: 23px;
+    color: #666666;
+}
+
+.ft_modular .content img {
+    display: inline-block;
+    float: right;
+    margin: 0 0 0 10px;
+}
+
+.marging_content {
+    margin-top: 23px;
+}
+
+
+
+
+
+
+
+    

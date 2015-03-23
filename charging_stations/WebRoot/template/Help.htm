@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>帮助与支持</title>
+    <link href="App_Themes/Global/common.css" rel="stylesheet" type="text/css" />
+    <link href="App_Themes/Global/help.css" rel="stylesheet" type="text/css" />
+    <script src="Common/Scripts/JQuery/jquery.min.js" type="text/javascript"></script>
+    <script src="Common/Scripts/JQuery/common.js" type="text/javascript"></script>
+        <!--[if IE 6]><script type="text/javascript" src="Common/Scripts/DD_belatedPNG.js"></script><![endif]-->
+    <script type="text/javascript">
+        $(function () {
+            $(".feature_subnav").parent().hover(function () {
+                $(".menu_ground").slideDown();
+            }, function () {
+                $(".menu_ground").hide();
+            });
+
+            commonClick($(".ft_sidebar dd a"), "warning_sl");
+        });
+    </script>
+</head>
+<body>
+    <div class="ft_wrap">
+        <div class="header">
+            <div class="headerContent clearfix">
+                <div class="logo_header pngFix">
+                </div>
+                <div class="nav_header">
+                    <ul class="nav clearfix pngFix">
+                        <li><a href="Main_page.htm" class="home_subnav ">首页</a></li>
+                        <li><a href="#" class="feature_subnav">特色功能</a>
+                            <ul class="menu_ground">
+                                <li><a href="#">站点监控</a></li>
+                                <li><a href="#">站点监控</a></li>
+                                <li><a href="#">丰富报表统计</a></li><li><a href="#">丰富报表统计</a></li>
+                                <li><a href="#">告警通知</a></li>
+                                <li><a href="#">告警通知</a></li>
+                                <li><a href="#">故障统计</a></li>
+                                <li><a href="#">故障统计</a></li>
+                                <li><a href="#">自定义警告</a></li>
+                                <li><a href="#">自定义警告</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="Who_use.htm" class="subnav">案 例</a></li>
+                        <li><a href="Intro.htm" class="subnav">价 格</a></li>
+                        <li><a href="Help.htm" class="help_subnav help_subnav_sl">帮助与支持</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="banner">
+            <img src="App_Themes/Global/images/feature/baneerPic.png" /></div>
+        <div class="help_content clearfix">
+            <dl class="help_sidebar">
+                <dt class="help_sidbar_title"></dt>
+                <dd class="help_menu_dd">
+                    <dl class="help_dl_sl">
+                        <dt><a class="help_video pngFix">视频教程</a></dt>
+                        <dd>
+                            <a url="add_task.htm">添加监控任务</a></dd>
+                        <dd>
+                            <a url="add_task.htm">指定监测组</a></dd>
+                        <dd>
+                            <a url="add_task.htm">配置报警规则</a></dd>
+                        <dd class="Bg_none">
+                            <a url="add_task.htm">查看报表统计</a></dd>
+                    </dl>
+                </dd>
+                <dd class="help_menu_dd">
+                    <dl>
+                        <dt><a class="help_NOUN pngFix">名词解释</a></dt>
+                        <dd>
+                            <a url="response_time.htm">回源</a></dd>
+                        <dd>
+                            <a url="response_time.htm">状态码</a></dd>
+                        <dd>
+                            <a url="response_time.htm">响应时间</a></dd>
+                        <dd class="Bg_none">
+                            <a url="response_time.htm">响应超时</a></dd>
+                    </dl>
+                </dd>
+                <dd class="help_menu_dd">
+                    <dl>
+                        <dt><a class="help_FAQ pngFix">FAQ</a></dt>
+                        <dd>
+                            <a url="site_monitoring.htm">站点监控（10）</a></dd>
+                        <dd>
+                            <a url="site_monitoring.htm">账号和价格（5）</a></dd>
+                        <dd>
+                            <a url="site_monitoring.htm">报警规格制定（12）</a></dd>
+                        <dd class="Bg_none">
+                            <a url="site_monitoring.htm">其他（8）</a></dd>
+                    </dl>
+                </dd>
+            </dl>
+            <div class="help_main">
+                <iframe src="add_task.htm" id="ifram" frameborder="0" width="100%"></iframe>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="footerContent">
+                Copyright 2010-2011 ChinaNetCenter.All Right Reserved 跨地区增值电信业务经营许可证（IDC、ISP）
+                <br />
+                编号B1.B2-20050405 京公网安备 11010502000007 沪公网安备 3101040105 沪ICP证B2-20030144
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(function () {
+            $("#ifram").css({ height: $(".help_sidebar").height() + 4 });
+            commonClick($(".help_menu_dd dl"), "help_dl_sl");
+            commonClick($(".help_sidebar dd dd a"), "help_menu_sl");
+            $(".help_sidebar dd dd a").click(function () {
+                $("#ifram").attr("src", $(this).attr("url"));
+            });
+        });
+    </script>
+</body>
+</html>

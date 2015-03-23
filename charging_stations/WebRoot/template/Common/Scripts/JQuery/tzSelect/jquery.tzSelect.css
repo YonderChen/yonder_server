@@ -1,0 +1,113 @@
+/*-------------------------------
+*	Default dropdown styles
+--------------------------------*/
+
+.tzSelect{
+	
+	/* This is the container of the new select element */
+	
+	height:25px;
+	display:inline-block;
+	min-width:168px;
+	position:relative;
+	margin:0 5px 0 0;
+	line-height:25px;
+	
+	
+	/* Preloading the background image for the dropdown */
+	background:url("img/dropdown_slice.png") no-repeat -99999px;
+}
+
+
+.tzSelect .selectBox:hover,
+.tzSelect .selectBox.expanded{
+    background:url(img/ddbox_bg.png) no-repeat;
+	color:#2c5667;
+	
+}
+
+.tzSelect .dropDown{
+	position:absolute;
+	top:24px;
+	left:0;
+	width:100%;
+	border:1px solid #dee1e3;
+	list-style:none;
+	z-index:1000;
+    background:#fff;
+}
+
+.tzSelect li{
+	background:#fff;
+	cursor:pointer;
+	padding:5px 6px 0 6px;
+	text-align:left;
+	line-height:20px;
+	color:#9e9e9e;
+}
+
+.tzSelect li:hover{
+	background:#b4e4fd;
+    color:#9e9e9e;
+}
+
+
+/*-----------------------------------------------------
+*	Additional styles for the apple product dropdown
+------------------------------------------------------*/
+
+
+.tzSelect .hasDetails{
+	border-width:0 1px 1px;
+}
+
+.tzSelect .hasDetails li{
+	height:85px;
+	position:relative;
+	padding:0;
+	text-align:left;
+	
+	/* Again, using CSS3 multiple backgrounds with a fallback */
+	
+	background:url('img/dropdown_slice.png') repeat-x #222;
+	background-image:url('img/dropdown_slice.png'),url('img/dropdown_slice.png'),url('img/dropdown_slice.png');
+	background-position: 50% -171px, 0 -85px, 0 0;
+	background-repeat: no-repeat, no-repeat, repeat-x;
+}
+
+.tzSelect .hasDetails li:hover{
+	background-position: 50% -256px, 0 -85px, 0 0;
+}
+
+.tzSelect .hasDetails li span{
+	left:88px;
+	position:absolute;
+	top:27px;
+}
+
+.tzSelect .hasDetails li i{
+	color:#999999;
+	display:block;
+	font-size:12px;
+}
+
+.tzSelect .hasDetails li img{
+	left:9px;
+	position:absolute;
+	top:13px;
+}
+
+
+.tzSelect .selectBox{
+	position:absolute;
+	padding-left:6px;
+	width:100%;
+	font:12px "ËÎÌו","Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	text-align:left;
+	color:#9e9e9e;
+    background:url(img/ddbox_bg.png) no-repeat;
+	cursor:pointer;
+	height:25px;
+	line-height:25px;
+	
+}

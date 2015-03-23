@@ -1,0 +1,1061 @@
+﻿body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td {
+    margin: 0;
+    padding: 0;
+    font-family: \5B8B\4F53, "Arial Narrow" ,HELVETICA;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0
+}
+
+fieldset, img {
+    border: 0
+}
+
+address, caption, cite, code, dfn, em, strong, th, var {
+    font-style: normal;
+    font-weight: normal
+}
+
+ul, ol,li {
+    list-style: none;
+}
+
+caption, th {
+    text-align: center
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-size: 100%;
+    font-weight: normal
+}
+
+
+/******  clean float   ******/
+
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+.clearfix {
+    *+height: 1%;
+}
+
+/********************   System.htm  star **********************/
+
+/******* header  ******/
+ .default_head {
+    background: url(images/system/head_bg.png) left top repeat-x;
+    display: none;
+    height: 132px;
+    overflow: hidden;
+    min-width: 735px;
+    max-width: 2000px;
+}
+
+.header_bg {
+    background: url(images/system/head.png) no-repeat left top;
+    height: 88px;
+    overflow: hidden;
+}
+
+.head_right {
+    width: 100%;
+    height: 35px;
+    background: url(images/system/head_right_bg.png) no-repeat right top;
+    float: right;
+    font-family: "宋体";
+    text-align: right;
+}
+
+.head_right ul {
+    height: 32px;
+    padding: 0 7px 0 0;
+    min-width: 728px;
+}
+
+.head_right ul li {
+    float: right;
+    height: 32px;
+    line-height: 32px;
+    padding: 0 13px 0 0;
+    _display: inline;
+    zoom: 1;
+}
+
+.head_right ul li a {
+    color: #e8f8ff;
+    font-size: 14px;
+    /* display:block; wlh change*/
+    display:inline-block;
+    height: 32px;
+    line-height: 32px;
+    text-decoration: none; 
+}
+
+.head_right ul li a span {
+    color: #fffc00;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: AvantGarde BK BT,Arial;
+}
+
+.user_info {
+    background: url(images/system/user_icon.png) no-repeat left center;
+    padding-left: 23px;
+}
+
+.feedback_btn {
+    background: url(images/system/feedback_icon.png) no-repeat left center;
+    padding-left: 19px;
+}
+
+.exit_btn {
+    background: url(images/system/exit_icon.png) no-repeat left center;
+    padding-left: 18px;
+}
+
+.create_site {
+    background: url(images/system/create_site_btn.png) no-repeat 197px -2px;
+    width: 135px;
+    height: 25px;
+    padding: 1px 4px 5px 200px;
+    text-align: left;
+    float: left;
+    _display: inline;
+}
+
+.create_site_btn {
+    width: 135px;
+    height: 25px;
+    display: block;
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+
+/******  system_nav  *****/
+
+.system_header_menu {
+    width: 100%;
+    height: 44px;
+    background: url(images/system/A_part_bg.png) no-repeat left center;
+}
+
+.system_menu {
+    width: 500px;
+    height: 37px;
+    float: left;
+    padding: 3px 0 0 4px;
+}
+
+.system_menu li {
+    height: 37px;
+    line-height: 37px;
+    float: left;
+    position: relative;
+}
+
+.system_menu li a {
+    height: 37px;
+    line-height: 37px;
+    display: block;
+    text-align: center;
+    font-family: "微软雅黑";
+    font-size: 14px;
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.system_menu li a:hover {
+    color: #0062b5;
+    cursor: pointer;
+}
+
+.system_menu li .home_submenu {
+    width: 104px;
+}
+
+.system_menu li a.home_submenu:hover {
+    background: url(images/system/system_home_hover.png) no-repeat left center;
+}
+
+.system_menu li .form_submenu {
+    width: 115px;
+    margin-left: 1px;
+}
+
+.system_menu li a.form_submenu:hover {
+    background: url(images/system/system_menu_hover.png) repeat-x left center;
+    height: 35px;
+    line-height: 35px;
+    width: 113px;
+    border: 1px solid #dcdcdc;
+}
+
+.system_menu li .submenu {
+    width: 87px;
+    margin-left: 1px;
+}
+
+.system_menu li a.submenu:hover {
+    background: url(images/system/system_menu_hover.png) repeat-x left center;
+    height: 35px;
+    line-height: 35px;
+    width: 85px;
+    border: 1px solid #dcdcdc;
+}
+
+.system_menu li a.home_submenu_sl {
+    background: url(images/system/system_home_hover.png) no-repeat left center;
+    color: #006cbd;
+}
+
+.system_menu li a.form_submenu_sl {
+    background: url(images/system/system_menu_hover.png) repeat-x left center;
+    height: 35px;
+    line-height: 35px;
+    width: 113px;
+    border: 1px solid #dcdcdc;
+    color: #006cbd;
+}
+
+.system_menu li a.submenu_sl {
+    background: url(images/system/system_menu_hover.png) repeat-x left center;
+    height: 35px;
+    line-height: 35px;
+    width: 85px;
+    border: 1px solid #dcdcdc;
+    color: #006cbd;
+}
+
+.system_searchDiv {
+    width: 228px;
+    height: 44px;
+    float: right;
+    text-align: left;
+}
+
+.system_search {
+    width: 208px;
+    height: 25px;
+    padding-top: 10px;
+}
+
+.system_searchTxt {
+    width: 168px;
+    height: 25px;
+    line-height: 25px;
+    float: left;
+    background: url(images/system/search_left.png) no-repeat left center;
+    border: none;
+    color: #767676;
+    font-size: 13px;
+    padding-left: 10px;
+    display: block;
+}
+
+.system_searchBtn {
+    width: 30px;
+    height: 25px;
+    float: left;
+    background: url(images/system/search_right.png) no-repeat left center;
+    border: none;
+    cursor: pointer;
+    display: block;
+}
+          
+
+/********************   System.htm  end **********************/
+
+
+/****   statistics.htm  *****/
+
+.st_title {
+    background: url(images/system/list_title_bg.png) repeat-x left center;
+    border-top: solid #bfcfda 1px;
+    border-bottom: solid #bfcfda 1px;
+    height: 29px;
+    line-height: 29px;
+    width: 100%;
+}
+
+.st_title .title {
+    height: 29px;
+    background: url(images/system/CH_title.png) no-repeat left center;
+    width: 80px;
+    height: 29px;
+}
+
+.CH_map_content {
+    width: 100%;
+    background: url(images/system/CH_map.png) no-repeat top center;
+    height: 560px;
+    margin: 0 auto;
+}          
+
+
+/******  user.htm   *****/
+
+.account_layer {
+    text-align: center;
+    background: #eceef3;
+}
+
+.account_content {
+    margin: 0 auto;
+    text-align: center;
+    padding: 0 20px 20px 18px;
+    overflow: hidden;
+}
+
+.inf_modular {
+    width: 100%;
+    min-width: 680px;
+    background: url(images/system/Inf_content_middle.png) repeat-x left bottom;
+    margin-top: 20px;
+    min-height: 31px;
+    height: auto !important;
+    height: 31px;
+    font-size: 12px;
+    text-align: left;
+}
+
+.inf_modular .titleDiv {
+    width: 100%;
+    background: url(images/system/Inf_title_middle.png) repeat-x left bottom;
+    height: 31px;
+}
+
+.inf_modular .title_L {
+    padding-left: 17px;
+    height: 31px;
+    line-height: 31px;
+    color: #0f9fe1;
+    font-weight: bold;
+    width: 180px;
+    background: url(images/system/Inf_title_left.png) no-repeat left top;
+    float: left;
+}
+
+.inf_modular .title_R {
+    padding: 8px 21px 0 0;
+    height: 23px;
+    width: 16px;
+    background: url(images/system/Inf_title_right.png) no-repeat right top;
+    float: right;
+}
+
+.inf_modular .drop_down_icon {
+    height: 16px;
+    width: 16px;
+    display: block;
+    cursor: pointer;
+    background: url(images/system/drop_down_icon.png) no-repeat right center;
+}
+
+.inf_modular .contraction_icon {
+    height: 16px;
+    width: 16px;
+    display: block;
+    background: url(images/system/contraction_icon.png) no-repeat right center;
+}
+
+.inf_modular .content {
+    width: 100%;
+    background: url(images/system/Inf_content_right.png) no-repeat right bottom;
+    overflow: hidden;
+}
+
+.inf_modular .content_L {
+    line-height: 32px;
+    color: #8c8d8d;
+    padding: 10px 0 15px 16px;
+    border-top: 1px solid #fff;
+}
+
+.inf_modular .content_main {
+    background: url(images/system/Inf_content_left.png) no-repeat left bottom;
+    padding: 0 1px;
+    overflow: hidden;
+}
+
+.inf_modular .content_L span {
+    font-weight: bold;
+}
+
+.inf_modular .content_L a {
+    color: #0fa2e3;
+    text-decoration: none;
+}
+
+.inf_padding {
+    padding-left: 27px;
+} 
+
+
+/********   add_site.htm  *******/
+
+
+.inf_modular .add_content {
+    color: #8c8d8d;
+    padding: 0 22px 0 21px;
+    border-top: 1px solid #fff;
+}
+
+.add_option {
+    width: 100%;
+    border-bottom: 1px solid #e6e6e6;
+}
+
+.add_site_tb {
+    border-collapse: collapse;
+    text-align: left;
+    word-break: break-all;
+    vertical-align: top;
+    border: none;
+}
+
+.add_site_tb th {
+    border: none;
+    width: 106px;
+    text-align: right;
+    font-size: 12px;
+    color: #8c8d8d;
+    font-weight: bold;
+    vertical-align: top;
+    padding-top: 6px;
+}
+
+.add_site_tb td {
+    border: none;
+    text-align: left;
+    font-size: 13px;
+    color: #8c8d8d;
+}
+
+.add_site_tb .td_height {
+    height: 31px;
+}
+
+.add_site_tb .td_line_height {
+    line-height: 18px;
+    padding-top: 6px;
+}
+
+.span_css {
+    color: #0fa2e3;
+    font-weight: bold;
+}
+
+.radio_L {
+    width: 194px;
+    line-height: 24px;
+    float: left;
+    _display: inline;
+}
+
+.radio_M {
+    width: 190px;
+    line-height: 24px;
+    float: left;
+}
+
+.radio_R {
+    width: 100px;
+    line-height: 24px;
+    float: left;
+}
+
+.add_site_padding {
+    padding-left: 22px;
+}
+
+.notic_side {
+    width: 473px;
+    height: 58px;
+    border: 1px solid #afcfe2;
+    padding: 6px 0 0 35px;
+    line-height: 23px;
+    background: url(images/system/notic_side.png) no-repeat 7px 7px;
+    margin: 12px 0 0 5px;
+}
+
+.notic_side_ul {
+    font-size: 13px;
+    font-weight: bold;
+    width: 620px;
+    padding: 16px 0 6px;
+}
+
+.notic_side_ul li {
+    float: left;
+    height: 26px;
+    padding-top: 13px;
+    _display: inline;
+}
+
+.user_site {
+    width: 148px;
+    padding-left: 28px;
+    background: url(images/system/user_side.png) no-repeat 4px 7px;
+}
+
+.Email_site {
+    width: 62px;
+    padding-left: 25px;
+    background: url(images/system/email_side.png) no-repeat 0px 13px;
+}
+
+.phone_site {
+    width: 76px;
+    padding-left: 16px;
+    background: url(images/system/phone_side.png) no-repeat 0px 3px;
+}
+
+.MSN_site {
+    width: 45px;
+    padding-left: 22px;
+    background: url(images/system/MSN_side.png) no-repeat 0px 9px;
+}
+
+.Gtalk_site {
+    width: 61px;
+    padding-left: 24px;
+    background: url(images/system/Gtalk_side.png) no-repeat 0px 12px;
+}
+
+.time_site {
+    width: 77px;
+    padding-left: 22px;
+    background: url(images/system/time_side.png) no-repeat 0px 9px;
+}
+
+.width_site1 {
+    width: 176px;
+}
+
+.width_site2 {
+    width: 87px;
+}
+
+.width_site3 {
+    width: 92px;
+}
+
+.width_site4 {
+    width: 67px;
+    background: url(images/system/warningIcon_side.png) no-repeat 23px 12px;
+}
+
+.width_site5 {
+    width: 85px;
+    background: url(images/system/warningIcon_side.png) no-repeat 23px 12px;
+}
+
+.width_site6 {
+    width: 99px;
+}
+
+.shareUser {
+    width: 200px;
+    height: 41px;
+    padding-top: 4px;
+    text-align: left;
+}
+
+.shareUser_btn {
+    width: 112px;
+    background: url(images/system/add_user_side.png) no-repeat right center;
+    text-align: left;
+    padding-left: 7px;
+    border: none;
+    cursor: pointer;
+    color: #046ca5;
+    font-weight: bold;
+    font-size: 12px;
+    display: block;
+    height: 30px;
+    line-height: 30px;
+}
+
+.setup_btn {
+    width: 116px;
+    background: url(images/system/dropdown_side.png) no-repeat right center;
+    text-align: left;
+    padding-left: 20px;
+    border: none;
+    cursor: pointer;
+    color: #046ca5;
+    font-size: 12px;
+    display: block;
+    height: 30px;
+    line-height: 30px;
+}
+
+.button_site {
+    width: 200px;
+    padding: 20px 0 0 20px;
+    text-align: left;
+    height: 25px;
+    float: left;
+    _display: inline;
+}
+
+.saveBtn {
+    width: 75px;
+    height: 25px;
+    background: url(images/system/saveBtn.png) no-repeat left center;
+    border: none;
+    cursor: pointer;
+}
+
+.txtCss_site1 {
+    width: 196px;
+    height: 25px;
+    border: none;
+    background: url(images/system/txtCss1_side.png) no-repeat left center;
+    padding: 0 2px 0 10px;
+    line-height: 25px;
+    color: #8c8d8d;
+}
+
+.txtCss_site2 {
+    width: 279px;
+    height: 25px;
+    border: none;
+    background: url(images/system/txtCss2_side.png) no-repeat left center;
+    padding: 0 2px 0 10px;
+    line-height: 25px;
+    color: #8c8d8d;
+}
+
+.link_site {
+    color: #0fa2e3;
+}
+
+.check_box_list_style {
+    border: none;
+}
+
+.check_box_list_style td {
+    height: 24px;
+    vertical-align: middle;
+    border: none;
+}
+
+.check_box_list_style td input {
+    vertical-align: text-bottom;
+    margin-bottom: 2px;
+    margin-bottom: -5px\9;
+    *margin-bottom: -3px;
+}
+
+
+
+/*****  alam.htm   *****/
+
+.applicationBtn {
+    width: 75px;
+    height: 25px;
+    background: url(images/system/applicationBtn.png) no-repeat left center;
+    border: none;
+    cursor: pointer;
+}
+
+.resetBtn {
+    width: 75px;
+    height: 25px;
+    background: url(images/system/resetBtn.png) no-repeat left center;
+    border: none;
+    cursor: pointer;
+}
+
+.popup_tb {
+    border-collapse: collapse;
+    text-align: left;
+    word-break: break-all;
+    width: 97%;
+    margin: 5px 0 0 8px;
+}
+
+.popup_tb td {
+    vertical-align: middle;
+    height: 35px;
+}
+
+.td_padding {
+    padding-top: 11px;
+}
+
+
+/****** statistics.htm  left_menu   ********/
+
+/**********************whf: base infor start************************/
+.common_list_out_layer {
+    margin: 0 auto;
+    text-align: center;
+    width: 100%;
+    padding-bottom: 10px;
+    font-size: 12px;
+}
+/**********************whf: base infor end************************/
+/**********************whf: operating space style start************************/
+.operate_layer {
+    width: 100%;
+    overflow: hidden;
+    margin: 0 auto;
+    padding-top: 8px;
+    min-height: 34px;
+    *height: auto !important;
+    *height: 34px;
+    background: url(images/system/operat_bg.png) #eceef3 repeat-x;
+}
+
+.operate_layer ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.operate_layer ul li {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    height: 26px;
+    line-height: 26px;
+    float: left;
+    background: url(images/system/icon_lin.png) no-repeat right center;
+    margin-left: 10px;
+}
+
+.operate_layer a {
+    text-decoration: none;
+}
+
+.operate_layer a:hover {
+    text-decoration: underline;
+}
+
+.operate_layer ul li a {
+    cursor: pointer;
+    border: none;
+    height: 26px;
+    display: block;
+    text-align: center;
+    color: #8c8d8d;
+}
+
+.operate_layer .left {
+    float: left;
+    margin-left: 10px;
+    display: inline;
+}
+
+.operate_layer .right {
+    float: right;
+    margin-right: 10px;
+    display: inline;
+    width: 375px;
+}
+
+.operate_layer .right li {
+    background: none;
+}
+
+.search_btn {
+    width: 50px;
+    background: url(images/system/search_icon.png) no-repeat left center;
+    padding-left: 10px;
+}
+
+.add_btn {
+    width: 46px;
+    background: url(images/system/add_icon.png) no-repeat left center;
+    padding-left: 10px;
+}
+
+.check_btn {
+    width: 66px;
+    background: url(images/system/check_icon.png) no-repeat left center;
+    padding-left: 10px;
+}
+
+.delete_btn {
+    width: 69px;
+    background: url(images/system/del_icon.png) no-repeat left center;
+    padding-left: 10px;
+}
+
+.export_btn {
+    width: 44px;
+    background: url(images/system/export_icon.png) no-repeat left center;
+    padding-left: 10px;
+}
+
+.print_btn {
+    width: 50px;
+    background: url(images/system/print_icon.png) no-repeat left center;
+    padding-left: 10px;
+}
+
+.chooseTime {
+    width: 95px;
+    background: url(images/system/chooseTime.png) no-repeat left center;
+    padding-left: 10px;
+}
+
+.notarization_btn {
+    margin-right: 6px;
+    background: url(images/system/faultNews.png) no-repeat left center;
+    padding-left: 24px;
+}
+
+.treaty_btn {
+    margin-right: 2px;
+    background: url(images/system/Notice.png) no-repeat left center;
+    padding-left: 22px;
+}
+
+.prove_btn {
+    margin-right: 0;
+    background: url(images/system/sysMessage.png) no-repeat left center;
+    padding-left: 24px;
+}
+/*Display choice of time'style start*/
+.operate_layer ul .showTime
+{ color:#8c8d8d;background: none; margin:0; margin-left:-10px;}
+/*Display choice of time'style end*/
+/**********************whf: operating space style end************************/
+/**********************whf: table style start************************/
+.common_list {
+    border-collapse: collapse;
+    clear: both;
+    font-size: 9pt;
+    font-weight: normal;
+    margin: 0 auto;
+    text-align: center;
+    vertical-align: middle;
+    width: 100%;
+    word-break: break-all;
+}
+
+.common_list th {
+    background: url(images/system/list_title_bg.png) repeat-x;
+    border: solid #bfcfda 1px;
+    font-size: 12px;
+    height: 29px;
+    line-height: 21px;
+    padding: 0 3px;
+    color: #8c8d8d;
+    font-weight: bold;
+}
+
+.common_list .borderLeftNone {
+    border-left: none;
+}
+
+.common_list .borderRightNone {
+    border-right: none;
+}
+
+.common_list th a {
+    text-decoration: none;
+}
+
+.common_list th a:hover {
+    text-decoration: underline;
+}
+
+.common_list td {
+    border: none;
+    border-bottom: solid #dce7ef 1px;
+    /*min-height: 40px;
+    height: 40px !important;
+    height: auto;wlh ? */
+    min-height:40px;
+    *height:40px !important;
+    height:40px;
+    line-height:20px;
+    vertical-align: middle;
+    padding: 0px 3px 0px 3px;
+    color: #8c8d8d;
+}
+
+.trcls {
+    background: #f8f9fd;
+}
+/**********************whf: table style end************************/
+/************************* whf:paging style start********************************/
+.customInfo {
+    text-align: left;
+    line-height: 20px;
+}
+
+.paginator {
+    font-size: 12px;
+    text-align: right;
+}
+
+.paginator a {
+    color: #000000;
+    text-decoration: none;
+}
+
+.link_class {
+    background: url(images/system/btn_list.gif) no-repeat;
+    display: inline-block;
+    height: 21px;
+    line-height: 21px;
+    text-align: center;
+    width: 43px;
+}
+
+.list_ye {
+    border: 1px solid #afafaf;
+    display: inline-block;
+    height: 18px;
+    line-height: 18px;
+    margin-bottom: -6px;
+    text-align: center;
+    width: 26px;
+}
+
+.list_ye:hover {
+    background: #d2d2d2;
+}
+
+.link_acted {
+    background: #d2d2d2;
+    border: 1px solid #afafaf;
+    color: Black;
+    display: inline-block;
+    font-weight: normal;
+    height: 18px;
+    line-height: 18px;
+    margin-bottom: -6px;
+    text-align: center;
+    width: 26px;
+}
+
+.pageOuterDiv {
+    text-align: right;
+    width: 98%;
+    margin: 10px auto 0 auto;
+}
+
+.paginator .pageTab {
+    width: 100%;
+    border: 0;
+    height: 20px;
+}
+
+.txtPageCouter {
+    width: 29px;
+    height: 18px;
+    line-height: 18px;
+    border: 1px solid #7e9db9;
+}
+
+.paginator .pageTab td {
+    height: 20px;
+    text-align: left;
+    vertical-align: bottom;
+}
+
+.paginator .link_class,.paginator .link_acted,.paginator .list_ye {
+    margin-right: 5px
+}
+
+.paginator .pageTab .paginator {
+    text-align: right;
+}
+
+.pageTab td,.pageTab .link_class {
+    color: #737c93;
+}
+/************************* whf:paging style end********************************/
+/*************** order style  start *********************/
+.order {
+    background: url(images/system/order.png) left center no-repeat;
+    padding-left: 18px;
+    color: #8b8d8c !important;
+    cursor: pointer;
+}
+
+.order:hover,.order:visited,.order_reverse:hover,.order_reverse:visited {
+    text-decoration: none;
+}
+
+.order_reverse {
+    background: url(images/system/order_reverse.png) left center no-repeat;
+    padding-left: 18px;
+    color: #8b8d8c !important;
+    cursor: pointer;
+}
+/*************** order style  end *********************/
+/*************** checkbox style  start *********************/
+.operate_layer ul .showSysMessage {
+    color: #8c8d8d;
+}
+
+.showSysMessage input {
+    height: 13px;
+    vertical-align: text-top;
+}
+
+.checkBoxOuterDiv {
+    display: inline-block;
+    margin-bottom: 4px;
+    overflow: hidden;
+}
+
+.checkBoxOuterDiv span {
+    margin-right: -5px;
+    margin-bottom: -4px;
+    margin-bottom: -4px \9;
+    *margin-bottom: -3px;
+    _margin-bottom: -4px;
+}
+
+.checkBoxOuterDiv {
+    position: relative;
+    top: 0;
+    top: 0 \9;
+    *top: -2px;
+    _top: 0;
+}
+/*************** checkbox style  end *********************/
+
+/*************** hqs location start *********************/
+
+
+.pageTitle
+{
+	float: left;
+	width: 150px;
+	font-weight: bold;
+	color: #3791CD;
+	font-size: 16px;
+	padding: 10px 0 0 12px;
+}
+.pagePath{ float: right;width: 400px;text-align: right;padding-right: 12px;}
+.pagePath ul li {
+    float: left;
+    height: 32px;
+    line-height: 32px;
+    padding: 0 5px 0 0;
+    _display: inline;
+    zoom: 1;
+}
+
+.pagePath ul li span{font-weight: bold;}
+.currentItem{background-color: #ECEEF3;}
+   /*************** hqs end *********************/                                            

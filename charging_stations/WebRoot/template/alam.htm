@@ -1,0 +1,593 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>告警</title>
+    <link href="Common/Scripts/JQuery/JqueryUI/themes/redmond/jquery.ui.all.css" rel="stylesheet"
+        type="text/css" />
+    <link href="Common/Scripts/JQuery/jquery.d.checkbox/css/jquery.d.checkbox.css" rel="stylesheet"
+        type="text/css" />
+    <link href="Common/Scripts/JQuery/selectbox/css/selectbox.css" rel="stylesheet" type="text/css" />
+    <link href="App_Themes/Global/system.css" rel="stylesheet" type="text/css" />
+    <link href="App_Themes/EasyUI/default.css" rel="stylesheet" type="text/css" />
+    <link href="App_Themes/EasyUI/Themes/icon.css" rel="stylesheet" type="text/css" />
+    <link href="App_Themes/EasyUI/Themes/default/easyui.css" rel="stylesheet" type="text/css" />
+    <link href="Common/Scripts/JQuery/Scrollpane/scrollpane.css" rel="stylesheet" type="text/css" />
+    <link href="Common/Scripts/JQuery/jquery.d.checkbox/css/jquery.d.checkbox.css" rel="stylesheet"
+        type="text/css" />
+    <script src="Common/Scripts/JQuery/jquery.min.js" type="text/javascript"></script>
+    <script src="Common/Scripts/JQuery/JqueryUI/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="Common/Scripts/JQuery/JqueryUI/commonjqueryui.js" type="text/javascript"></script>
+    <script src="Common/Scripts/JQuery/jquery.d.checkbox/js/jquery.d.checkbox.min.js"
+        type="text/javascript"></script>
+    <script src="Common/Scripts/JQuery/EasyUI/Plugins/jquery.panel.js" type="text/javascript"></script>
+    <script src="Common/Scripts/JQuery/EasyUI/Plugins/jquery.accordion.js" type="text/javascript"></script>
+    <script src="Common/Scripts/JQuery/EasyUI/locale/easyui-lang-zh_CN.js" type="text/javascript"></script>
+    <script src="Common/Scripts/JQuery/EasyUI/commoneasyui.js" type="text/javascript"></script>
+    <script src="Common/Scripts/JQuery/selectbox/select_split.js" type="text/javascript"></script>
+    <script src="Common/Scripts/My97DatePicker/WdatePicker.js" type="text/javascript"></script>
+    <script src="Common/Scripts/JQuery/jquery.cookie.js" type="text/javascript"></script>
+    <!--[if IE 6]><script type="text/javascript" src="Common/Scripts/DD_belatedPNG.js"></script><![endif]-->
+</head>
+<body>
+    <div id="north" class="default_head" style="display: block;">
+    </div>
+    <script type="text/javascript">
+        $('#north').load('_data/_north.htm')
+    </script>
+    <div class="page_out_layer">
+        <table style="padding: 0; margin: 0; vertical-align: top; width: 100%">
+            <tr>
+                <td style="width: 201px; vertical-align: top;">
+                    <div id="nav" class="easyui-accordion" fit="false" border="false" style="width: 199px;"
+                        enabled="false">
+                        <!--  导航内容 -->
+                    </div>
+                </td>
+                <td  class="space">
+                    <!--当前页面路径-->
+                    <div class="location_layer clearfix">
+                        <div id="pageTitle" class="pageTitle">
+                            <span></span>
+                        </div>
+                        <div id="pagePath" class="pagePath">
+                        </div>
+                    </div>
+                    <!-- 列表-->
+                    <div class="common_list_out_layer">
+                        <div class="operate_layer">
+                            <ul class="left">                               
+                                <li class="firstLi" style="background: none;"><a class="chooseTime">选择时间范围</a></li>
+                            </ul>
+                            <ul class="right">
+                                <li><a href="#" class="notarization_btn pngFix">故障消息</a></li>
+                                <li><a href="#" class="treaty_btn pngFix">提醒消息</a></li>
+                                <li><a href="#" class="prove_btn pngFix">系统消息</a></li>
+                                <li class="showSysMessage">
+                                    <div class="checkBoxOuterDiv">
+                                        (
+                                        <input type="checkbox" name="checkbox" />
+                                        显示系统消息)</div>
+                                </li>
+                            </ul>
+                        </div>
+                        <table cellpadding="0" cellspacing="0" class="common_list alarmTable">
+                            <!-- line1-->
+                            <tr>
+                                <th class="borderLeftNone" style="width: 10%;">
+                                </th>
+                                <th style="width: 15%;">
+                                    <a class="order">检查时间</a>
+                                </th>
+                                <th style="width: 20%">
+                                    监控项目
+                                </th>
+                                <th style="width: 20%;">
+                                    所在域/服务器
+                                </th>
+                                <th class="borderRightNone" style="width: 25%;">
+                                    消息内容
+                                </th>
+                                <th style="width: 10%;">
+                                </th>
+                            </tr>
+                            <!-- line2-->
+                            <tr>
+                                <td>
+                                </td>
+                                <td>
+                                    <b class="date">2012-11-05(今日)</b>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <!-- line3-->
+                            <tr class="normalGreen">
+                                <td>
+                                    <div class="bulletin">
+                                        <div class="dangers pngFix">
+                                        </div>
+                                        <div class="green pngFix">
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="time">08:53:29</span>
+                                </td>
+                                <td>
+                                    <p class="projectName">
+                                        默认监控项目</p>
+                                </td>
+                                <td>
+                                    <p class="servicer">
+                                        www.canyoucg.com</p>
+                                </td>
+                                <td>
+                                    <span class="Messageblob">200 OK</span>
+                                </td>
+                                <td>
+                                    <div class="chatPerson">
+                                        <div class="chat pngFix">
+                                        </div>
+                                        <div class="person pngFix">
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- line4-->
+                            <tr>
+                                <td>
+                                </td>
+                                <td>
+                                    <b class="date">2012-11-04</b>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <!-- line5-->
+                            <tr class="normalGreen">
+                                <td>
+                                    <div class="bulletin">
+                                        <div class=" pngFixdangers">
+                                        </div>
+                                        <div class=" pngFixgreen">
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="time">10:53:29</span>
+                                </td>
+                                <td>
+                                    <p class="projectName">
+                                        默认监控项目</p>
+                                </td>
+                                <td>
+                                    www.canyoucg.com
+                                </td>
+                                <td>
+                                    200 OK
+                                </td>
+                                <td>
+                                    <div class="chatPerson">
+                                        <div class="chat pngFix">
+                                        </div>
+                                        <div class="person pngFix">
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- line6-->
+                            <tr class="specialPink">
+                                <td>
+                                    <div class="bulletin">
+                                        <div class="dangers pngFix">
+                                        </div>
+                                        <div class="green pngFix">
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="time">09:53:28</span>
+                                </td>
+                                <td>
+                                    <p class="projectName">
+                                        默认监控项目</p>
+                                </td>
+                                <td>
+                                    www.canyoucg.com
+                                </td>
+                                <td>
+                                    无法连接服务器
+                                </td>
+                                <td>
+                                    <div class="chatPerson">
+                                        <div class="chat pngFix">
+                                        </div>
+                                        <div class="person pngFix">
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- line7-->
+                            <tr>
+                                <td>
+                                </td>
+                                <td>
+                                    <b class="date">2012-11-03</b>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <!-- line8-->
+                            <tr class="normalGreen">
+                                <td>
+                                    <div class="bulletin">
+                                        <div class="dangers pngFix">
+                                        </div>
+                                        <div class="green pngFix">
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="time">10:53:29</span>
+                                </td>
+                                <td>
+                                    <p class="projectName">
+                                        默认监控项目</p>
+                                </td>
+                                <td>
+                                    www.canyoucg.com
+                                </td>
+                                <td>
+                                    200 OK
+                                </td>
+                                <td>
+                                    <div class="chatPerson">
+                                        <div class="chat pngFix">
+                                        </div>
+                                        <div class="person pngFix">
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- line9-->
+                            <tr class="specialPink">
+                                <td>
+                                    <div class="bulletin">
+                                        <div class="dangers pngFix">
+                                        </div>
+                                        <div class="green pngFix">
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="time">09:53:28</span>
+                                </td>
+                                <td>
+                                    <p class="projectName">
+                                        默认监控项目</p>
+                                </td>
+                                <td>
+                                    www.canyoucg.com
+                                </td>
+                                <td>
+                                    无法连接服务器
+                                </td>
+                                <td>
+                                    <div class="chatPerson">
+                                        <div class="chat pngFix">
+                                        </div>
+                                        <div class="person pngFix">
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- line10-->
+                            <tr>
+                                <td>
+                                </td>
+                                <td>
+                                    <b class="date">2012-11-02</b>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <!-- line11-->
+                            <tr class="specialPink">
+                                <td>
+                                    <div class="bulletin">
+                                        <div class="dangers pngFix">
+                                        </div>
+                                        <div class="green pngFix">
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="time">09:53:28 </span>
+                                </td>
+                                <td>
+                                    <p class="projectName">
+                                        默认监控项目</p>
+                                </td>
+                                <td>
+                                    www.canyoucg.com
+                                </td>
+                                <td>
+                                    无法连接服务器
+                                </td>
+                                <td>
+                                    <div class="chatPerson">
+                                        <div class="chat pngFix">
+                                        </div>
+                                        <div class="person pngFix">
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- line12-->
+                            <tr>
+                                <td>
+                                    <div class="bulletin">
+                                        <div class="dangers pngFix">
+                                        </div>
+                                        <div class="green pngFix">
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <b class="date">2012-11-01</b>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <!-- line13-->
+                            <tr class="normalGreen">
+                                <td>
+                                    <div class="bulletin">
+                                        <div class="dangers pngFix">
+                                        </div>
+                                        <div class="green pngFix">
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="time">10:53:29</span>
+                                </td>
+                                <td>
+                                    <p class="projectName">
+                                        默认监控项目</p>
+                                </td>
+                                <td>
+                                    www.canyoucg.com
+                                </td>
+                                <td>
+                                    200 OK
+                                </td>
+                                <td>
+                                    <div class="chatPerson">
+                                        <div class="chat pngFix">
+                                        </div>
+                                        <div class="person pngFix">
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- line14-->
+                            <tr class="specialPink">
+                                <td>
+                                    <div class="bulletin">
+                                        <div class="dangers pngFix">
+                                        </div>
+                                        <div class="green pngFix">
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="time">09:53:28</span>
+                                </td>
+                                <td>
+                                    <p class="projectName">
+                                        默认监控项目</p>
+                                </td>
+                                <td>
+                                    www.canyoucg.com
+                                </td>
+                                <td>
+                                    无法连接服务器
+                                </td>
+                                <td>
+                                    <div class="chatPerson">
+                                        <div class="chat pngFix">
+                                        </div>
+                                        <div class="person pngFix">
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- line15-->
+                            <tr class="specialPink">
+                                <td>
+                                    <div class="bulletin">
+                                        <div class="dangers pngFix">
+                                        </div>
+                                        <div class="green pngFix">
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="time">09:53:27</span>
+                                </td>
+                                <td>
+                                    <p class="projectName">
+                                        默认监控项目</p>
+                                </td>
+                                <td>
+                                    www.canyoucg.com
+                                </td>
+                                <td>
+                                    无法连接服务器
+                                </td>
+                                <td>
+                                    <div class="chatPerson">
+                                        <div class="chat pngFix">
+                                        </div>
+                                        <div class="person pngFix">
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- line16-->
+                            <tr class="normalGreen">
+                                <td>
+                                    <div class="bulletin">
+                                        <div class="dangers pngFix">
+                                        </div>
+                                        <div class="green pngFix">
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="time">08:53:29</span>
+                                </td>
+                                <td>
+                                    <p class="projectName">
+                                        默认监控项目</p>
+                                </td>
+                                <td>
+                                    www.canyoucg.com
+                                </td>
+                                <td>
+                                    200 OK
+                                </td>
+                                <td>
+                                    <div class="chatPerson">
+                                        <div class="chat pngFix">
+                                        </div>
+                                        <div class="person pngFix">
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                        <!-- 分页-->
+                        <div class="paginator pageOuterDiv">
+                            <table cellpadding="0" cellspacing="0" class="pageTab">
+                                <tr>
+                                    <td class="customInfo" nowrap="true" style="width: 40%;">
+                                        共17条记录，当前第1/1页，每页16条记录
+                                    </td>
+                                    <td class="paginator" nowrap="true" style="width: 60%;">
+                                        <a class="link_class" disabled="disabled">首页</a><a class="link_class" disabled="disabled">前一页</a><span
+                                            class="link_acted">1</span><a href="#" class="list_ye">2</a><a href="#" class="list_ye">3</a><a
+                                                href="#" class="list_ye">4</a><a href="#" class="list_ye">5</a><a class="link_class"
+                                                    href="#">后一页</a><a class="link_class" href="#">末页</a> <span>转到 <span>
+                                                        <input id="txtPageCouter" type="text" class="txtPageCouter" />
+                                                    </span>页</span> <a class="link_class" href="#">确定</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <!-- 分页结束-->
+                    </div>
+                    <!--列表样例结束-->
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div style="display: none;">
+        <div id="Time">
+            <table class="popup_tb" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td>
+                        <select id="Select1" autowidth="true">
+                            <option>输入或选择监控项目</option>
+                            <option>网宿科技</option>
+                            <option>网宿科技</option>
+                            <option>网宿科技</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <select id="Select3" autowidth="true">
+                            <option>输入或选择所在区域</option>
+                            <option>北京网通 </option>
+                            <option>广州网通 </option>
+                            <option>上海网通 </option>
+                            <option>广州网通 </option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input class="st_date2 vertica_css" id="strTime" onclick="WdatePicker({el:'strTime'})" />
+                        -
+                        <input class="st_date2 vertica_css" id="endTime" onclick="WdatePicker({el:'endTime'})" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_padding">
+                        <input id="applicationBtn" type="button" value="" class="applicationBtn" />&nbsp;
+                        <input id="resetBtn" type="button" value="" class="resetBtn" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(function () {
+            $(".chooseTime").click(function () {
+                $("#Time").dialog({
+                    title: "选择时间范围",
+                    width: 425,
+                    height: 209,
+                    open: function () {
+                        $("select").selectbox();
+                    },
+                    close: function () {
+                        $(".mainCon").remove();
+                    }
+                });
+            });
+
+            $(':checkbox').d_checkbox();
+            $(".trcls a").click(function () {
+                if ($(this).hasClass("order_reverse")) {
+                    $(this).removeClass("order_reverse").addClass("order");
+                } else {
+                    $(this).removeClass("order").addClass("order_reverse");
+                }
+            });
+        });
+    </script>
+</body>
+</html>
