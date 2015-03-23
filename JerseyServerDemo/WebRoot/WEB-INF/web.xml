@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" 
+	xmlns="http://java.sun.com/xml/ns/javaee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+  
+    <!--
+        <servlet> <servlet-name>cas</servlet-name> <servlet-class> org.jasig.cas.web.init.SafeDispatcherServlet
+        </servlet-class> <init-param> <param-name>publishContext</param-name> <param-value>false</param-value>
+        <param-name>edu.yale.its.tp.cas.client.filter.wrapRequest</param-name> <param-value>true</param-value> </init-param>
+        <load-on-startup>1</load-on-startup> </servlet>
+    --><!-- 定义Jersey的拦截器-->
+    <!--servlet>  
+	  <servlet-name>JerseyServlet</servlet-name>  
+	  <servlet-class>com.sun.jersey.spi.spring.container.servlet.SpringServlet</servlet-class>  
+	  <init-param>  
+	    <param-name>com.sun.jersey.config.property.packages</param-name>  
+	    <param-value>com.zk.imageserver.resource</param-value>  
+	  </init-param>      
+	</servlet--> 
+	<servlet>  
+    <servlet-name>JerseyServlet</servlet-name>  
+    <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer   
+	</servlet-class>  
+	    <init-param>  
+	      <param-name>com.sun.jersey.config.property.class</param-name>  
+	        <!-- 系统启动时扫描的包的路径-->  
+	      <param-value>com.foal.yonder.jersey.resource</param-value>  
+	    </init-param>  
+	   <load-on-startup>1</load-on-startup>    
+	  </servlet>  
+    <servlet-mapping>
+        <servlet-name>JerseyServlet</servlet-name>
+        <url-pattern>/rs/*</url-pattern>
+    </servlet-mapping>
+
+</web-app>
