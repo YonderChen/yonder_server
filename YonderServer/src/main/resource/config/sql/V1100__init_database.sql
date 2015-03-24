@@ -101,7 +101,7 @@ CREATE TABLE `t_server_user` (
 -- ----------------------------
 -- Records of t_server_user
 -- ----------------------------
-INSERT INTO `t_server_user` VALUES ('402881e846e4b3910146e4b8ce6c0004', 'admin', 'T0tQNVM=', '6cff5807cf61610da2446669acd09838', '薛兴', '18559785980', null, '2014-12-10 11:11:11', '2014-12-10 11:11:11', '2015-03-20 17:14:48', '0');
+INSERT INTO `t_server_user` VALUES ('402881e846e4b3910146e4b8ce6c0004', 'admin', 'T0tQNVM=', '6cff5807cf61610da2446669acd09838', 'yonder', '18559785980', null, '2014-12-10 11:11:11', '2014-12-10 11:11:11', '2015-03-20 17:14:48', '0');
 
 -- ----------------------------
 -- Table structure for t_system_param
