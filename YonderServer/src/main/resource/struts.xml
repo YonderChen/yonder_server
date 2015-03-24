@@ -6,7 +6,7 @@
     <package name="interceptor-default" extends="struts-default">
     	<interceptors>
             <!--定义权限控制拦截器 -->
-            <interceptor name="authority-admin" class="com.meat.yonder.interceptor.AdminAuthority"/>
+            <interceptor name="authority-admin" class="com.foal.yonder.interceptor.AdminAuthority"/>
             
             <!--             定义一个包含权限控制的拦截器栈 -->
             <interceptor-stack name="interceptor-admin">
@@ -31,7 +31,7 @@
     <!--在指定包名含有value值的加载ACTION  deafault:action,actions,struts,struts2-->
     <constant name="struts.convention.package.locators" value="action,actions,struts,struts2"/>
     <!--指定包名作为路径的根struts.convention.package.locators.basePackage-->
-     <constant name="struts.convention.action.packages" value="com.meat.yonder"/>
+     <constant name="struts.convention.action.packages" value="com.foal.yonder"/>
     <!--页面查找的根目录 默认为:WEB-INF/content/-->
     <constant name="struts.convention.result.path" value="/WEB-INF/content"/>
     <!--定义是否从JAR包中找action,默认为:是-->
@@ -46,7 +46,7 @@
     <constant name="struts.multipart.parser" value="jakarta"/>
     <constant name="struts.ognl.allowStaticMethodAccess" value="true" />
     <constant name="struts.locale" value="en_US"/>
-    <bean type="com.opensymphony.xwork2.UnknownHandler" name="myUnknownHandler" class="com.meat.yonder.interceptor.MyUnknownHandler"/>
+    <bean type="com.opensymphony.xwork2.UnknownHandler" name="myUnknownHandler" class="com.foal.yonder.interceptor.MyUnknownHandler"/>
     <unknown-handler-stack>
         <unknown-handler-ref name="myUnknownHandler" />
     </unknown-handler-stack>

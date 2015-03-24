@@ -7,7 +7,7 @@
 	</head>
 	<body>
 		<div class="topleft1">
-			Copyright©2014本捷网络科技有限公司版权所有
+			Copyright©2015 yonder
 		</div>
 	</body>
 </html>

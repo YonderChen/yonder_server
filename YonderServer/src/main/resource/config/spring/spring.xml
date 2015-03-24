@@ -97,7 +97,7 @@
 		<!--hibernate O/R mapping文件位置-->
 		<property name="packagesToScan">
 			<list>
-				<value>com.meat.yonder.pojo</value>
+				<value>com.foal.yonder.pojo</value>
 			</list>
 		</property>
 	</bean>
@@ -114,7 +114,7 @@
 		</property>
 	</bean>
 	
-	<bean id="hibernateDao" class="com.meat.yonder.dao.HibernateDao">
+	<bean id="hibernateDao" class="com.foal.yonder.dao.HibernateDao">
 		<property name="hibernateTemplate">
 			<ref local="hibernateTemplate"/>
 		</property>
@@ -127,7 +127,7 @@
 		</property>
 	</bean>
 	
-	<context:component-scan base-package="com.meat.yonder.*" />
+	<context:component-scan base-package="com.foal.yonder.*" />
 	
 	<bean id="transactionInterceptor" class="org.springframework.transaction.interceptor.TransactionInterceptor">
 		<property name="transactionManager">
@@ -159,7 +159,7 @@
 
 
 	<!-- 通知  -->
-	<bean id="notifyTask" class="com.meat.yonder.task.TriggerTask" />
+	<bean id="notifyTask" class="com.foal.yonder.task.TriggerTask" />
 	
 	<bean id="notifyJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
 		<property name="targetObject">

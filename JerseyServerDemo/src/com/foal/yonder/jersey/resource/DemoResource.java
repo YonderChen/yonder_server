@@ -55,7 +55,7 @@ public class DemoResource
 	 * ret : {"username":"yonder","data":"this is a test getQueryParamData by 'GET'"}<br>
 	 */
 	@GET
-	@Path("getQueryParamData")
+	@Path("/getQueryParamData")
 	@Produces( { MediaType.TEXT_HTML })
 	public String getQueryParamData(@QueryParam(value = "username") String username)
 	{

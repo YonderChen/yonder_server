@@ -68,13 +68,13 @@
     </listener>
     <listener>
         <listener-class>
-        	com.meat.yonder.listener.ApplicationContextListener
+        	com.foal.yonder.listener.ApplicationContextListener
         </listener-class>
     </listener>
     
     <filter>
 		<filter-name>encodingFilter</filter-name>
-		<filter-class>com.meat.yonder.filter.UTF8EncoderFilter</filter-class>
+		<filter-class>com.foal.yonder.filter.UTF8EncoderFilter</filter-class>
 		<init-param>
 			<param-name>encode</param-name>
 			<param-value>UTF-8</param-value>
@@ -91,7 +91,7 @@
 	
 	<servlet>
 		<servlet-name>StartUpServlet</servlet-name>
-		<servlet-class>com.meat.yonder.servlet.StartUpServlet</servlet-class>
+		<servlet-class>com.foal.yonder.servlet.StartUpServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	

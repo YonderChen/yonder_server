@@ -6,5 +6,6 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jersey-core-1.8.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/gson-2.3.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jersey-bundle-1.8.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/asm-all-3.3.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>
