@@ -45,7 +45,7 @@ public class DemoResource
 	@Produces( { MediaType.TEXT_HTML })
 	public String HelloResource()
 	{
-		return "Hello Jersey";
+		return "Hello Jersey 哈哈我是中文";
 	}
 	/**
 	 * 处理GET请求，url路径作为参数<br>
@@ -129,7 +129,6 @@ public class DemoResource
 	@Produces(MediaType.TEXT_HTML)
 	public String uploadStatePolicy(@Context HttpServletRequest request) {
 		try {
-			request.setCharacterEncoding("utf-8");
 			RequestContext requestContext = new ServletRequestContext(request);
 
 			if (FileUpload.isMultipartContent(requestContext)) {

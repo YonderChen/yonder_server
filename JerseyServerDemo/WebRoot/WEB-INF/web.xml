@@ -8,6 +8,18 @@
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
   
+    <filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>com.foal.yonder.filter.UTF8EncoderFilter</filter-class>
+		<init-param>
+			<param-name>encode</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
     <!--
         <servlet> <servlet-name>cas</servlet-name> <servlet-class> org.jasig.cas.web.init.SafeDispatcherServlet
         </servlet-class> <init-param> <param-name>publishContext</param-name> <param-value>false</param-value>
