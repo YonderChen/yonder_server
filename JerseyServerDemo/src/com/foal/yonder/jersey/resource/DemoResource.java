@@ -1,5 +1,11 @@
 package com.foal.yonder.jersey.resource;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -7,7 +13,15 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUpload;
+import org.apache.commons.fileupload.RequestContext;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.fileupload.servlet.ServletRequestContext;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -16,6 +30,7 @@ import com.google.gson.JsonParser;
  * @author yonder
  * @date 2015-3-23
  */
+@SuppressWarnings("unchecked")
 @Path("/jersey_path")
 public class DemoResource
 {
@@ -100,5 +115,59 @@ public class DemoResource
 		retValue.addProperty("username", username);
 		retValue.addProperty("data", "this is a test postData by 'POST'");
 		return retValue.toString();
+	}
+	
+	public static final String FileUploadPath = "E:/fileUploadDir/";
+	
+	/**
+	 * 上传文件
+	 * @param request
+	 * @return
+	 */
+	@POST
+	@Path("/uploadFile")
+	@Produces(MediaType.TEXT_HTML)
+	public String uploadStatePolicy(@Context HttpServletRequest request) {
+		try {
+			request.setCharacterEncoding("utf-8");
+			RequestContext requestContext = new ServletRequestContext(request);
+
+			if (FileUpload.isMultipartContent(requestContext)) {
+
+				DiskFileItemFactory factory = new DiskFileItemFactory();
+				File tmpDir = new File(FileUploadPath);
+				if (!tmpDir.isDirectory()) {
+					tmpDir.mkdir();
+				}
+				factory.setRepository(tmpDir);
+				ServletFileUpload upload = new ServletFileUpload(factory);
+				// upload.setHeaderEncoding("gbk");
+				upload.setSizeMax(2000000);
+				List items = new ArrayList();
+				items = upload.parseRequest(request);
+
+				Iterator<?> it = items.iterator();
+				while (it.hasNext()) {
+					FileItem fileItem = (FileItem) it.next();
+					if (fileItem.isFormField()) {
+						System.out.println(fileItem.getFieldName() + " " + fileItem.getName() + " " + new String(fileItem.getString()));
+					} else {
+						System.out.println(fileItem.getFieldName() + " " + fileItem.getName() + " " + fileItem.isInMemory() + " " + fileItem.getContentType() + " " + fileItem.getSize());
+
+						if (fileItem.getName() != null && fileItem.getSize() != 0) {
+							File fullFile = new File(fileItem.getName());
+							File newFile = new File(FileUploadPath + fullFile.getName());
+							fileItem.write(newFile);
+						} else {
+							System.out.println("文件没有选择 或 文件内容为空");
+						}
+					}
+
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "上传成功";
 	}
 }
