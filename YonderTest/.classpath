@@ -7,5 +7,7 @@
 	<classpathentry kind="lib" path="lib/akka-slf4j_2.11-2.3.4.jar"/>
 	<classpathentry kind="lib" path="lib/config-1.2.1.jar"/>
 	<classpathentry kind="lib" path="lib/scala-library-2.11.1.jar"/>
+	<classpathentry kind="lib" path="lib/gson-2.3.jar"/>
+	<classpathentry kind="lib" path="lib/guava-17.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
