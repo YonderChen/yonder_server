@@ -14,7 +14,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "t_system_param")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Cache(region = "myHibernateCache", usage = CacheConcurrencyStrategy.READ_WRITE)
 public class SystemParam implements Serializable {
 	private static final long serialVersionUID = 9038609710665977540L;
 	private String paramId;

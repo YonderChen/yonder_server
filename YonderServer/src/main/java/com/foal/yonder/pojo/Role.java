@@ -18,7 +18,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "t_role")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Cache(region = "myHibernateCache", usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Role implements Serializable {
 	private static final long serialVersionUID = 5275914221695301910L;
 	private String roleId;

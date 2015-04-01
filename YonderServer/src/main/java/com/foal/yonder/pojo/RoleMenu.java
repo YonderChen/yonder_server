@@ -14,7 +14,7 @@ import javax.persistence.Entity;
 
 @Entity
 @Table(name = "t_role_menu")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Cache(region = "myHibernateCache", usage = CacheConcurrencyStrategy.READ_WRITE)
 public class RoleMenu implements Serializable{
 	private static final long serialVersionUID = -3262032370296478702L;
 	private RoleMenuPK pk;
