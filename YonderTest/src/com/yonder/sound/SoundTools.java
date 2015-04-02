@@ -1,5 +1,6 @@
 package com.yonder.sound;
 
+import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -10,6 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import javax.imageio.ImageIO;
+
+import com.yonder.tools.GsonTools;
+
 /**
  * 通过谱产生音频文件
  * @author cyd
@@ -17,15 +22,21 @@ import java.util.Random;
  */
 public class SoundTools {
 	
-//	public static String MaterialDir = "E:\\sound\\piano_short_all\\";
-	public static String MaterialDir = "E:\\sound\\piano_short_simple\\";
-	public static String MaterialSuffix = ".mp3";
+	public static boolean Is_Simple_Rhythm = false;//是否是全部音符，是：每阶12个音符，否：每阶7个音符
 
-	public static boolean Is_Simple_Rhythm = true;//是否是全部音符，是：每阶12个音符，否：每阶7个音符
+	public static int Piano_Rhythm_Count = Is_Simple_Rhythm ? 51 : 86;
+	
+	public static int Piano_Rhythm_Count_In_Gamut = Is_Simple_Rhythm ? 7 : 12;
+	
+	public static String MaterialDir = Is_Simple_Rhythm ? "E:\\sound\\piano_short_simple\\" : "E:\\sound\\piano_short_all\\";
+	
+	public static String MaterialSuffix = ".mp3";
 	
 	public static void main(String[] args) {
 		try {
-			rhythm(0, ImageTools.imageToRhythms(new File("E:\\bb.jpg"), 30), "E://sound/xiaoxingxing.mp3");
+			List<Integer> rhythms = imageToRhythmsByBlock(new File("E:\\image\\e.jpg"), 50);
+			System.out.println(GsonTools.parseJsonArray(rhythms));
+			rhythm(0, rhythms, "E:\\sound\\result\\e5.mp3");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -77,10 +88,9 @@ public class SoundTools {
 	 * @throws Exception
 	 */
 	public static void rhythm(int gamut, List<Integer> rhythms, String resultFilePath) throws Exception{
-		int rhythmsCountInGamut = Is_Simple_Rhythm ? 7 : 12;
 		List<BufferedInputStream> inputs = new ArrayList<BufferedInputStream>();
 		for (int rhythm : rhythms) {
-			int fileName = (rhythm == 0 ? 0 : (rhythm + gamut * rhythmsCountInGamut));
+			int fileName = (rhythm == 0 ? 0 : (rhythm + gamut * Piano_Rhythm_Count_In_Gamut));
 			inputs.add(new BufferedInputStream(new FileInputStream(new File(MaterialDir + fileName + MaterialSuffix))));
 		}
 		BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(new File(resultFilePath)));
@@ -109,5 +119,82 @@ public class SoundTools {
 		}
 		in.close();
 		out.close();
+	}
+	
+	/**
+	 * 文件转化成音符，按条形行取图片区域
+	 * @param file	文件
+	 * @param rhythmsSize	音符长度（输出的长度可能会偏大一些）
+	 * @return
+	 * @throws IOException
+	 */
+	public static List<Integer> imageToRhythmsByLine(File file, int rhythmsSize) throws IOException {
+		List<Integer> rhythms = new ArrayList<Integer>();
+		BufferedImage image = ImageIO.read(file);
+		int width = image.getWidth();
+		int height = image.getHeight();
+		int countHeight = height / Math.min(height, rhythmsSize);
+		int index = 0;
+		List<Integer> mLine = new ArrayList<Integer>();
+		for (int i = 0; i < height; i++) {
+			for (int j = 0; j < width; j++) {
+				int rgb = image.getRGB(j, i);
+				mLine.add(rgb / (256 * 256));
+			}
+			if (i / countHeight > index) {
+				int variance = MathTools.getVariance(mLine);
+				rhythms.add(variance * Piano_Rhythm_Count / 128);
+				index++;
+				mLine.clear();
+			}
+		}
+		if (mLine.size() > 0) {
+			int variance = MathTools.getVariance(mLine);
+			rhythms.add(variance * Piano_Rhythm_Count / 128);
+		}
+		rhythms.add(0);//结束音符（空白）
+		return rhythms;
+	}
+	
+	/**
+	 * 文件转化成音符，按矩形块取图片区域
+	 * @param file	文件
+	 * @param rhythmsSize	音符长度（输出的长度可能会偏大一些）
+	 * @return
+	 * @throws IOException
+	 */
+	public static List<Integer> imageToRhythmsByBlock(File file, int rhythmsSize) throws IOException {
+		List<Integer> rhythms = new ArrayList<Integer>();
+		BufferedImage image = ImageIO.read(file);
+		int width = image.getWidth();
+		int height = image.getHeight();
+		int area = width * height;
+		if (area < rhythmsSize) {
+			rhythms.add(0);//结束音符（空白）
+			return rhythms;
+		}
+		int perArea = area / rhythmsSize;
+		double rate = Math.sqrt((double)perArea / area);
+		int perWidth = (int)(rate * width);
+		int perHeigth = (int)(rate * height);
+		List<Integer> perData = new ArrayList<Integer>();
+		for (int heightBegin = 0; heightBegin < height;) {
+			int heightEnd = heightBegin + perHeigth;
+			for (int widthBegin = 0; widthBegin < height;) {
+				int widthEnd = widthBegin + perWidth;
+				for (int i = heightBegin; i < heightEnd && i < height; i++) {
+					for (int j = widthBegin; j < widthEnd && j < width; j++) {
+						int rgb = image.getRGB(j, i);
+						perData.add(rgb / (256 * 256));
+					}
+				}
+				int variance = MathTools.getVariance(perData);
+				rhythms.add(variance * Piano_Rhythm_Count / 128);
+				widthBegin = widthEnd;
+			}
+			heightBegin = heightEnd;
+		}
+		rhythms.add(0);//结束音符（空白）
+		return rhythms;
 	}
 }
