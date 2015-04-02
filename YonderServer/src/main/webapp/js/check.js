@@ -19,6 +19,34 @@
 	//判断浮点数格式(2位小数)
 	function isFloat(value) {
 		var reg1 = /^[1-9][0-9]*(\.\d{1,2})?$/;
-		var reg2 = /^[0-9]\.(\d{1,2})?$/;
+		var reg2 = /^[0-9](\.\d{1,2})?$/;
         return reg1.test(value) || reg2.test(value);
+	}
+	
+	function vertifyFloat1(obj) {
+		var val = $(obj).val().trim();
+		if (val != "" && !isFloat(val) && val.indexOf(".") != val.length - 1) {
+			$(obj).val("0.0");
+		}
+	}
+	
+	function vertifyFloat2(obj) {
+		var val = $(obj).val().trim();
+		if (!isFloat(val)) {
+			$(obj).val("0.0");
+		}
+	}
+	
+	function vertifyPositiveInteger1(obj) {
+		var val = $(obj).val().trim();
+		if (val != "" && !isPositiveInteger(val)) {
+			$(obj).val("1");
+		}
+	}
+	
+	function vertifyPositiveInteger2(obj) {
+		var val = $(obj).val().trim();
+		if (!isPositiveInteger(val)) {
+			$(obj).val("1");
+		}
 	}

@@ -25,8 +25,11 @@ import akka.pattern.Patterns;
 import akka.util.Timeout;
 
 import com.foal.yonder.config.Constant;
+import com.foal.yonder.listener.ServiceLocator;
+import com.foal.yonder.service.IGameAreaService;
 import com.foal.yonder.service.akka.send.AkkaRemoteInfo;
 import com.foal.yonder.service.akka.send.SendBalanceRouteActor;
+import com.foal.yonder.vo.GameAreaVo;
 import com.google.gson.JsonObject;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
@@ -56,15 +59,32 @@ public class AkkaService {
 		actorSystem = ActorSystem.create("YonderServer", createConfig());
 		logger.info("Start ActorSystem...OK");
 
-		// 初始化akka内部通信服务器
+		// 先初始化world以及balance
 		for (AkkaRemoteInfo remote : this.getAkkaRemoteInfoList()) {
 			ActorRef router = actorSystem.actorOf(Props.create(SendBalanceRouteActor.class));
 			router.tell(remote, ActorRef.noSender());
 			routerBalanceMap.put(remote.getRouterName(), router);
 		}
 		
+		IGameAreaService gameAreaService = ServiceLocator.getBean(IGameAreaService.class);
+		List<GameAreaVo> areaList = gameAreaService.queryGameArea();
+		for (GameAreaVo area : areaList) {
+			addActorRef(area.getHostLan(), area.getPortLan(), area.getAreaId());
+		}
 	}
 	
+	public void addActorRef(String host, int port, int areaId) {
+		AkkaRemoteInfo remote = getAkkaRemoteInfo(host, port, 2, AkkaRemoteInfo.getRouterName(areaId));
+		ActorRef router = actorSystem.actorOf(Props.create(SendBalanceRouteActor.class));
+		router.tell(remote, ActorRef.noSender());
+		routerBalanceMap.put(remote.getRouterName(), router);
+	}
+	
+	public void updateActorRef(String host, int port, int areaId) {
+		routerBalanceMap.remove(AkkaRemoteInfo.getRouterName(areaId));
+		addActorRef(host, port, areaId);;
+	}
+
 	private AkkaRemoteInfo getAkkaRemoteInfo(String host, int port, int routerCount, String routerName) {
 		AkkaRemoteInfo remote = new AkkaRemoteInfo();
 		remote.setServiceName("YonderServer");
@@ -78,9 +98,11 @@ public class AkkaService {
 	
 	private List<AkkaRemoteInfo> getAkkaRemoteInfoList() {
 		List<AkkaRemoteInfo> infoList = new ArrayList<AkkaRemoteInfo>();
-		AkkaRemoteInfo remoteWorld = getAkkaRemoteInfo(Constant.AKKA_SERVER_1_HOST, Constant.AKKA_SERVER_1_PORT, 2, AkkaRemoteInfo.RouterName.SERVER_1);
+		AkkaRemoteInfo remoteWorld = getAkkaRemoteInfo(Constant.AKKA_WORLD_HOST, Constant.AKKA_WORLD_PORT, 2, AkkaRemoteInfo.RouterName.WORLD);
 		infoList.add(remoteWorld);
 		
+		AkkaRemoteInfo remoteBalance = getAkkaRemoteInfo(Constant.AKKA_BALANCE_HOST, Constant.AKKA_BALANCE_PORT, 2, AkkaRemoteInfo.RouterName.BALANCE);
+		infoList.add(remoteBalance);
 		return infoList;
 	}
 	
@@ -134,8 +156,10 @@ public class AkkaService {
 
 	public void dispose() {
 		logger.info("Shutdown ActorSystem...");
-		actorSystem.shutdown();
-		actorSystem.awaitTermination(Duration.apply(60, TimeUnit.SECONDS));
+		if (actorSystem != null) {
+			actorSystem.shutdown();
+			actorSystem.awaitTermination(Duration.apply(60, TimeUnit.SECONDS));
+		}
 		logger.info("Shutdown ActorSystem...OK");
 	}
 	

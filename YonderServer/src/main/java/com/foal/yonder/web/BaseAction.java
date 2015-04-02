@@ -15,7 +15,6 @@ import com.foal.yonder.util.GsonUtil;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
-@SuppressWarnings("unchecked")
 public class BaseAction extends ActionSupport{
 	private static final long serialVersionUID = -8468100847483945091L;
 	protected AjaxBean ajaxBean;

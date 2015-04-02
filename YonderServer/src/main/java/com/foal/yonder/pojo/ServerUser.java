@@ -19,10 +19,9 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "t_server_user")
-@Cache(region = "myHibernateCache", usage = CacheConcurrencyStrategy.READ_WRITE)
+@Cache(region = "yonderHibernateCache", usage = CacheConcurrencyStrategy.READ_WRITE)
 public class ServerUser implements Serializable {
-	private static final long serialVersionUID = -2604003057447806211L;
-
+	private static final long serialVersionUID = -5608938412396549104L;
 	private String userId;
 	private String username;
 	private String encryptedPassword;
@@ -33,10 +32,15 @@ public class ServerUser implements Serializable {
 	private Date modifyTime;
 	private Date lastLoginTime;
 	private ServerUser parent;
-	private int isDelete;
-	
+	private int status;
+	private String lastLoginIp;
+
 	private String roleName;
-	private String logIp;
+
+	public class Status {
+		public static final int InCompany = 1;
+		public static final int AwayCompay = 2;
+	}
 
 	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
@@ -50,13 +54,13 @@ public class ServerUser implements Serializable {
 		this.userId = userId;
 	}
 
-	@Column(name = "is_delete_")
-	public int getIsDelete() {
-		return isDelete;
+	@Column(name = "status_")
+	public int getStatus() {
+		return status;
 	}
 
-	public void setIsDelete(int isDelete) {
-		this.isDelete = isDelete;
+	public void setStatus(int status) {
+		this.status = status;
 	}
 
 	@Column(name = "username_")
@@ -140,7 +144,16 @@ public class ServerUser implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
+	@Column(name = "last_login_ip_")
+	public String getLastLoginIp() {
+		return lastLoginIp;
+	}
+
+	public void setLastLoginIp(String lastLoginIp) {
+		this.lastLoginIp = lastLoginIp;
+	}
+
 	@Transient
 	public String getRoleName() {
 		return roleName;
@@ -148,15 +161,6 @@ public class ServerUser implements Serializable {
 
 	public void setRoleName(String roleName) {
 		this.roleName = roleName;
-	}
-	
-	@Transient
-	public String getLogIp() {
-		return logIp;
-	}
-
-	public void setLogIp(String logIp) {
-		this.logIp = logIp;
 	}
 
 	@Override
@@ -173,7 +177,8 @@ public class ServerUser implements Serializable {
 				* result
 				+ ((encryptedPassword == null) ? 0 : encryptedPassword
 						.hashCode());
-		result = prime * result + isDelete;
+		result = prime * result
+				+ ((lastLoginIp == null) ? 0 : lastLoginIp.hashCode());
 		result = prime * result
 				+ ((lastLoginTime == null) ? 0 : lastLoginTime.hashCode());
 		result = prime * result
@@ -183,6 +188,7 @@ public class ServerUser implements Serializable {
 		result = prime * result + ((phone == null) ? 0 : phone.hashCode());
 		result = prime * result
 				+ ((roleName == null) ? 0 : roleName.hashCode());
+		result = prime * result + status;
 		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
 		result = prime * result
 				+ ((username == null) ? 0 : username.hashCode());
@@ -213,7 +219,10 @@ public class ServerUser implements Serializable {
 				return false;
 		} else if (!encryptedPassword.equals(other.encryptedPassword))
 			return false;
-		if (isDelete != other.isDelete)
+		if (lastLoginIp == null) {
+			if (other.lastLoginIp != null)
+				return false;
+		} else if (!lastLoginIp.equals(other.lastLoginIp))
 			return false;
 		if (lastLoginTime == null) {
 			if (other.lastLoginTime != null)
@@ -244,6 +253,8 @@ public class ServerUser implements Serializable {
 			if (other.roleName != null)
 				return false;
 		} else if (!roleName.equals(other.roleName))
+			return false;
+		if (status != other.status)
 			return false;
 		if (userId == null) {
 			if (other.userId != null)

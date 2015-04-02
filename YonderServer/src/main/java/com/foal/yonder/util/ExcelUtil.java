@@ -68,7 +68,6 @@ public class ExcelUtil {
 		}
 	}
 	
-	@SuppressWarnings("unused")
 	private static void insertTitle(HSSFSheet sheet, HSSFCellStyle style, String[] title) {
 		HSSFRow headRow = sheet.createRow(0);
 		for (int i = 0; i < title.length; i++) {

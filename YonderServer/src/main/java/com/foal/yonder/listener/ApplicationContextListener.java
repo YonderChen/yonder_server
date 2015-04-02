@@ -8,6 +8,8 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.foal.yonder.service.akka.AkkaService;
 import com.foal.yonder.service.elasticsearch.ElasticsearchService;
+import com.foal.yonder.service.jms.EventRecordJmsService;
+import com.foal.yonder.service.jms.PlayerOperateLogJmsService;
 
 public class ApplicationContextListener extends ContextLoaderListener {
 
@@ -24,6 +26,12 @@ public class ApplicationContextListener extends ContextLoaderListener {
 		super.contextDestroyed(event);
 		AkkaService.getInstance().dispose();
 		ElasticsearchService.getInstance().stop();
+		this.stopJmsService();
+	}
+	
+	private void stopJmsService() {
+		PlayerOperateLogJmsService.getInstance().stop();
+		EventRecordJmsService.getInstance().stop();
 	}
 
 }

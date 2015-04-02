@@ -10,7 +10,8 @@ public class AkkaRemoteInfo {
 	private int routerCount;
 	
 	public class RouterName {
-		public static final String SERVER_1 = "server1";
+		public static final String WORLD = "world";
+		public static final String BALANCE = "balance";
 	}
 	
 	public static String getRouterName(int areaId) {

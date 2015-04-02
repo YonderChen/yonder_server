@@ -20,6 +20,8 @@
         <global-results>
             <!-- 逻辑名为welcome的结果，映射到/welcome.jsp页面 -->
             <result name="admin_login">/admin_login.jsp</result>
+            <result name="admin_welcome">/admin_welcome.jsp</result>
+            <result name="visit_limit">/visit_limit.jsp</result>
         </global-results>
     </package>
     <!--默认加载类的后缀的名字 ,deafault:Action-->
@@ -45,7 +47,8 @@
     <!--struts.multipart.parser：该属性指定处理multipart/form-data的MIME类型（文件上传）请求的框架，该属性支持cos、pell和jakarta等属性值，即分别对应使用cos的文件上传框架、pell上传及common-fileupload文件上传框架。该属性的默认值为jakarta。-->
     <constant name="struts.multipart.parser" value="jakarta"/>
     <constant name="struts.ognl.allowStaticMethodAccess" value="true" />
-    <constant name="struts.locale" value="en_US"/>
+	<!--<constant name="struts.locale" value="en_US"/> -->
+    <constant name="struts.locale" value="zh_CN"/>
     <bean type="com.opensymphony.xwork2.UnknownHandler" name="myUnknownHandler" class="com.foal.yonder.interceptor.MyUnknownHandler"/>
     <unknown-handler-stack>
         <unknown-handler-ref name="myUnknownHandler" />

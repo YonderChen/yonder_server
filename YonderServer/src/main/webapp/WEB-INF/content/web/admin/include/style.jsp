@@ -17,7 +17,7 @@
   	<script type="text/javascript" src="${ctx}/js/jquery.idTabs.min.js"></script>
    	<script type="text/javascript" src="${ctx}/js/bootstrap.min.js"></script>   
    	<script type="text/javascript" src="${ctx}/js/calendar/WdatePicker.js"></script>
-	<script type="text/javascript">
+<script type="text/javascript">
 $('document').ready(function() {
    	var funs = preArray();
 	for (var i = 0; i < funs.length; i++) {

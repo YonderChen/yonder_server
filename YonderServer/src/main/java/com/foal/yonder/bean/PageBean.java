@@ -2,7 +2,6 @@ package com.foal.yonder.bean;
 
 import java.util.List;
 
-@SuppressWarnings("unchecked")
 public class PageBean {
 	private List list;
 	private int allRow;

@@ -1,6 +1,5 @@
 package com.foal.yonder.web.admin.role;
 
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.struts2.convention.annotation.Action;
@@ -39,15 +38,13 @@ public class RoleAction extends AdminBaseAction implements ModelDriven<RoleBean>
 	
 	@Action("list")
 	public String list() {
-		roleBean.setUserId(this.getSessionServerUser().getUserId());
 		this.setAttrToRequest("pageBean", this.roleService.queryRole(roleBean));
 		return SUCCESS;
 	}
 	
 	@Action("add_input")
 	public String addInput() {
-		List<Menu> menuList = this.serverUserService.queryLoginMenu(this.getSessionServerUser().getUserId());
-		this.cleanMenu(menuList);
+		List<Menu> menuList = this.serverUserService.queryAllMenu();
 		String menuHtml = getMenuHtml(menuList, null);
 		this.setAttrToRequest("roleMenuHtml", menuHtml);
 		return SUCCESS;
@@ -66,25 +63,9 @@ public class RoleAction extends AdminBaseAction implements ModelDriven<RoleBean>
 		return null;
 	}
 	
-	private void cleanMenu(List<Menu> menuList) {
-		// 不让admin创建的用户再创建用户
-		Iterator<Menu> it = menuList.iterator();
-		while (it.hasNext()) {
-			Menu menu = it.next();
-			if (menu.getMenuId().equals("100000")) {
-				it.remove();
-				continue;
-			}
-			if (menu.getParent() != null && menu.getParent().getMenuId().equals("100000")) {
-				it.remove();
-			}
-		}
-	}
-	
 	@Action("edit_input")
 	public String editInput() {
-		List<Menu> menuList = this.serverUserService.queryLoginMenu(this.getSessionServerUser().getUserId());
-		this.cleanMenu(menuList);
+		List<Menu> menuList = this.serverUserService.queryAllMenu();
 		List<String> menuIds = this.roleService.getMenuIds(roleBean.getRoleId());
 		String menuHtml = getMenuHtml(menuList, menuIds);
 		this.setAttrToRequest("roleMenuHtml", menuHtml);
@@ -121,7 +102,6 @@ public class RoleAction extends AdminBaseAction implements ModelDriven<RoleBean>
 	
 	@Action("edit")
 	public String edit() {
-		roleBean.setOperator(this.getSessionServerUser());
 		boolean result = this.roleService.updateRole(roleBean);
 		if (result) {
 			ajaxBean = new AjaxBean(true, "提交成功.");

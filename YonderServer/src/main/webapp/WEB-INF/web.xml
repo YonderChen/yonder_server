@@ -95,6 +95,27 @@
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	
+	<!-- comet4j -->  
+    <listener>
+		<description>Comet4J容器侦听</description>
+		<listener-class>org.comet4j.core.CometAppListener</listener-class>
+	</listener>
+	<servlet>
+		<description>Comet连接[默认:org.comet4j.core.CometServlet]</description>
+		<display-name>CometServlet</display-name>
+		<servlet-name>CometServlet</servlet-name>
+		<servlet-class>org.comet4j.core.CometServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CometServlet</servlet-name>
+		<url-pattern>/web/admin/comet</url-pattern>
+	</servlet-mapping>
+
+	<listener>
+		<description>CometListener</description>
+		<listener-class>com.foal.yonder.listener.CometListener</listener-class>
+	</listener>  
+    
     <servlet>
         <servlet-name>proxool</servlet-name>
         <servlet-class>

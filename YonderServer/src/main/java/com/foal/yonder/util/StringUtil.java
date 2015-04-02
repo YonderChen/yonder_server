@@ -67,6 +67,11 @@ public class StringUtil {
 		}
 	}
 	
+	public static void main(String[] args) throws Exception {
+		String token = "username=xx@appcup.com&op=1";
+		System.out.println(BaseEncoding.base64().encode(token.getBytes("UTF-8")));
+	}
+	
 	/**
 	 * 验证密码
 	 * 

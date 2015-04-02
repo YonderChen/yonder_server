@@ -16,7 +16,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "t_menu")
-@Cache(region = "myHibernateCache", usage = CacheConcurrencyStrategy.READ_WRITE)
+@Cache(region = "yonderHibernateCache", usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Menu implements Serializable {
 	private static final long serialVersionUID = 4309771262629424118L;
 	private String menuId;
@@ -28,6 +28,7 @@ public class Menu implements Serializable {
 	private String sort;
 	private String title;
 	private String icon;
+	private String visitKey;
 
 	@GenericGenerator(name = "generator", strategy = "assigned")
 	@Id
@@ -113,6 +114,15 @@ public class Menu implements Serializable {
 		this.icon = icon;
 	}
 
+	@Column(name = "visit_key_")
+	public String getVisitKey() {
+		return visitKey;
+	}
+
+	public void setVisitKey(String visitKey) {
+		this.visitKey = visitKey;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -126,6 +136,7 @@ public class Menu implements Serializable {
 		result = prime * result + ((target == null) ? 0 : target.hashCode());
 		result = prime * result + ((text == null) ? 0 : text.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
+		result = prime * result + ((visitKey == null) ? 0 : visitKey.hashCode());
 		return result;
 	}
 
@@ -179,6 +190,11 @@ public class Menu implements Serializable {
 			if (other.title != null)
 				return false;
 		} else if (!title.equals(other.title))
+			return false;
+		if (visitKey == null) {
+			if (other.visitKey != null)
+				return false;
+		} else if (!visitKey.equals(other.visitKey))
 			return false;
 		return true;
 	}

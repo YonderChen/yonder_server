@@ -12,7 +12,6 @@ import com.foal.yonder.pojo.SystemParam;
 import com.foal.yonder.service.IGlobalConfigService;
 import com.foal.yonder.service.ISystemParamService;
 
-@SuppressWarnings("unchecked")
 @Service(value = "systemParamService")
 public class SystemParamServiceImpl extends DaoSupport implements ISystemParamService {
 

@@ -1,10 +1,8 @@
 package com.foal.yonder.servlet;
-
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 
-import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.log4j.Logger;
 
@@ -13,6 +11,8 @@ import com.foal.yonder.listener.ServiceLocator;
 import com.foal.yonder.service.IGlobalConfigService;
 import com.foal.yonder.service.akka.AkkaService;
 import com.foal.yonder.service.elasticsearch.ElasticsearchService;
+import com.foal.yonder.service.jms.EventRecordJmsService;
+import com.foal.yonder.service.jms.PlayerOperateLogJmsService;
 
 public class StartUpServlet extends HttpServlet {
 	private final Logger logger = Logger.getLogger(StartUpServlet.class);
@@ -40,29 +40,36 @@ public class StartUpServlet extends HttpServlet {
 		Constant.DATA_LOGO_SAVE_PATH_VALUE = ServiceLocator.getMessage("logo.real.address");
 		Constant.DATA_LOGO_WEB_PATH_VALUE = ServiceLocator.getMessage("logo.web.url");
 		this.getServletContext().setAttribute(Constant.DATA_LOGO_WEB_PATH_KEY, Constant.DATA_LOGO_WEB_PATH_VALUE);
+				
+		Constant.LOCAL_AKKA_PORT = NumberUtils.toInt(ServiceLocator.getMessage("local.akka.port"));
+		Constant.JMS_PASSWORD = ServiceLocator.getMessage("jms.password");
+		Constant.JMS_URL = ServiceLocator.getMessage("jms.url");
+		Constant.JMS_USER = ServiceLocator.getMessage("jms.user");
 		
-		Constant.ELASTICSEARCH_ENABLE = BooleanUtils.toBoolean(ServiceLocator.getMessage("elasticsearch.enable"));
 		Constant.ELASTICSEARCH_CLUSTER_NAME = ServiceLocator.getMessage("elasticsearch.cluster.name");
 		Constant.ELASTICSEARCH_HOST = ServiceLocator.getMessage("elasticsearch.host");
 		Constant.ELASTICSEARCH_PORT = NumberUtils.toInt(ServiceLocator.getMessage("elasticsearch.port"));
-
-		Constant.AKKA_ENABLE = BooleanUtils.toBoolean(ServiceLocator.getMessage("akka.enable"));
-		Constant.LOCAL_AKKA_PORT = NumberUtils.toInt(ServiceLocator.getMessage("local.akka.port"));
-		Constant.AKKA_SERVER_1_HOST = ServiceLocator.getMessage("akka.server.host");
-		Constant.AKKA_SERVER_1_PORT = NumberUtils.toInt(ServiceLocator.getMessage("akka.server.port"));
+		
+		Constant.AKKA_BALANCE_HOST = ServiceLocator.getMessage("akka.balance.host");
+		Constant.AKKA_BALANCE_PORT = NumberUtils.toInt(ServiceLocator.getMessage("akka.balance.port"));
+		
+		Constant.AKKA_WORLD_HOST = ServiceLocator.getMessage("akka.world.host");
+		Constant.AKKA_WORLD_PORT = NumberUtils.toInt(ServiceLocator.getMessage("akka.world.port"));
 		
 		IGlobalConfigService globalConfigService = ServiceLocator.getBean(IGlobalConfigService.class);
 		// 执行增量脚本
 		globalConfigService.runDbMigrate();
 		globalConfigService.initSystemParam();
 		
-		if (Constant.ELASTICSEARCH_ENABLE) {
-			ElasticsearchService.getInstance().start();
-		}
-		if (Constant.AKKA_ENABLE) {
-			AkkaService.getInstance().init();
-		}
+		ElasticsearchService.getInstance().start();
+		AkkaService.getInstance().init();
+		this.startJmsService();
+		
 		logger.info("启动成功...");
 	}
 	
+	private void startJmsService() {
+		PlayerOperateLogJmsService.getInstance().start();
+		EventRecordJmsService.getInstance().start();
+	}
 }

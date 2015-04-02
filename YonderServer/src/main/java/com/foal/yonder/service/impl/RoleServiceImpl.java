@@ -5,19 +5,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.comet4j.core.CometContext;
+import org.comet4j.core.CometEngine;
 import org.springframework.stereotype.Service;
 
 import com.foal.yonder.bean.PageBean;
 import com.foal.yonder.bean.RoleBean;
+import com.foal.yonder.config.Constant;
 import com.foal.yonder.dao.DaoSupport;
+import com.foal.yonder.listener.CometListener;
 import com.foal.yonder.pojo.Menu;
 import com.foal.yonder.pojo.Role;
 import com.foal.yonder.pojo.RoleMenu;
 import com.foal.yonder.pojo.RoleMenuPK;
 import com.foal.yonder.service.IRoleService;
+import com.foal.yonder.util.GsonUtil;
 import com.foal.yonder.util.StringUtil;
 
-@SuppressWarnings("unchecked")
 @Service(value = "roleService")
 public class RoleServiceImpl extends DaoSupport implements IRoleService{
 
@@ -48,9 +52,8 @@ public class RoleServiceImpl extends DaoSupport implements IRoleService{
 	}
 	
 	public PageBean queryRole(RoleBean roleBean) {
-		String queryHql = "from Role as r where r.serverUser.userId = :userId";
+		String queryHql = "from Role as r where r.serverUser.userId is not null";
 		Map paramMap = new HashMap();
-		paramMap.put("userId", roleBean.getUserId());
 		if (!StringUtil.isEmpty(roleBean.getName())) {
 			queryHql += " and r.name like :name";
 			paramMap.put("name", "%"+roleBean.getName()+"%");
@@ -71,8 +74,8 @@ public class RoleServiceImpl extends DaoSupport implements IRoleService{
 	}
 	
 	public boolean addRole(RoleBean roleBean) {
-		String queryHql = "from Role as r where r.name = ? and r.serverUser.userId = ?";
-		List list = this.hibernateDao.queryList(queryHql, roleBean.getName(), roleBean.getOperator().getUserId());
+		String queryHql = "from Role as r where r.name = ?";
+		List list = this.hibernateDao.queryList(queryHql, roleBean.getName());
 		if (!list.isEmpty()) {
 			return false;
 		}
@@ -96,8 +99,8 @@ public class RoleServiceImpl extends DaoSupport implements IRoleService{
 	}
 	
 	public boolean updateRole(RoleBean roleBean) {
-		String queryHql = "from Role as r where r.name = ? and r.roleId <> ? and r.serverUser.userId = ?";
-		List list = this.hibernateDao.queryList(queryHql, roleBean.getName(), roleBean.getRoleId(), roleBean.getOperator().getUserId());
+		String queryHql = "from Role as r where r.name = ? and r.roleId <> ?";
+		List list = this.hibernateDao.queryList(queryHql, roleBean.getName(), roleBean.getRoleId());
 		if (!list.isEmpty()) {
 			return false;
 		}
@@ -107,6 +110,7 @@ public class RoleServiceImpl extends DaoSupport implements IRoleService{
 		role.setName(roleBean.getName());
 		this.hibernateDao.update(role);
 		// 获取该角色绑定的权限
+		List<String> oldMenuIds = this.getMenuIds(role.getRoleId());
 		queryHql = "from RoleMenu as rm where rm.pk.role.roleId = ?";
 		list = this.hibernateDao.queryList(queryHql, roleBean.getRoleId());
 		this.hibernateDao.deleteAll(list);
@@ -119,12 +123,26 @@ public class RoleServiceImpl extends DaoSupport implements IRoleService{
 			rm.setPk(pk);
 			this.hibernateDao.save(rm);
 		}
+		// 如果角色绑定的权限发生变化，找出该角色绑定的用户，通知重新登录
+		if (!GsonUtil.toJsonString(oldMenuIds).equals(GsonUtil.toJsonString(menuId))) {
+			queryHql = "select ur.pk.serverUser.userId from UserRole as ur where ur.pk.role.roleId = ?";
+			List<String> logoutIds = this.hibernateDao.queryList(queryHql, roleBean.getRoleId());
+			for (String userId : logoutIds) {
+				CometEngine engine = CometContext.getInstance().getEngine();
+			    engine.sendToAll(CometListener.CHANNEL_LOGOUT_PUSH, userId);
+			}
+		}
 		return true;
 	}
 	
 	public List<Role> queryRole(String userId) {
-		String queryHql = "from Role as r where r.serverUser.userId = ? order by r.name";
-		return this.hibernateDao.queryList(queryHql, userId);
+		if (userId.equals(Constant.ADMIN_ID)) {
+			String queryHql = "from Role as r where r.serverUser.userId is not null order by r.name";
+			return this.hibernateDao.queryList(queryHql);
+		} else {
+			String queryHql = "from Role as r where r.roleId = ?";
+			return this.hibernateDao.queryList(queryHql, Constant.DEFAULT_ROLE_ID);
+		}
 	}
 	
 }

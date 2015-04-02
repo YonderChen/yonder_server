@@ -22,14 +22,11 @@ public class UTF8EncoderFilter implements Filter {
 			if (encode != null) {
 				try {
 					request.setCharacterEncoding(encode);
-					response.setCharacterEncoding(encode);
 				} catch (java.io.UnsupportedEncodingException e) {
 					request.setCharacterEncoding("UTF-8");
-					response.setCharacterEncoding("UTF-8");
 				}
 			} else {
 				request.setCharacterEncoding("UTF-8");
-				response.setCharacterEncoding("UTF-8");
 			}
 			chain.doFilter(request, response);
 		} catch (Exception e) {

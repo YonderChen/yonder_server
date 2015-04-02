@@ -8,7 +8,10 @@ public class ServerUserBean extends Page {
 	private String phone;
 	private String name;
 	private String roleIds;
-	
+	private String oldPassword;
+	private String newPassword;
+	private int status;
+
 	public String getUsername() {
 		return username;
 	}
@@ -64,5 +67,29 @@ public class ServerUserBean extends Page {
 	public void setRoleIds(String roleIds) {
 		this.roleIds = roleIds;
 	}
-	
+
+	public String getOldPassword() {
+		return oldPassword;
+	}
+
+	public void setOldPassword(String oldPassword) {
+		this.oldPassword = oldPassword;
+	}
+
+	public String getNewPassword() {
+		return newPassword;
+	}
+
+	public void setNewPassword(String newPassword) {
+		this.newPassword = newPassword;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
 }

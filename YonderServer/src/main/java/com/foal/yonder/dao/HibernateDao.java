@@ -8,7 +8,6 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
-@SuppressWarnings("unchecked")
 public class HibernateDao extends HibernateDaoSupport{
 	
 	public void delete(Object entity) {

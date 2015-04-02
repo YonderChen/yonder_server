@@ -13,7 +13,6 @@ import com.googlecode.flyway.core.Flyway;
 
 @Service(value = "globalConfigService")
 public class GlobalConfigServiceImpl extends DaoSupport implements IGlobalConfigService {
-	@SuppressWarnings("unused")
 	private final Logger logger = Logger.getLogger(GlobalConfigServiceImpl.class);
 	
 	public void runDbMigrate() {

@@ -11,6 +11,7 @@ import com.foal.yonder.config.Constant;
 import com.foal.yonder.pojo.Menu;
 import com.foal.yonder.pojo.ServerUser;
 import com.foal.yonder.service.IServerUserService;
+import com.google.common.io.BaseEncoding;
 import com.opensymphony.xwork2.ModelDriven;
 
 public class IndexAction extends AdminBaseAction implements ModelDriven<ServerUserBean>{
@@ -50,7 +51,7 @@ public class IndexAction extends AdminBaseAction implements ModelDriven<ServerUs
 			return null;
 		}
 		this.setAttrToSession("loginLast", user.getLastLoginTime());
-		user.setLogIp(this.getRequest().getRemoteAddr());
+		user.setLastLoginIp(this.getRequest().getRemoteAddr());
 		this.setSessionServerUser(user);
 		this.serverUserService.updateServerUserLastLoginTime(user);
 		List<Menu> menuList = this.serverUserService.queryLoginMenu(user.getUserId());
@@ -60,6 +61,7 @@ public class IndexAction extends AdminBaseAction implements ModelDriven<ServerUs
 			return null;
 		}
 		this.setAttrToSession("menuHtml", this.getMenuHtml(menuList));
+		this.setAttrToSession("menuList", this.serverUserService.queryAllMenu());
 		String redirectUrl = Constant.PRO_CTX_VALUE + "/web/admin/main";
 		this.setAttrToSession("redirectUrl", redirectUrl);
 		ajaxBean = new AjaxBean(true);
@@ -84,11 +86,21 @@ public class IndexAction extends AdminBaseAction implements ModelDriven<ServerUs
 				sb.append("</div>");
 				sb.append("<ul class='menuson'>");
 			} else if (menu.getLevel() == 1) {
-				sb.append("<li><cite></cite><a href='" + Constant.PRO_CTX_VALUE + "/" + menu.getHrefUrl() + "' target='"+menu.getTarget()+"'>"+menu.getText()+"</a><i></i></li>");
+				sb.append("<li><cite></cite><a href='" + Constant.PRO_CTX_VALUE + "/" + menu.getHrefUrl() + "?token="+this.getToken(menu.getMenuId(), menu.getVisitKey())+"' target='"+menu.getTarget()+"'>"+menu.getText()+"</a><i></i></li>");
 			}
 		}
 		sb.append("</ul></dd>");
 		return sb.toString();
+	}
+	
+	private String getToken(String menuId, String visitKey) {
+		try {
+			String token = "menuId="+menuId+"&visitKey="+visitKey+"&rand="+System.currentTimeMillis();
+			return BaseEncoding.base64().encode(token.getBytes("UTF-8"));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "";
+		}
 	}
 	
 	@Action("logout")

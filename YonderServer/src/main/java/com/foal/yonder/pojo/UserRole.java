@@ -14,7 +14,7 @@ import javax.persistence.Entity;
 
 @Entity
 @Table(name = "t_user_role")
-@Cache(region = "myHibernateCache", usage = CacheConcurrencyStrategy.READ_WRITE)
+@Cache(region = "yonderHibernateCache", usage = CacheConcurrencyStrategy.READ_WRITE)
 public class UserRole implements Serializable{
 	private static final long serialVersionUID = -232044930064003506L;
 	private UserRolePK pk;

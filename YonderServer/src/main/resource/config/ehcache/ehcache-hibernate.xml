@@ -4,12 +4,12 @@
 	<defaultCache maxElementsInMemory="10000" overflowToDisk="true"
 		eternal="false" memoryStoreEvictionPolicy="LRU"
 		diskExpiryThreadIntervalSeconds="600" timeToIdleSeconds="3600"
-		timeToLiveSeconds="100000" diskPersistent="false"/>
+		timeToLiveSeconds="100000" diskPersistent="false" />
 
 	<cache maxElementsInMemory="10000" overflowToDisk="true" eternal="false"
 		memoryStoreEvictionPolicy="LRU" diskExpiryThreadIntervalSeconds="600"
 		timeToIdleSeconds="3600" timeToLiveSeconds="100000" diskPersistent="false"
-		name="myHibernateCache" />
+		name="yonderHibernateCache" />
 
 	<cache name="org.hibernate.cache.StandardQueryCache"
 		maxElementsInMemory="10000" eternal="false" timeToIdleSeconds="300"
