@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -197,4 +198,43 @@ public class SoundTools {
 		rhythms.add(0);//结束音符（空白）
 		return rhythms;
 	}
+	
+	/**
+	 * 
+	 * @param partsPaths 要合成的音频路径数组
+	 * @param unitedFilePath 输入合并结果数组
+	 */
+	public static void uniteWavFile(String[] partsPaths, String unitedFilePath) {
+			byte byte1[] = getByte(partsPaths[0]);
+			byte byte2[] = getByte(partsPaths[1]);
+
+			byte[] out = new byte[byte1.length];
+			for (int i = 0; i < byte1.length && i < byte2.length; i++)
+				out[i] = (byte) ((byte1[i] + byte2[i]) >> 1);
+			
+			try {
+				FileOutputStream fos = new FileOutputStream(new File(unitedFilePath));
+				fos.write(out);
+				fos.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+	}
+
+	private static byte[] getByte(String path){
+		File f = new File(path);
+		InputStream in;
+		byte bytes[] = null;
+		try {
+			in = new FileInputStream(f);
+			bytes = new byte[(int) f.length()];
+			in.read(bytes);
+			in.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return bytes;
+	}
+	
 }

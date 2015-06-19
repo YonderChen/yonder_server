@@ -82,7 +82,7 @@ public class AkkaService {
 	
 	public void updateActorRef(String host, int port, int areaId) {
 		routerBalanceMap.remove(AkkaRemoteInfo.getRouterName(areaId));
-		addActorRef(host, port, areaId);;
+		addActorRef(host, port, areaId);
 	}
 
 	private AkkaRemoteInfo getAkkaRemoteInfo(String host, int port, int routerCount, String routerName) {
