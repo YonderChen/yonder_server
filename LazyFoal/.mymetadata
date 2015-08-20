@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="LazyFoal"
+  id="myeclipse.1426769019556"
+  context-root="/LazyFoal"
+  j2ee-spec="5.0"
+  archive="LazyFoal.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+
