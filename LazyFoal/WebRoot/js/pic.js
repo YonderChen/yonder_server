@@ -46,12 +46,12 @@ window.onload = function(){
 			var oDiv = this.getElementsByTagName('div')[0];
 			startMove(oDiv, {opacity:0});
 			if(this.style.width == '344px'){
-				startMove(aP[this.index], {bottom:0});
+				//startMove(aP[this.index], {bottom:0});
 			}
 		});
 		myAddEvent(aLi[i], 'mouseout', function(){
 			if(this.style.width == '344px'){
-				startMove(aP[this.index], {bottom:-120});
+				//startMove(aP[this.index], {bottom:-120});
 			}else{
 				var oDiv = this.getElementsByTagName('div')[0];
 				startMove(oDiv, {opacity:75});
@@ -114,8 +114,10 @@ window.onload = function(){
 			startMove(oDiv, {opacity:75});
 			startMove(aLi[i], aSort[i], function(){one();});
 			aLi[i].className = '';
+			startMove(aP[i], {bottom:-120});
 		}
 		aLi[iNow].className = 'hove';
+		startMove(aP[iNow], {bottom:0});
 	}
 	function one(){
 		for(i=0;i<aLi.length;i++){
@@ -126,6 +128,7 @@ window.onload = function(){
 		}
 	}
 	one();
+	startMove(aP[iNow], {bottom:0});
 };
 function getClass(oParent, sClass){
 	var aElem = document.getElementsByTagName('*');
