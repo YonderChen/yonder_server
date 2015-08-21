@@ -3,28 +3,38 @@ var $window = $(window), gardenCtx, gardenCanvas, $garden, garden;
 var clientWidth = $(window).width();
 var clientHeight = $(window).height();
 
+var DEFAULT_VERSION = "8.0";
+var ua = navigator.userAgent.toLowerCase();
+var isIE = ua.indexOf("msie")>-1;
+var safariVersion;
+if(isIE){
+    safariVersion =  ua.match(/msie ([\d.]+)/)[1];
+}
 $(function () {
     // setup garden
 	$loveHeart = $("#loveHeart");
 	var offsetX = $loveHeart.width() / 2;
 	var offsetY = $loveHeart.height() / 2 - 55;
-    $garden = $("#garden");
-    gardenCanvas = $garden[0];
-	gardenCanvas.width = $("#loveHeart").width();
-    gardenCanvas.height = $("#loveHeart").height();
-    gardenCtx = gardenCanvas.getContext("2d");
-    gardenCtx.globalCompositeOperation = "lighter";
-    garden = new Garden(gardenCtx, gardenCanvas);
+	
+	if(!isIE || safariVersion > DEFAULT_VERSION){
+	    $garden = $("#garden");
+	    gardenCanvas = $garden[0];
+		gardenCanvas.width = $("#loveHeart").width();
+	    gardenCanvas.height = $("#loveHeart").height();
+	    gardenCtx = gardenCanvas.getContext("2d");
+	    gardenCtx.globalCompositeOperation = "lighter";
+	    garden = new Garden(gardenCtx, gardenCanvas);
+	    // renderLoop
+	    setInterval(function () {
+	        garden.render();
+	    }, Garden.options.growSpeed);
+	}
 	
 	$("#content").css("width", $loveHeart.width() + $("#code").width());
 	$("#content").css("height", Math.max($loveHeart.height(), $("#code").height()));
 	$("#content").css("margin-top", Math.max(($window.height() - $("#content").height()) / 2, 10));
 	$("#content").css("margin-left", Math.max(($window.width() - $("#content").width()) / 2, 10));
 
-    // renderLoop
-    setInterval(function () {
-        garden.render();
-    }, Garden.options.growSpeed);
 });
 
 $(window).resize(function() {

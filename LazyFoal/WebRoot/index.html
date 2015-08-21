@@ -14,7 +14,9 @@
 	<script type="text/javascript" src="js/functions.js"></script>
 	<script type="text/javascript" src="js/pic.js"></script>
 
-	<!--[if IE]><script type="text/javascript" src="js/excanvas.js"></script><![endif]-->
+	<!--
+		<script type="text/javascript" src="js/excanvas.js"></script>
+	-->
 	<!--[if IE]><script type="text/javascript" src="js/html5.js"></script><![endif]-->
 	<style type="text/css">
 		@font-face {
@@ -215,32 +217,24 @@ together.setMinutes(0);
 together.setSeconds(0);
 together.setMilliseconds(0);
 
-if (!document.createElement('canvas').getContext) {
+if (document.createElement('canvas').getContext && (!isIE || safariVersion > DEFAULT_VERSION)) {
+	setTimeout(function () {
+		startHeartAnimation();
+	}, 5000);
+} else {
 	$("#loveHeart").css("background-image","url(images/loveHeartBg.png)");
 	setTimeout(function () {
 		showMessages();
 	}, 5000);
-	
-	timeElapse(together);
-	setInterval(function () {
-		timeElapse(together);
-	}, 500);
-
-	adjustCodePosition();
-	$("#code").typewriter();
-} else {
-	setTimeout(function () {
-		startHeartAnimation();
-	}, 5000);
-
-	timeElapse(together);
-	setInterval(function () {
-		timeElapse(together);
-	}, 500);
-
-	adjustCodePosition();
-	$("#code").typewriter();
 }
+	
+timeElapse(together);
+setInterval(function () {
+	timeElapse(together);
+}, 500);
+
+adjustCodePosition();
+$("#code").typewriter();
 </script>
 
 </body>
