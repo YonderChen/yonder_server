@@ -11,7 +11,7 @@ $(function () {
     $garden = $("#garden");
     gardenCanvas = $garden[0];
 	gardenCanvas.width = $("#loveHeart").width();
-    gardenCanvas.height = $("#loveHeart").height()
+    gardenCanvas.height = $("#loveHeart").height();
     gardenCtx = gardenCanvas.getContext("2d");
     gardenCtx.globalCompositeOperation = "lighter";
     garden = new Garden(gardenCtx, gardenCanvas);
@@ -43,7 +43,7 @@ function getHeartPoint(angle) {
 }
 
 function startHeartAnimation() {
-	var interval = 50;
+	var interval = 100;
 	var angle = 10;
 	var heart = new Array();
 	var animationTimer = setInterval(function () {
@@ -128,7 +128,7 @@ function adjustWordsPosition() {
 }
 
 function adjustCodePosition() {
-	$('#code').css("margin-top", ($("#garden").height() - $("#code").height()) / 2);
+	$('#code').css("margin-top", "112.5px");
 }
 
 function showLoveU() {
