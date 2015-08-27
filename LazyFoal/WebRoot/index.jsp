@@ -7,17 +7,22 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 
-String logFilePath = request.getSession().getServletContext().getRealPath("/") + "visit.log";
-SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+String visitLogDirPath = request.getSession().getServletContext().getRealPath("/") + "visitlog/";
+SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+SimpleDateFormat dayFormat = new SimpleDateFormat("yyyy-MM-dd");
+String visitLogName = "visit" + dayFormat.format(new Date()) + ".log";
 FileWriter fw = null;   
 try {  
 	String remoteAddr = request.getRemoteAddr();
-	File visitLog = new File(logFilePath);
-	if(!visitLog.isFile()) {
-		visitLog.createNewFile();
+	File visitLogFile = new File(visitLogDirPath + visitLogName);
+	if(!visitLogFile.isFile()) {
+		File visitLogDirFile = new File(visitLogDirPath);
+		visitLogDirFile.setWritable(true, false);
+		visitLogFile.createNewFile();
 	}
-	fw = new FileWriter(logFilePath, true);
-	fw.append(format.format(new Date()) + " 有人访问, ip: " + remoteAddr + "\r\n");
+	visitLogFile.setWritable(true, false);
+	fw = new FileWriter(visitLogFile, true);
+	fw.append(timeFormat.format(new Date()) + " 有人访问, ip: " + remoteAddr + "\r\n");
 } catch (Exception e) {   
     e.printStackTrace();   
 }   
