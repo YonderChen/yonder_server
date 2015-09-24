@@ -1,0 +1,18 @@
+{
+     "conn":"jdbc:mysql://localhost:3306/game_dev?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull"
+	,"user":"root"
+	,"pwd":"root"
+	,"driverClass":"org.gjt.mm.mysql.Driver"
+	,"acquireIncrement":5
+	,"minPoolSize":5
+	,"maxPoolSize":2000
+	,"maxStatements":10000
+	,"initialPoolSize":5
+	,"maxIdleTime":3600
+	,"automaticTestTable":"C3P0TestTable"
+	,"testConnectionOnCheckin":true
+	,"idleConnectionTestPeriod":18000
+	,"testConnectionOnCheckout":true
+	,"breakAfterAcquireFailure":true
+	,"numHelperThreads":10
+}

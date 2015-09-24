@@ -19,25 +19,35 @@ import com.foal.yonder.util.GsonUtil;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-/**
- * 
- * @author cyd
- * @date 2014年8月7日
- */
 public abstract class BaseJmsService implements MessageListener, ExceptionListener  {
-	protected Logger logger;
-	protected String channel;
+	private Logger logger = Logger.getLogger(BaseJmsService.class);
+	protected String channelName;
 	protected Session session;
 	protected Destination destination;
 	protected Connection connection;
 	
-	public class Channel {
-		public static final String PlayerOperateLog = "PlayerOperateLog";
-		public static final String YonderEventRecord = "YonderEventRecord";
+	
+	public enum Channel{
+		//区服消息
+		PlayerOperateLog(new ElasticLogJmsService("PlayerOperateLog", "player_operate_log", true, true));// 分区服保存，批量保存到仓库
+		
+		private BaseJmsService service;
+		
+		private Channel(BaseJmsService service) {
+			this.service = service;
+		}
+		
+		public BaseJmsService getService() {
+			return service;
+		}
+		
+		public String getTableName() {
+			return service.getTableName();
+		}
 	}
 	
-	public BaseJmsService(){
-		constructInit();
+	public BaseJmsService(String channelName){
+		this.channelName = channelName;
 	}
 	
 	/**
@@ -46,10 +56,10 @@ public abstract class BaseJmsService implements MessageListener, ExceptionListen
 	 *	logger = Logger.getLogger(子类.class);<br>
 	 *	subject = "通道名称";
 	 */
-	protected abstract void constructInit();
+	public abstract String getTableName();
 	
 	public void start(){
-		logger.info("start listen message on channel:"+ channel);
+		logger.info("start listen message on channel:"+ channelName);
 		try {           
             ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(Constant.JMS_USER, Constant.JMS_PASSWORD, Constant.JMS_URL);
             //设置失败重转规则 
@@ -68,7 +78,7 @@ public abstract class BaseJmsService implements MessageListener, ExceptionListen
 
             session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
             
-            destination = session.createQueue(channel);
+            destination = session.createQueue(channelName);
 
             //replyProducer = session.createProducer(null);
             //replyProducer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);

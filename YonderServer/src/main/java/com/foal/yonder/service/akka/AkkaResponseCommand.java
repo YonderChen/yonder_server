@@ -4,12 +4,6 @@ import java.io.Serializable;
 
 import com.google.gson.JsonObject;
 
-/**
- * @author sloanwu
- * @version 创建时间：2014年7月30日 上午10:34:22 类说明
- * 
- */
-
 public class AkkaResponseCommand implements Serializable {
 
 	/**

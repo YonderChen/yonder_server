@@ -10,12 +10,6 @@ import akka.util.Timeout;
 
 import com.foal.yonder.service.akka.AkkaRequestCommand;
 
-/** 
- * @author sloanwu 
- * @version 创建时间：2014年12月26日 上午11:18:42 
- * 类说明
- * 
- */
 
 public class SendActor extends UntypedActor {
 

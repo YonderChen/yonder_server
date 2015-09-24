@@ -24,6 +24,17 @@ public class Constant {
 	public static String ELASTICSEARCH_CLUSTER_NAME;
 	public static String ELASTICSEARCH_HOST;
 	public static int ELASTICSEARCH_PORT;
+	public static int ELASTICSEARCH_CACHE_SIZE;
+	
+	public static int DB_CACHE_SIZE;
+	
+	public static String APNS_CERTIFICATE_PATH;
+	public static String APNS_CERTIFICATE_PASSWORD;
+	public static boolean APNS_IS_PRODUCTION;
+	
+	public static String APOLLO_BROKER_URL;
+	public static String APOLLO_BROKER_USERNAME;
+	public static String APOLLO_BROKER_PASSWORD;
 	
 	public static String AKKA_BALANCE_HOST;
 	public static int AKKA_BALANCE_PORT;

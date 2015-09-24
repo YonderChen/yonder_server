@@ -34,13 +34,6 @@ import com.google.gson.JsonObject;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 
-/** 
- * @author sloanwu 
- * @version 创建时间：2014年7月31日 上午11:21:00 
- * 类说明
- * 
- */
-
 public class AkkaService {
 	private static final Logger logger = LoggerFactory.getLogger(AkkaService.class);
 	

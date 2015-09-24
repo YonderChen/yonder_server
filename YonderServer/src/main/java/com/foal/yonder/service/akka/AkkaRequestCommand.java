@@ -2,12 +2,6 @@ package com.foal.yonder.service.akka;
 
 import java.io.Serializable;
 
-/**
- * @author sloanwu
- * @version 创建时间：2014年7月21日 上午11:02:14 类说明
- * 
- */
-
 public class AkkaRequestCommand implements Serializable {
 
 	/**

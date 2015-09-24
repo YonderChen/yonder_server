@@ -8,8 +8,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.foal.yonder.service.akka.AkkaService;
 import com.foal.yonder.service.elasticsearch.ElasticsearchService;
-import com.foal.yonder.service.jms.EventRecordJmsService;
-import com.foal.yonder.service.jms.PlayerOperateLogJmsService;
+import com.foal.yonder.service.jms.BaseJmsService.Channel;
 
 public class ApplicationContextListener extends ContextLoaderListener {
 
@@ -30,8 +29,9 @@ public class ApplicationContextListener extends ContextLoaderListener {
 	}
 	
 	private void stopJmsService() {
-		PlayerOperateLogJmsService.getInstance().stop();
-		EventRecordJmsService.getInstance().stop();
+		for (Channel channel : Channel.values()) {
+			channel.getService().stop();
+		}
 	}
 
 }

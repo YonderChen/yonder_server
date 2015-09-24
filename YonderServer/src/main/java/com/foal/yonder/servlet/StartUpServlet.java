@@ -11,8 +11,7 @@ import com.foal.yonder.listener.ServiceLocator;
 import com.foal.yonder.service.IGlobalConfigService;
 import com.foal.yonder.service.akka.AkkaService;
 import com.foal.yonder.service.elasticsearch.ElasticsearchService;
-import com.foal.yonder.service.jms.EventRecordJmsService;
-import com.foal.yonder.service.jms.PlayerOperateLogJmsService;
+import com.foal.yonder.service.jms.BaseJmsService.Channel;
 
 public class StartUpServlet extends HttpServlet {
 	private final Logger logger = Logger.getLogger(StartUpServlet.class);
@@ -69,7 +68,8 @@ public class StartUpServlet extends HttpServlet {
 	}
 	
 	private void startJmsService() {
-		PlayerOperateLogJmsService.getInstance().start();
-		EventRecordJmsService.getInstance().start();
+		for (Channel channel : Channel.values()) {
+			channel.getService().start();
+		}
 	}
 }

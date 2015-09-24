@@ -11,11 +11,6 @@ import akka.routing.Routee;
 import akka.routing.Router;
 import akka.routing.SmallestMailboxRoutingLogic;
 
-/**
- * @author sloanwu
- * @version 创建时间：2014年7月13日 下午9:25:16 类说明 JMS负载路由Actor
- */
-
 public class SendBalanceRouteActor extends UntypedActor {
 
 	private List<Routee> routees;
