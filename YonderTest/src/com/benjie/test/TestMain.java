@@ -65,7 +65,6 @@ public class TestMain {
 	        System.out.println("用户的账户名称：    " + props.getProperty("user.name"));
 	        System.out.println("用户的主目录：    " + props.getProperty("user.home"));
 	        System.out.println("用户的当前工作目录：    " + props.getProperty("user.dir"));
-	        System.out.println(props.getProperty("os.version"));
 	    }
 	  
 	  
