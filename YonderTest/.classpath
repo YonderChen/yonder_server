@@ -9,5 +9,8 @@
 	<classpathentry kind="lib" path="lib/scala-library-2.11.1.jar"/>
 	<classpathentry kind="lib" path="lib/gson-2.3.jar"/>
 	<classpathentry kind="lib" path="lib/guava-17.0.jar"/>
+	<classpathentry kind="lib" path="lib/guava-16.0.1.jar"/>
+	<classpathentry kind="lib" path="lib/jna-3.3.0.jar"/>
+	<classpathentry kind="lib" path="lib/jni4net.j-0.8.8.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
