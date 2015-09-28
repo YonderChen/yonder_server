@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.LineNumberReader;
-import java.util.StringTokenizer;
 
 public class CPU {
 	private static final int CPUTIME = 30;
@@ -14,31 +13,19 @@ public class CPU {
 
 	private static final int FAULTLENGTH = 10;
 
-	private static String linuxVersion = null;
-
-	public double getCpuRatio() {
+	public static String getCpuInfo() {
 		// 操作系统
 		String osName = System.getProperty("os.name");
-		double cpuRatio = 0;
 		if (osName.toLowerCase().startsWith("windows")) {
-			cpuRatio = this.getCpuRatioForWindows();
-
+			return "cpuRatio:" + getCpuRatioForWindows();
+		} else if (osName.toLowerCase().startsWith("linux")) {
+			return getCpuInfoForLinux();
 		} else {
-			cpuRatio = this.getCpuRateForLinux();
+			return "unknow system!";
 		}
-		return cpuRatio;
 	}
 
-	/**
-	 * 获得当前的监控对象.
-	 * 
-	 * @return 返回构造好的监控对象
-	 */
-	public MonitorInfoBean getMonitorInfoBean() throws Exception {
-
-		// 操作系统
-		String osName = System.getProperty("os.name");
-
+	public static double getTotalThread() {
 		// 获得线程总数
 		ThreadGroup parentThread;
 		for (parentThread = Thread.currentThread().getThreadGroup(); 
@@ -47,89 +34,34 @@ public class CPU {
 			;
 		int totalThread = parentThread.activeCount();
 
-		double cpuRatio = 0;
-		if (osName.toLowerCase().startsWith("windows")) {
-			cpuRatio = this.getCpuRatioForWindows();
-		} else {
-			cpuRatio = this.getCpuRateForLinux();
-		}
-
-		// 构造返回对象
-		MonitorInfoBean infoBean = new MonitorInfoBean();
-		infoBean.setTotalThread(totalThread);
-		infoBean.setCpuRatio(cpuRatio);
-		return infoBean;
+		return totalThread;
 	}
 
-	private double getCpuRateForLinux() {
+	private static String getCpuInfoForLinux() {
 		InputStream is = null;
 		InputStreamReader isr = null;
 		BufferedReader brStat = null;
-		StringTokenizer tokenStat = null;
 		try {
-			System.out.println("Get usage rate of CUP , linux version: "
-					+ linuxVersion);
-
 			Process process = Runtime.getRuntime().exec("top -b -n 1");
 			is = process.getInputStream();
 			isr = new InputStreamReader(is);
 			brStat = new BufferedReader(isr);
 
-			if (linuxVersion.equals("2.4")) {
-				brStat.readLine();
-				brStat.readLine();
-				brStat.readLine();
-				brStat.readLine();
-
-				tokenStat = new StringTokenizer(brStat.readLine());
-				tokenStat.nextToken();
-				tokenStat.nextToken();
-				String user = tokenStat.nextToken();
-				tokenStat.nextToken();
-				String system = tokenStat.nextToken();
-				tokenStat.nextToken();
-				String nice = tokenStat.nextToken();
-
-				System.out.println(user + " , " + system + " , " + nice);
-
-				user = user.substring(0, user.indexOf("%"));
-				system = system.substring(0, system.indexOf("%"));
-				nice = nice.substring(0, nice.indexOf("%"));
-
-				float userUsage = new Float(user).floatValue();
-				float systemUsage = new Float(system).floatValue();
-				float niceUsage = new Float(nice).floatValue();
-
-				return (userUsage + systemUsage + niceUsage) / 100;
-			} else {
-				brStat.readLine();
-				brStat.readLine();
-
-				tokenStat = new StringTokenizer(brStat.readLine());
-				tokenStat.nextToken();
-				tokenStat.nextToken();
-				tokenStat.nextToken();
-				tokenStat.nextToken();
-				tokenStat.nextToken();
-				tokenStat.nextToken();
-				tokenStat.nextToken();
-				String cpuUsage = tokenStat.nextToken();
-
-				System.out.println("CPU idle : " + cpuUsage);
-				Float usage = new Float(cpuUsage.substring(0, cpuUsage
-						.indexOf("%")));
-
-				return (1 - usage.floatValue() / 100);
+			String cpuInfo = null;
+			while ((cpuInfo = brStat.readLine()) != null) {
+				if (cpuInfo.startsWith("Cpu")) {
+					break;
+				}
 			}
-
+			if (cpuInfo != null && cpuInfo.startsWith("Cpu")) {
+				return cpuInfo;
+			}
 		} catch (IOException ioe) {
 			System.out.println(ioe.getMessage());
-			freeResource(is, isr, brStat);
-			return 1;
 		} finally {
 			freeResource(is, isr, brStat);
 		}
-
+		return "";
 	}
 
 	private static void freeResource(InputStream is, InputStreamReader isr,
@@ -151,7 +83,7 @@ public class CPU {
 	 * 
 	 * @return 返回cpu使用率
 	 */
-	private double getCpuRatioForWindows() {
+	private static double getCpuRatioForWindows() {
 		try {
 			String procCmd = System.getenv("windir")
 					+ "\\system32\\wbem\\wmic.exe process get Caption,CommandLine,"
@@ -181,7 +113,7 @@ public class CPU {
 	 * 
 	 * @param proc
 	 */
-	private long[] readCpu(final Process proc) {
+	private static long[] readCpu(final Process proc) {
 		long[] retn = new long[2];
 		try {
 			proc.getOutputStream().close();
@@ -244,53 +176,27 @@ public class CPU {
 	}
 
 	public static void main(String[] args) throws Exception {
-		for (int i = 0; i < 10; i++) {
-			new Thread(new Runnable() {
-				
-				@Override
-				public void run() {
-					while (true) {
-						try {
-							Thread.sleep(1000);
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}
-				}
-			}).start();
-			
-		}
-		CPU c = new CPU();
-		MonitorInfoBean m = c.getMonitorInfoBean();
-		System.out.println(m.getCpuRatio());
-		System.out.println(m.getTotalThread());
+//		for (int i = 0; i < 10; i++) {
+//			new Thread(new Runnable() {
+//				
+//				@Override
+//				public void run() {
+//					while (true) {
+//						try {
+//							Thread.sleep(1000);
+//						} catch (InterruptedException e) {
+//							// TODO Auto-generated catch block
+//							e.printStackTrace();
+//						}
+//					}
+//				}
+//			}).start();
+//			
+//		}
+		System.out.println(CPU.getCpuInfo());
+		System.out.println(CPU.getTotalThread());
 	}
 	
-	class MonitorInfoBean {
-	    
-		/** 线程总数. */
-		private int totalThread;
-	    
-		/** cpu使用率. */
-	    private double cpuRatio;
-
-	    public int getTotalThread() {
-	        return totalThread;
-	    }
-
-	    public void setTotalThread(int totalThread) {
-	        this.totalThread = totalThread;
-	    }
-
-	    public double getCpuRatio() {
-	        return cpuRatio;
-	    }
-
-	    public void setCpuRatio(double cpuRatio) {
-	        this.cpuRatio = cpuRatio;
-	    }
-	}
 
     private static String substring(String src, int start_idx, int end_idx){
         byte[] b = src.getBytes();
