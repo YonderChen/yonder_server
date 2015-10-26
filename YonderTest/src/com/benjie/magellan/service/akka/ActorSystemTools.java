@@ -1,8 +1,14 @@
 package com.benjie.magellan.service.akka;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
+
+import com.typesafe.config.Config;
+import com.typesafe.config.ConfigFactory;
 
 /**
  * @author cyd
@@ -14,7 +20,18 @@ public class ActorSystemTools {
 	
 	public static void start() {
 		System.out.println("start actorSystem...");
-		actorSystem = ActorSystem.create();
+//		actorSystem = ActorSystem.create();
+		actorSystem = ActorSystem.create("MagellanServer", createConfig());
+	}
+
+	private static Config createConfig() {
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		map.put("akka.actor.provider", "akka.remote.RemoteActorRefProvider");
+
+		map.put("akka.actor.default-dispatcher.thread-pool-executor.core-pool-size-max", "100");
+		
+		return ConfigFactory.parseMap(map);
 	}
 	
 	@SuppressWarnings("unchecked")

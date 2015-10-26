@@ -19,13 +19,13 @@ public class LazyFoalActor extends UntypedActor {
 		System.out.println("LazyFoalActor receive message : " + message);
 		Thread.sleep(500);
 		if (message.equals("shut down")) {
-			doList();
+//			doList();
 			ActorSystemTools.shutdown();
 		}
-		dataList.add(message);
-		if (dataList.size() > 10) {
-			doList();
-		}
+//		dataList.add(message);
+//		if (dataList.size() > 10) {
+//			doList();
+//		}
 	}
 	
 	private void doList() throws Exception {
