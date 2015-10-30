@@ -18,7 +18,7 @@ public class SocketClientTest {
 		PrintWriter pw = null;
 		try {
 			// 客户端socket指定服务器的地址和端口号
-			socket = new Socket("127.0.0.1", 9999);
+			socket = new Socket("127.0.0.1", 1234);
 			System.out.println("Socket=" + socket);
 			// 同服务器原理一样
 			in = socket.getInputStream();

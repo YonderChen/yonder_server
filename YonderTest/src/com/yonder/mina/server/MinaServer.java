@@ -5,18 +5,22 @@
 package com.yonder.mina.server;
 
 import java.net.InetSocketAddress;
+import java.util.concurrent.TimeUnit;
 
+import org.apache.mina.core.filterchain.DefaultIoFilterChainBuilder;
 import org.apache.mina.core.session.IdleStatus;
+import org.apache.mina.filter.codec.ProtocolCodecFilter;
+import org.apache.mina.filter.codec.textline.TextLineCodecFactory;
+import org.apache.mina.filter.executor.ExecutorFilter;
+import org.apache.mina.filter.logging.MdcInjectionFilter;
 import org.apache.mina.http.HttpServerCodec;
 import org.apache.mina.transport.socket.nio.NioSocketAcceptor;
-
 
 /**
  * 
  * @author cyd
  * @date 2015-2-6
  */
-@SuppressWarnings("unused")
 public class MinaServer {
 
 	private static final int CORE_POOL_SIZE_OF_THREAD = 10;
@@ -59,25 +63,25 @@ public class MinaServer {
         socketAcceptor.getSessionConfig().setTcpNoDelay(true);
         socketAcceptor.getSessionConfig().setMaxReadBufferSize(1024*1024);
         //设置主服务监听端口的监听队列的最大值为100，如果当前已经有100个连接，再新的连接来将被服务器拒绝
-        //acceptor.setBacklog(100);
+        socketAcceptor.setBacklog(100);
         
-//        DefaultIoFilterChainBuilder chain = socketAcceptor.getFilterChain();
+        DefaultIoFilterChainBuilder chain = socketAcceptor.getFilterChain();
         
-//        MdcInjectionFilter mdcInjectionFilter = new MdcInjectionFilter();
-//        chain.addLast("mdc",mdcInjectionFilter);
+        MdcInjectionFilter mdcInjectionFilter = new MdcInjectionFilter();
+        chain.addLast("mdc",mdcInjectionFilter);
         
         
         
-//        TextLineCodecFactory tcf = new TextLineCodecFactory();
-//        tcf.setDecoderMaxLineLength(1024*512); //0.5M
-//        tcf.setEncoderMaxLineLength(1024*512); //0.5M
-//        chain.addLast("codec", new ProtocolCodecFilter(tcf));
-//        chain.addLast("executor", new ExecutorFilter(CORE_POOL_SIZE_OF_THREAD,MAX_POOL_SIZE_OF_THREAD,KEEP_ALIVE_TIME_OF_THREAD,TimeUnit.SECONDS)); 
+        TextLineCodecFactory tcf = new TextLineCodecFactory();
+        tcf.setDecoderMaxLineLength(1024*512); //0.5M
+        tcf.setEncoderMaxLineLength(1024*512); //0.5M
+        chain.addLast("codec", new ProtocolCodecFilter(tcf));
+        chain.addLast("executor", new ExecutorFilter(CORE_POOL_SIZE_OF_THREAD,MAX_POOL_SIZE_OF_THREAD,KEEP_ALIVE_TIME_OF_THREAD,TimeUnit.SECONDS)); 
         
         //Bind
         socketAcceptor.setHandler(new SocketServerHandler());
         
-        socketAcceptor.bind(new InetSocketAddress(2234));
+        socketAcceptor.bind(new InetSocketAddress(1234));
 //        
 //		fileStreamAcceptor = new NioSocketAcceptor(Runtime.getRuntime().availableProcessors());
 //		fileStreamAcceptor.getSessionConfig().setIdleTime(IdleStatus.BOTH_IDLE, 60);
@@ -133,6 +137,11 @@ public class MinaServer {
 			httpAcceptor.dispose();
 			httpAcceptor = null;
 		}
+		if (socketAcceptor != null) {
+			socketAcceptor.unbind();
+			socketAcceptor.dispose();
+			socketAcceptor = null;
+		}
 	}
 
 	/**
@@ -141,7 +150,7 @@ public class MinaServer {
 	 * @return
 	 */
 	public boolean isRunning() {
-		if ((fileStreamAcceptor != null && fileStreamAcceptor.isActive()) || (httpAcceptor != null && httpAcceptor.isActive())) {
+		if ((socketAcceptor != null && socketAcceptor.isActive()) || (fileStreamAcceptor != null && fileStreamAcceptor.isActive()) || (httpAcceptor != null && httpAcceptor.isActive())) {
 			return true;
 		}
 		return false;
