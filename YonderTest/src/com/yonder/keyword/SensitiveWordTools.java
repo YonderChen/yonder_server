@@ -9,7 +9,7 @@ import java.util.Set;
 /**
  * 敏感词过滤工具类
  */
-@SuppressWarnings("unchecked")
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class SensitiveWordTools {
 	private Map sensitiveWordMap = null;
 	public static final int MinMatchTYpe = 1;      //最小匹配规则

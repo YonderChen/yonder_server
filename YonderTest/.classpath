@@ -30,5 +30,11 @@
 	<classpathentry kind="lib" path="lib/lucene-spatial-4.10.2.jar"/>
 	<classpathentry kind="lib" path="lib/lucene-suggest-4.10.2.jar"/>
 	<classpathentry kind="lib" path="lib/elasticsearch-1.4.1.jar"/>
+	<classpathentry kind="lib" path="lib/netty-3.8.0.Final.jar"/>
+	<classpathentry kind="lib" path="lib/netty-all-4.0.32.Final.jar"/>
+	<classpathentry kind="lib" path="lib/commons-codec-1.4.jar"/>
+	<classpathentry kind="lib" path="lib/mina-core-2.0.7.jar"/>
+	<classpathentry kind="lib" path="lib/mina-http-2.0.9.jar"/>
+	<classpathentry kind="lib" path="lib/commons-lang3-3.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
