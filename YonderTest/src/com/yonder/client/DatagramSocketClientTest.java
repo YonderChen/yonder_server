@@ -21,10 +21,15 @@ public class DatagramSocketClientTest {
 			byte buff[] = sendStr.getBytes();
 			DatagramPacket dp = new DatagramPacket(buff, buff.length);
 			socket.send(dp);
-			DatagramPacket rdp = new DatagramPacket(new byte[1024], buff.length);
+			byte[] receiveBuff = new byte[10];
+			DatagramPacket rdp = new DatagramPacket(receiveBuff, 10);
 			socket.receive(rdp);
 			System.out.println(rdp.getData().length);
-			System.out.println(rdp.getData().toString());
+			System.out.println(new String(rdp.getData()));
+			DatagramPacket rdp2 = new DatagramPacket(receiveBuff, 10);
+			socket.receive(rdp2);
+			System.out.println(rdp2.getData().length);
+			System.out.println(new String(rdp2.getData()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

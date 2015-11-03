@@ -19,7 +19,8 @@ public class SocketServerHandler extends IoHandlerAdapter {
 		try {
         	//正常处理业务（）
 			System.out.println(message.toString());
-        	session.write("server received."); 
+        	session.write("1server received."); 
+        	session.write("2server received."); 
         } catch(Exception ex){  
         	ex.printStackTrace();
         	logger.error("error",ex);
