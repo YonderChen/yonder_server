@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="akka/main/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="YonderTest/nativelib"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="lib" path="lib/akka-actor_2.11-2.3.4.jar"/>
 	<classpathentry kind="lib" path="lib/akka-remote_2.11-2.3.4.jar"/>
 	<classpathentry kind="lib" path="lib/akka-slf4j_2.11-2.3.4.jar"/>
@@ -39,5 +44,7 @@
 	<classpathentry kind="lib" path="lib/slf4j-api-1.7.2.jar"/>
 	<classpathentry kind="lib" path="lib/slf4j-log4j12-1.7.2.jar"/>
 	<classpathentry kind="lib" path="lib/asyncweb-common-0.9.0-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="lib/akka-cluster_2.11.0-RC4-2.3.0.jar"/>
+	<classpathentry kind="lib" path="lib/sigar.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
