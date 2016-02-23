@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="akka-yonder/main/java"/>
+	<classpathentry kind="src" path="Simples/akka-rpc/src/main/java"/>
+	<classpathentry kind="src" path="Simples/akka-rpc/src/main/resources"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="YonderTest/nativelib"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="lib" path="lib/akka-actor_2.11-2.3.4.jar"/>
 	<classpathentry kind="lib" path="lib/akka-remote_2.11-2.3.4.jar"/>
 	<classpathentry kind="lib" path="lib/akka-slf4j_2.11-2.3.4.jar"/>
 	<classpathentry kind="lib" path="lib/config-1.2.1.jar"/>
-	<classpathentry kind="lib" path="lib/scala-library-2.11.1.jar"/>
+	<classpathentry kind="lib" path="lib/scala-library-2.11.1.jar" sourcepath="akka-master"/>
 	<classpathentry kind="lib" path="lib/gson-2.3.jar"/>
 	<classpathentry kind="lib" path="lib/guava-17.0.jar"/>
 	<classpathentry kind="lib" path="lib/guava-16.0.1.jar"/>
@@ -38,5 +45,13 @@
 	<classpathentry kind="lib" path="lib/commons-lang3-3.1.jar"/>
 	<classpathentry kind="lib" path="lib/slf4j-api-1.7.2.jar"/>
 	<classpathentry kind="lib" path="lib/slf4j-log4j12-1.7.2.jar"/>
+	<classpathentry kind="lib" path="lib/asyncweb-common-0.9.0-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="lib/akka-cluster_2.11.0-RC4-2.3.0.jar" sourcepath="akka-master"/>
+	<classpathentry kind="lib" path="lib/sigar.jar"/>
+	<classpathentry kind="lib" path="lib/geronimo-j2ee-management_1.1_spec-1.0.1.jar"/>
+	<classpathentry kind="lib" path="lib/geronimo-jms_1.1_spec-1.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/activemq-broker-5.10.0.jar"/>
+	<classpathentry kind="lib" path="lib/activemq-client-5.10.0.jar"/>
+	<classpathentry kind="lib" path="lib/hawtbuf-1.10.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

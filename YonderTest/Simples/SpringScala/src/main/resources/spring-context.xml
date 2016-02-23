@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:c="http://www.springframework.org/schema/c" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+	 http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+	http://www.springframework.org/schema/context 	
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<context:component-scan base-package="com.topteam.services"></context:component-scan>
+	<context:component-scan base-package="com.topteam.dao"></context:component-scan>
+
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location">
+			<value>classpath:app.properties</value>
+		</property>
+	</bean>
+
+	<!-- 勤务数据库配置 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/Simples" />
+		<property name="username" value="root" />
+		<property name="password" value="11111" />
+	</bean>
+	
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource">
+		</property>
+	</bean>
+	
+	<tx:advice id="txAdviceDuty" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="get*" read-only="true" propagation="REQUIRED"/>
+            <tx:method name="find*" read-only="true" propagation="REQUIRED"/>
+            <tx:method name="login" read-only="false" propagation="REQUIRED"/>
+            <tx:method name="exist*" read-only="true" propagation="REQUIRED"/>
+            <tx:method name="query*" read-only="false" propagation="NOT_SUPPORTED"/>
+            <tx:method name="*" read-only="false" propagation="REQUIRED"
+                       rollback-for="Exception"/>
+        </tx:attributes>
+    </tx:advice>
+
+
+    <aop:config proxy-target-class="true">
+        <aop:pointcut id="txPointcutDuty"
+                      expression="execution(* com.topteam.services..impl..*.*(..))"/>
+        <aop:advisor advice-ref="txAdviceDuty" pointcut-ref="txPointcutDuty"
+                     order="1"/>
+    </aop:config>
+
+	<bean id="jack" class="com.topteam.bean.Person" c:firstName="Jack"
+		c:lastName="Doe" />
+	<bean id="jane" class="com.topteam.bean.Person" c:firstName="Jane"
+		c:lastName="Doe" />
+	<bean id="john" class="com.topteam.bean.Person" c:firstName="John"
+		c:lastName="Doe">
+		<property name="father" ref="jack" />
+		<property name="mother" ref="jane" />
+	</bean>
+
+</beans> 
