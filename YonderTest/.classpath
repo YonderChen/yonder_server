@@ -48,5 +48,10 @@
 	<classpathentry kind="lib" path="lib/asyncweb-common-0.9.0-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="lib/akka-cluster_2.11.0-RC4-2.3.0.jar" sourcepath="akka-master"/>
 	<classpathentry kind="lib" path="lib/sigar.jar"/>
+	<classpathentry kind="lib" path="lib/geronimo-j2ee-management_1.1_spec-1.0.1.jar"/>
+	<classpathentry kind="lib" path="lib/geronimo-jms_1.1_spec-1.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/activemq-broker-5.10.0.jar"/>
+	<classpathentry kind="lib" path="lib/activemq-client-5.10.0.jar"/>
+	<classpathentry kind="lib" path="lib/hawtbuf-1.10.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
