@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>JSAPI Demo集合</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="email=no"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0"/>
+    <link rel="stylesheet" type="text/css" href="https://a.alipayobjects.com/anima/dpl/1.2.2/amui.css" media="all">
+</head>
+<body ontouchstart="">
+
+<div id="J_widgetList" class="am-list am-list-flat am-list-flat-chip">
+    <a href="getNetworkType.html" class="am-list-item">
+        <div class="am-list-content">
+            <div class="am-list-title am-ft-ellipsis">获取用户网络状态</div>
+        </div>
+        <div class="am-list-arrow"><span class="am-icon-arrow-horizontal"></span></div>
+    </a>
+    <a href="takePhoto.html" class="am-list-item">
+        <div class="am-list-content">
+            <div class="am-list-title am-ft-ellipsis">拍照</div>
+        </div>
+        <div class="am-list-arrow"><span class="am-icon-arrow-horizontal"></span></div>
+    </a>
+    <a href="share.html" class="am-list-item">
+        <div class="am-list-content">
+            <div class="am-list-title am-ft-ellipsis">分享组件</div>
+        </div>
+        <div class="am-list-arrow"><span class="am-icon-arrow-horizontal"></span></div>
+    </a>
+    <a href="getCities.html" class="am-list-item">
+        <div class="am-list-content">
+            <div class="am-list-title am-ft-ellipsis">获取城市组件</div>
+        </div>
+        <div class="am-list-arrow"><span class="am-icon-arrow-horizontal"></span></div>
+    </a>
+    <a href="vibrate.html" class="am-list-item">
+        <div class="am-list-content">
+            <div class="am-list-title am-ft-ellipsis">震动</div>
+        </div>
+        <div class="am-list-arrow"><span class="am-icon-arrow-horizontal"></span></div>
+    </a>
+    <a href="shake.html" class="am-list-item">
+        <div class="am-list-content">
+            <div class="am-list-title am-ft-ellipsis">摇一摇</div>
+        </div>
+        <div class="am-list-arrow"><span class="am-icon-arrow-horizontal"></span></div>
+    </a>
+    <a href="selectAddress.html" class="am-list-item">
+        <div class="am-list-content">
+            <div class="am-list-title am-ft-ellipsis">选取收货地址</div>
+        </div>
+        <div class="am-list-arrow"><span class="am-icon-arrow-horizontal"></span></div>
+    </a>
+    <a href="scan.html" class="am-list-item">
+        <div class="am-list-content">
+            <div class="am-list-title am-ft-ellipsis">扫码</div>
+        </div>
+        <div class="am-list-arrow"><span class="am-icon-arrow-horizontal"></span></div>
+    </a>
+    <a href="getLocation.html" class="am-list-item">
+        <div class="am-list-content">
+            <div class="am-list-title am-ft-ellipsis">获取用户地理位置</div>
+        </div>
+        <div class="am-list-arrow"><span class="am-icon-arrow-horizontal"></span></div>
+    </a>
+    <a href="speech.html" class="am-list-item">
+        <div class="am-list-content">
+            <div class="am-list-title am-ft-ellipsis">语音转文字</div>
+        </div>
+        <div class="am-list-arrow"><span class="am-icon-arrow-horizontal"></span></div>
+    </a>
+</div>
+<div class="am-content">
+    <div class="am-list-footer">
+        <p>详细示例代码请访问（建议用PC打开）：</p>
+        <p><a id="J_codeExample" href="https://fuwu.alipay.com/platform/doc.htm#c11">https://fuwu.alipay.com/platform/doc.htm#c11</a></p>
+    </div>
+</div>
+<div class="am-blank-space am-blank-space-20px"></div>
+<script src="https://static.alipay.com/aliBridge/1.0.0/aliBridge.min.js"></script>
+<script src="https://a.alipayobjects.com/amui/zepto/1.1.3/zepto.js"></script>
+<script>
+    (function(Z){
+        Z(document).ready(function(){
+            if(navigator.userAgent.indexOf("AlipayClient")!==-1){
+                Ali.showTitle(function(){});
+                Ali.hideToolbar();
+            }
+            function getAbsoluteUrl(url){
+                var a = document.createElement('A');
+                a.href = url; // 设置相对路径给Image, 此时会发送出请求
+                url = a.href; // 此时相对路径已经变成绝对路径
+                return url;
+            }
+
+            Z('a#J_codeExample').click(function(e){
+                var t=this;
+                if(navigator.userAgent.indexOf("AlipayClient")!==-1){
+                    e.preventDefault();
+                    Ali.pushWindow({
+                        url: getAbsoluteUrl(Z(t).attr('href')),
+                        param: {
+                            readTitle: "YES",
+                            showToolBar: "NO"
+                        }
+                    })
+                }
+            });
+
+            Z('#J_widgetList a').click(function(e){
+                var t=this;
+                if(navigator.userAgent.indexOf("AlipayClient")!==-1){
+                    e.preventDefault();
+                    Ali.pushWindow({
+                        url: getAbsoluteUrl(Z(t).attr('href')),
+                        param: {
+                            readTitle: "YES",
+                            showToolBar: "NO"
+                        }
+                    })
+                }
+            });
+        });
+    })(Zepto);
+</script>
+</body>
+</html>

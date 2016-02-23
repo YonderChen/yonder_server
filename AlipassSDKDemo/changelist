@@ -1,0 +1,7 @@
+1、删除demo中的文件AlipassSDKOPenAPITest
+2、更新使用说明(Java版)中，1.1导入项目中的demo结构图
+3、修改使用说明(Java版)中，1.2主要文件说明中，AlipassSDKOPenAPITest.java修改为AlipassSDKOpenAPIV2Test
+4、更新表1-2表1-2 java路径下的文件列表，去除'alipass-sdk-***-source.jar'
+4、删除3.1 模板创建接口详解中，“模板内容content可以在https://alipass.alipay.com/index.htm 上编辑保存下载后获取pass.json进行修改获取。”字样。
+5、修改3.3  模板方式同步卡券接口详解中，“商户同步alipass.alpay.com编辑自己的卡券模版，或者通过接口调用保存对应的模版文件；然后通过模版ID及模版中设置的动态参数和值同步对应的alipass卡券给已经授权的支付宝用户；”修改为“商户通过模版ID及模版中设置的动态参数和值同步对应的alipass卡券给已经授权的支付宝用户；”
+6、3.3标题"模板方式同步卡券接口详解"修改为"模板方式发布卡券接口详解"

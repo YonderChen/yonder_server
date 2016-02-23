@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>震动Demo</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="email=no"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0"/>
+    <link rel="stylesheet" type="text/css" href="https://a.alipayobjects.com/anima/dpl/1.2.2/amui.css" media="all">
+    <link rel="stylesheet" href="https://a.alipayobjects.com/u/ecmng/css/201410/3g09kW3g7h.css">
+    <script src="https://a.alipayobjects.com/u/ecmng/js/201410/3fzyLyZl9J.js"></script>
+
+    <script>hljs.initHighlightingOnLoad();</script>
+    <style>
+        .example-trigger{
+            margin:15px 10px;
+        }
+        .example-code{
+            padding-bottom:20px;
+        }
+        .example-code pre{
+            margin:8px 0 10px;
+            padding:0;
+            -webkit-user-select:auto;
+            user-select:auto;
+        }
+        .example-code pre code{
+            word-break:break-all;
+            word-wrap:break-word;
+        }
+        .example-result{
+            padding-bottom:4px;
+        }
+        .example-result-wrap{
+            border:1px solid #d2d2d2;
+            border-width:1px 0;
+            background-color:#fff;
+            padding:15px;
+            margin-top:4px;
+        }
+
+        .example-result .example-result-doing,
+        .example-result .example-result-done{
+            font-size:16px;
+            color:#000;
+        }
+        .example-result .example-result-done{
+            display:none;
+        }
+        .example-result .example-result-done .example-result-sub{
+            font-size:13px;
+            color:#8f8f95;
+        }
+    </style>
+</head>
+<body ontouchstart="">
+<div class="example-trigger">
+    <button id="J_exampleTrigger" class="am-button">点击震动</button>
+</div>
+<div class="example-code">
+    <div class="am-content">
+        <div class="am-list-header">
+            <p>示例代码</p>
+        </div>
+    </div>
+    <pre><code class="html">&lt;!--引入jsAPI的功能js--&gt;
+&lt;script src="https://static.alipay.com/aliBridge/1.0.0/aliBridge.min.js"&gt;&lt;/script&gt;
+&lt;!--震动功能8.2以上钱包支持--&gt;
+&lt;script&gt;
+if(navigator.userAgent.indexOf("AlipayClient")===-1){
+    alert('请在支付宝钱包内运行');
+}else{
+    if((Ali.alipayVersion).slice(0,3)>=8.2){
+        Ali.vibration.vibrate({
+            duration: 3000
+        }, function() {
+            //成功震动的情况
+        });
+    }else{
+        Ali.alert({
+            title: '亲',
+            message: '请升级您的钱包到最新版',
+            button: '确定'
+        });
+    }
+}
+&lt;/script&gt;</code></pre>
+
+    <div class="am-content">
+        <div class="am-list-footer">
+            <p>详细示例代码请访问（建议用PC打开）：</p>
+            <p><a id="J_codeExample" href="https://fuwu.alipay.com/platform/doc.htm#c11">https://fuwu.alipay.com/platform/doc.htm#c11</a></p>
+        </div>
+    </div>
+</div>
+<script src="https://static.alipay.com/aliBridge/1.0.0/aliBridge.min.js"></script>
+<script src="https://a.alipayobjects.com/amui/zepto/1.1.3/zepto.js"></script>
+<script>
+    (function(Z){
+        Z(document).ready(function(){
+            if(navigator.userAgent.indexOf("AlipayClient")!==-1){
+                Ali.showTitle(function(){});
+                Ali.hideToolbar();
+            }
+            function getAbsoluteUrl(url){
+                var a = document.createElement('A');
+                a.href = url; // 设置相对路径给Image, 此时会发送出请求
+                url = a.href; // 此时相对路径已经变成绝对路径
+                return url;
+            }
+
+            Z('a#J_codeExample').click(function(e){
+                var t=this;
+                if(navigator.userAgent.indexOf("AlipayClient")!==-1){
+                    e.preventDefault();
+                    Ali.pushWindow({
+                        url: getAbsoluteUrl(Z(t).attr('href')),
+                        param: {
+                            readTitle: "YES",
+                            showToolBar: "NO"
+                        }
+                    })
+                }
+            });
+            Z('#J_exampleTrigger').click(function(e){
+                e.preventDefault();
+                if(navigator.userAgent.indexOf("AlipayClient")===-1){
+                    alert('请在支付宝钱包内运行');
+                }else{
+                    if((Ali.alipayVersion).slice(0,3)>=8.2){
+                        Ali.vibration.vibrate({
+                            duration: 3000
+                        }, function() {
+                            //成功震动的情况
+                        });
+                    }else{
+                        alert('请在钱包8.2以上版本运行');
+                    }
+                }
+            });
+        });
+    })(Zepto);
+</script>
+
+</body>
+</html>

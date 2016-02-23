@@ -1,0 +1,789 @@
+/**
+ * Alipay.com Inc.
+ * Copyright (c) 2004-2013 All Rights Reserved.
+ */
+package com.alipay.pass.test;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+
+import com.alibaba.common.lang.StringUtil;
+import com.alipay.alipass.sdk.codec.binary.Base64;
+import com.alipay.alipass.sdk.enums.EInfoBizFieldEnums;
+import com.alipay.alipass.sdk.enums.OperationFormatType;
+import com.alipay.alipass.sdk.enums.PassType;
+import com.alipay.alipass.sdk.enums.PicName;
+import com.alipay.alipass.sdk.enums.ProductType;
+import com.alipay.alipass.sdk.enums.RecognitionTypeEnum;
+import com.alipay.alipass.sdk.enums.Result;
+import com.alipay.alipass.sdk.jsonmodel.AlipassModel;
+import com.alipay.alipass.sdk.jsonmodel.AppDetailModel;
+import com.alipay.alipass.sdk.jsonmodel.AppInfoModel;
+import com.alipay.alipass.sdk.jsonmodel.EInfoModel;
+import com.alipay.alipass.sdk.jsonmodel.EInfoUnitModel;
+import com.alipay.alipass.sdk.jsonmodel.EVoucherInfoModel;
+import com.alipay.alipass.sdk.jsonmodel.FileInfoModel;
+import com.alipay.alipass.sdk.jsonmodel.ImgModel;
+import com.alipay.alipass.sdk.jsonmodel.LocationModel;
+import com.alipay.alipass.sdk.jsonmodel.MerchantModel;
+import com.alipay.alipass.sdk.jsonmodel.OperationModel;
+import com.alipay.alipass.sdk.jsonmodel.PlatformModel;
+import com.alipay.alipass.sdk.jsonmodel.RemindInfoModel;
+import com.alipay.alipass.sdk.jsonmodel.ResponseModel;
+import com.alipay.alipass.sdk.jsonmodel.ShopInfoModel;
+import com.alipay.alipass.sdk.jsonmodel.StyleModel;
+import com.alipay.alipass.sdk.jsonmodel.TextMessageModel;
+import com.alipay.alipass.sdk.jsonmodel.TradeInfoModel;
+import com.alipay.alipass.sdk.model.request.AddRequest;
+import com.alipay.alipass.sdk.model.request.AddTplRequest;
+import com.alipay.alipass.sdk.model.request.template.TplCreateRequest;
+import com.alipay.alipass.sdk.model.request.template.TplModeifyRequest;
+import com.alipay.alipass.sdk.service.AlipassGenerateService;
+import com.alipay.alipass.sdk.service.AlipassTransferService;
+import com.alipay.alipass.sdk.service.impl.AlipassGenerateServiceImpl;
+import com.alipay.alipass.sdk.service.impl.AlipassTransferServiceOpenAPIImpl;
+import com.alipay.alipass.sdk.utils.FileUtils;
+import com.alipay.api.AlipayApiException;
+import com.alipay.api.response.AlipayPassFileAddResponse;
+import com.alipay.api.response.AlipayPassTplAddResponse;
+import com.alipay.api.response.AlipayPassTplContentAddResponse;
+import com.alipay.api.response.AlipayPassTplUpdateResponse;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+/**
+ * Alipass SDK测试
+ * <p>
+ *  Alipass模版创建<br/>
+ *  Alipass模版更新<br/>
+ *  模版方式添加卡券<br/>
+ *  模版方式更新卡券<br/>
+ *  文件方式添加卡券<br/>
+ *  卡券状态及内容更新<br/>
+ * </p>
+ * 
+ * @author junhua.pan
+ * @version $Id: AlipassSDKTest.java,v 0.1 2013-5-4 下午9:22:40 siyu.jsy Exp $
+ */
+public class AlipassSDKOPenAPITest {
+
+    private static ObjectMapper JSON       = new ObjectMapper();
+
+    private static String       templateId = null;
+
+    public static void main(String[] args) throws IOException, AlipayApiException, Exception {
+        AlipassSDKOPenAPITest demo = new AlipassSDKOPenAPITest();
+
+        //Alipass模版创建
+        templateId = demo.addTemplate();
+
+        //Alipass模版更新
+        demo.modifyTemplate();
+
+        //Alipass文件方式添加卡券
+        demo.addAlipassByFile();
+
+        //Alipass模版方式添加卡券
+        //templateId = "2014052817043374004677000";
+        demo.addAlipassByTemplate();
+    }
+
+    /**
+     * Alipass模版创建接口测试
+     * 
+     * @throws AlipayApiException
+     */
+    private String addTemplate() throws Exception {
+
+        String content = "{\"evoucherInfo\":{\"title\":\"$filmName$\",\"startDate\":\"$startDate$\",\"endDate\":\"$endDate$\",\"type\":\"eventTicket\",\"product\":\"movie\",\"operation\":[{\"message\":\"$ackCode$\",\"messageEncoding\":\"UTF-8\",\"format\":\"wave\",\"altText\":\"$ackCode$\"},{\"message\":\"$ackCode$\",\"messageEncoding\":\"UTF-8\",\"format\":\"barcode\",\"altText\":\"$ackCode$\"}],\"remindInfo\":{\"offset\":1},\"einfo\":{\"logoText\":\"$filmName$\",\"secondLogoText\":\"$secondLogoText$\",\"headFields\":[{\"key\":\"filmVersion\",\"value\":\"$filmVersion$\",\"label\":\"类型\",\"type\":\"text\"}],\"primaryFields\":[{\"key\":\"dayTime\",\"value\":\"$dayTime$\",\"label\":\"日期\",\"type\":\"text\"},{\"key\":\"hourTime\",\"value\":\"$hourTime$\",\"label\":\"时间\",\"type\":\"text\"}],\"secondaryFields\":[{\"key\":\"cinemaName\",\"value\":\"$cinemaName$\",\"label\":\"影院\",\"type\":\"text\"}],\"auxiliaryFields\":[{\"key\":\"hallName\",\"value\":\"$hallName$\",\"label\":\"影厅\",\"type\":\"text\"},{\"key\":\"count\",\"value\":\"$count$\",\"label\":\"张数\",\"type\":\"text\"},{\"key\":\"seatsInfo\",\"value\":\"$seatsInfo$\",\"label\":\"座位\",\"type\":\"text\"}],\"backFields\":[{\"key\":\"introduction\",\"value\":\"1. 选座票由时光代理，客服热线:4006-118-118\\n2. 电影票属特殊物品，出票成功后将不予退换，请按照场次时间使用\\n3. 电影票使用时，需去对应影院的时光网取票机或影院服务台进行取票\",\"label\":\"免责声明\",\"type\":\"text\"}]},\"locations\":[{\"addr\":\"$addr$\",\"tel\":\"$tel$\",\"relevantText\":\"$relevantText$\",\"longitude\":\"$longitude$\",\"latitude\":\"$latitude$\"}]},\"style\":{\"backgroundColor\":\"RGB(26,150,219)\"},\"fileInfo\":{\"canShare\":false,\"formatVersion\":\"2\",\"serialNumber\":\"$serialNumber$\"},\"merchant\":{\"mname\":\"Alipassprod\",\"mtel\":\"\",\"minfo\":\"\"},\"platform\":{\"channelID\":\"$channelID$\",\"webServiceUrl\":\"$webServiceUrl$\"},\"appInfo\":null,\"alipayVerify\":[]}";
+        String logo = "https://tfsimg.alipay.com/images/kabaoprod/T1uoldXeVlXXaCwpjX";
+
+        AlipassTransferService transferService = new AlipassTransferServiceOpenAPIImpl();
+
+        //组装接口入参参数
+        TplCreateRequest templateReq = new TplCreateRequest();
+        templateReq.setLogo(logo);
+        templateReq.setContent(content);
+        templateReq.setUniqueId("20140716160000");//外部唯一标识
+
+        templateReq.setPrivateKeyData(AlipassSDKConstants.PRIVATE_KEY);
+        templateReq.setAppId(AlipassSDKConstants.OPENAPI_APPID);
+        templateReq.setAlipayApiUrl(AlipassSDKConstants.OPENAPI_URL);
+
+        //调用请求
+        AlipayPassTplAddResponse response = transferService.createTemplate(templateReq);
+
+        //解析tmplateId
+        if (StringUtil.isNotBlank(response.getResult())) {
+            templateId = (String) JSON.readValue(response.getResult(), Map.class).get("tpl_id");
+        }
+
+        System.out.println("模版添加 ：tpl_id=" + templateId + "\t业务结果=" + response.getResult());
+        return templateId;
+
+    }
+
+    /**
+     * Alipass模版更新接口测试
+     * 
+     * @throws AlipayApiException
+     */
+    private void modifyTemplate() throws Exception {
+
+        String templateContent = "{\"evoucherInfo\":{\"title\":\"$filmName$\",\"startDate\":\"$startDate$\",\"endDate\":\"$endDate$\",\"type\":\"eventTicket2\",\"product\":\"movie\",\"operation\":[{\"message\":\"$ackCode$\",\"messageEncoding\":\"UTF-8\",\"format\":\"wave\",\"altText\":\"$ackCode$\"},{\"message\":\"$ackCode$\",\"messageEncoding\":\"UTF-8\",\"format\":\"barcode\",\"altText\":\"$ackCode$\"}],\"remindInfo\":{\"offset\":1},\"einfo\":{\"logoText\":\"$filmName$\",\"secondLogoText\":\"$secondLogoText$\",\"headFields\":[{\"key\":\"filmVersion\",\"value\":\"$filmVersion$\",\"label\":\"类型\",\"type\":\"text\"}],\"primaryFields\":[{\"key\":\"dayTime\",\"value\":\"$dayTime$\",\"label\":\"日期\",\"type\":\"text\"},{\"key\":\"hourTime\",\"value\":\"$hourTime$\",\"label\":\"时间\",\"type\":\"text\"}],\"secondaryFields\":[{\"key\":\"cinemaName\",\"value\":\"$cinemaName$\",\"label\":\"影院\",\"type\":\"text\"}],\"auxiliaryFields\":[{\"key\":\"hallName\",\"value\":\"$hallName$\",\"label\":\"影厅\",\"type\":\"text\"},{\"key\":\"count\",\"value\":\"$count$\",\"label\":\"张数\",\"type\":\"text\"},{\"key\":\"seatsInfo\",\"value\":\"$seatsInfo$\",\"label\":\"座位\",\"type\":\"text\"}],\"backFields\":[{\"key\":\"introduction\",\"value\":\"1. 选座票由时光代理，客服热线:4006-118-118\\n2. 电影票属特殊物品，出票成功后将不予退换，请按照场次时间使用\\n3. 电影票使用时，需去对应影院的时光网取票机或影院服务台进行取票\",\"label\":\"免责声明\",\"type\":\"text\"}]},\"locations\":[{\"addr\":\"$addr$\",\"tel\":\"$tel$\",\"relevantText\":\"$relevantText$\",\"longitude\":\"$longitude$\",\"latitude\":\"$latitude$\"}]},\"style\":{\"backgroundColor\":\"RGB(26,150,219)\"},\"fileInfo\":{\"canShare\":false,\"formatVersion\":\"2\",\"serialNumber\":\"$serialNumber$\"},\"merchant\":{\"mname\":\"Alipassprod\",\"mtel\":\"\",\"minfo\":\"\"},\"platform\":{\"channelID\":\"$channelID$\",\"webServiceUrl\":\"$webServiceUrl$\"},\"appInfo\":null,\"alipayVerify\":[]}";
+        String logo = "https://tfsimg.alipay.com/images/kabaoprod/T1uoldXeVlXXaCwpjX";
+
+        AlipassTransferService transferService = new AlipassTransferServiceOpenAPIImpl();
+
+        TplModeifyRequest templateReq = new TplModeifyRequest();
+        templateReq.setContent(templateContent);
+        templateReq.setLogo(logo);
+        templateReq.setTemplateId(templateId);
+
+        templateReq.setPrivateKeyData(AlipassSDKConstants.PRIVATE_KEY);
+        templateReq.setAppId(AlipassSDKConstants.OPENAPI_APPID);
+        templateReq.setAlipayApiUrl(AlipassSDKConstants.OPENAPI_URL);
+
+        AlipayPassTplUpdateResponse response = transferService.modifyTemplate(templateReq);
+
+        System.out.println("模版修改： 业务结果=" + response.getResult());
+    }
+
+    /**
+     * 模版方式添加卡券接口测试
+     * 
+     * @throws AlipayApiException
+     */
+    private void addAlipassByTemplate() throws Exception {
+
+        String serialNumber = generateNumber(16); //注意：alipass的唯一标识，商户请使用外部交易号作为serialNumber 
+        //
+        AlipassTransferService transferService = new AlipassTransferServiceOpenAPIImpl();
+
+        Map<String, String> paramValuePair = new HashMap<String, String>();
+        paramValuePair.put("filmName", "超级熊猫侠");
+        paramValuePair.put("secondLogoText", "超爽IMAX");
+        paramValuePair.put("startDate", "2014-06-11 20:00:00");
+        paramValuePair.put("endDate", "2014-06-12 20:00:00");
+        paramValuePair.put("ackCode", "1871236321871");
+        paramValuePair.put("filmVersion", "IMAX");
+        paramValuePair.put("dayTime", "2014-06-11");
+        paramValuePair.put("hourTime", "20:00");
+        paramValuePair.put("cinemaName", "万达影城");
+        paramValuePair.put("hallName", "宙斯厅");
+        paramValuePair.put("providerPhone", "0571-88888888");
+        paramValuePair.put("seatsInfo", "D13");
+        paramValuePair.put("count", "2");
+        paramValuePair.put("serialNumber", serialNumber);
+        paramValuePair.put("channelID", AlipassSDKConstants.OPENAPI_APPID);
+        paramValuePair.put("webServiceUrl", " ");
+
+        paramValuePair.put("addr", "杭州市文一路298号");
+        paramValuePair.put("tel", "0571-88922960");
+        paramValuePair.put("relevantText", "翠苑电影大世界");
+        paramValuePair.put("longitude", "");
+        paramValuePair.put("latitude", "");
+        //paramValuePair.put("logo.png", "https://tfsimg.alipay.com/images/kabaoprod/T16qXeXXBlXXaCwpjX");
+        //paramValuePair.put("logo.png", "https://tfsimg.alipay.com/images/kabaoprod/T1uoldXeVlXXaCwpjX");
+        Map<String, String> userParams = new HashMap<String, String>();
+        userParams.put(AddRequest.PARTNER_ID, "2088102122069225");
+        userParams.put(AddRequest.OUT_TRADE_NO, "1393388276383");
+        /*userParams = new HashMap<String, String>();
+        userParams.put(AddRequest.OPEN_ID,
+            "fQMHf9FBJ4lurSpCVECx+vdtzBtxNMAKY0uRYSir6d1ovZgtS0hbJI8XGhdMcEJ001");*/
+        userParams.clear();
+        userParams = new HashMap<String, String>();
+        userParams.put(AddRequest.USER_ID, "2088102122488598");
+
+        //模版方式添加卡券
+        AddTplRequest addReq = new AddTplRequest();
+        addReq.setTemplateId(templateId);
+        addReq.setTemplateParamValuePair(paramValuePair);
+        addReq.setUserType(RecognitionTypeEnum.USERID);
+        addReq.setUserTypeParams(userParams);
+
+        addReq.setPrivateKeyData(AlipassSDKConstants.PRIVATE_KEY);
+        addReq.setAppId(AlipassSDKConstants.OPENAPI_APPID);
+        addReq.setAlipayApiUrl(AlipassSDKConstants.OPENAPI_URL);
+
+        AlipayPassTplContentAddResponse response = transferService.addByTemplate(addReq);
+
+        System.out.println("模版方式添加卡券业务结果：" + response.getBizResult());
+
+        /*************************** Alipass 更新 ********************************/
+        //更新
+        //模版方式更新接口
+        /*UpdateByTplRequest req = new UpdateByTplRequest();
+        req.setSerialNumber("2226543433462261");
+        paramValuePair = new HashMap<String, String>();
+        paramValuePair.put("filmName", "超级熊猫侠22");
+        paramValuePair.put("secondLogoText", "超爽IMAX33");
+        paramValuePair.put("startDate", "2014-06-15 19:30:00");
+        paramValuePair.put("endDate", "2014-06-15 22:45:00");
+        paramValuePair.put("ackCode", "1871236321871");
+        paramValuePair.put("filmVersion", "IMAX3");
+        paramValuePair.put("dayTime", "2014-06-11");
+        paramValuePair.put("hourTime", "20:00");
+        paramValuePair.put("cinemaName", "万达影城");
+        paramValuePair.put("hallName", "宙斯厅");
+        req.setTemplateParamValuePair(paramValuePair);
+
+        req.setAlipayApiUrl(AlipassSDKConstants.OPENAPI_URL);
+        req.setAppId(AlipassSDKConstants.OPENAPI_APPID);
+        req.setPrivateKeyData(AlipassSDKConstants.PRIVATE_KEY);
+
+        AlipayPassTplContentUpdateResponse updateResponse = transferService.updateByTemplate(req);
+
+        System.out.println("文件方式更新卡券业务结果：" + updateResponse.getResult());*/
+    }
+
+    private void addAlipassByFile() throws Exception {
+
+        // 构建alipass生成,目前SDK对图片格式限制为.png
+        String picFilePath = System.getProperty("user.dir") + "/src/resources/";
+
+        HashMap<PicName, byte[]> picMap = new HashMap<PicName, byte[]>();
+        picMap.put(PicName.logo, FileUtils.fileToByte(picFilePath + "logo.png"));
+        picMap.put(PicName.strip, FileUtils.fileToByte(picFilePath + "strip.png"));
+        picMap.put(PicName.icon, FileUtils.fileToByte(picFilePath + "icon.png"));
+
+        // 根据不同的卡券类型，组装不同的alipass生成请求
+        AlipassModel alipassModel = (new AlipassSDKOPenAPITest()).fillPass();
+        // 最后一个参数表示卡券类型
+
+        // 数据构建完毕，开始访问SDK接口
+        AlipassGenerateService service = new AlipassGenerateServiceImpl();
+        ResponseModel response = service.alipassGenerate(alipassModel,
+            AlipassSDKConstants.PRIVATE_KEY, picMap);
+
+        System.out.println("generate Alipass File:" + response.getResult().getResultValue());
+
+        FileUtils.byteArrayToFile(Base64.decodeBase64(response.getAlipass()),
+            "/AlipassDemo/" + alipassModel.getFileInfo().getSerialNumber() + ".alipass");
+
+        // 当成功生成，验证Alipass文件是否正确
+        if (Result.SUCCESS.equals(response.getResult())) {
+
+            AlipassTransferService transferService = new AlipassTransferServiceOpenAPIImpl();
+
+            /*************************** Alipass 新增 ********************************/
+            // 新增,如果有外部交易号，优先使用外部交易号
+
+            //新接口实例
+            AddRequest request = new AddRequest();
+            //按照支付宝用户绑定手机号同步alipass
+            Map<String, String> userParams = new HashMap<String, String>();
+            /*userParams.put(AddRequest.MOBILE, "13616516923");
+            userParams.clear();
+            userParams.put(AddRequest.PARTNER_ID, "2088102122069225");
+            userParams.put(AddRequest.OUT_TRADE_NO, "1393388276383");
+            userParams.clear();
+            userParams.put(AddRequest.OPEN_ID,
+                "fQMHf9FBJ4lurSpCVECx+vdtzBtxNMAKY0uRYSir6d1ovZgtS0hbJI8XGhdMcEJ001");
+            */
+            userParams.clear();
+            userParams.put(AddRequest.USER_ID, "2088102122488598");
+
+            request.setUserType(RecognitionTypeEnum.USERID);//此处可以设置4种类型，{@see RecognitionTypeEnum}
+            request.setUserTypeParams(userParams);
+
+            request.setFileContent(response.getAlipass());
+            request.setAlipayApiUrl(AlipassSDKConstants.OPENAPI_URL);
+            request.setAppId(AlipassSDKConstants.OPENAPI_APPID);
+            request.setPrivateKeyData(AlipassSDKConstants.PRIVATE_KEY);
+
+            //执行添加操作
+            AlipayPassFileAddResponse addResponse = transferService.addByFile(request);
+
+            // 商户可根据自己实际情况处理addResponse
+            System.out.println("文件方式添加卡券返回业务结果：" + addResponse.getBizResult());
+
+            /*************************** Alipass 更新 ********************************/
+            /*// 更新
+            String serialNumber = "6275349541313";//alipass的唯一标识
+            String pass = null;//"{\"evoucherInfo\":{\"description\":\"每票仅限一人使用。\",\"title\":\"O-UU生化危机5：惩罚\",\"startDate\":\"2014-09-08 15:15:00\",\"endDate\":\"2014-09-08 17:30:00\",\"type\":\"eventTicket\",\"product\":\"movie\",\"operation\":[{\"altText\": \"MS2013082714320\",\"format\": \"wave\",\"message\": \"MS2013082714320\",\"messageEncoding\": \"UTF-8\"},{\"altText\": \"\",\"format\": \"text\",\"message\": [{\"label\": \"核销码\",\"value\": \"CA201306150078\"}],\"messageEncoding\": \"UTF-8\"},{\"altText\": \"CA201306150078\",\"format\": \"qrcode\",\"message\": \"CA201306150078\",\"messageEncoding\": \"UTF-8\"}],\"remindInfo\":null,\"einfo\":{\"logoText\":\"生化危机5：惩罚\",\"headFields\":[{\"key\":\"date\",\"label\":\"日期\",\"value\":\"2014-09-08\"}],\"primaryFields\":[{\"key\":\"time\",\"label\":\"入场时间\",\"value\":\"15:15\"}],\"secondaryFields\":[{\"key\":\"theatre\",\"label\":\"影院名称\",\"value\":\"杭州UME影城\"}],\"auxiliaryFields\":[{\"key\":\"auditorium\",\"label\":\"影厅\",\"value\":\"8号厅\"},{\"key\":\"seat\",\"label\":\"座位\",\"value\":\"H5 H6\"},{\"key\":\"quantity\",\"label\":\"张数\",\"value\":\"2\"}],\"backFields\":[{\"key\":\"addr\",\"label\":\"影院地址\",\"value\":\"杭州市西湖区文二西路551号西城广场4楼\",\"type\":\"map\"},{\"key\":\"seat\",\"label\":\"座位\",\"value\":\"H5 H6\"},{\"key\":\"sno\",\"label\":\"序列号\",\"value\":\"837458694837\"},{\"key\":\"tel\",\"label\":\"客服电话\",\"value\":\"400406506\",\"type\":\"tel\"}]}},\"style\":{\"backgroundColor\":\"RGB(201,4,22)\"},\"fileInfo\":{\"canShare\":true,\"formatVersion\":\"2\",\"serialNumber\":\"6275349541311\"},\"merchant\":{\"mname\":\"网票网\",\"mtel\":\"400-678-2005\",\"minfo\":\"http://www.wangpiao.com\"},\"platform\":{\"channelID\":\"102014022600003526\",\"channelScene\":\"ttt\",\"webServiceUrl\":\"http://www.airchina.com.cn/alipass/success.do\"},\"appInfo\" : {\"label\":\"网票网APP\",\"message\":\"提供最新的电影票信息\",\"app\":{\"android_appid\":\"com.taobao.ecoupon\",\"android_launch\":\"com.taobao.ecoupon\",\"android_download\":\"http://download.taobaocdn.com/freedom/17988/andriod/Ecoupon_2.0.1_taobao_wap.apk\",\"ios_appid\":\"583295537\",\"ios_launch\":\"taobaolife://\",\"ios_download\":\"https://itunes.apple.com/cn/app/id583295537\"}}}";//需要更新的pass的内容,格式遵循pass.json的结构
+            PassStatus status = PassStatus.PASS_STATUS_USED;//此例pass状态更新为已使用
+            String verifyCode = "";//核销码串
+            String verifyType = "wave";//可选 wave\qrcode\barcode\input
+            Map<String, String> extInfo = new HashMap<String, String>();
+
+            //新更新接口
+            UpdateRequest req = new UpdateRequest();
+            req.setSerialNumber(serialNumber);
+            req.setPass(pass);
+            req.setStatus(status);
+            req.setVerifyCode(verifyCode);
+            req.setVerifyType(verifyType);
+            req.setExtInfo(extInfo);
+
+            req.setAlipayApiUrl(AlipassSDKConstants.OPENAPI_URL);
+            req.setAppId(AlipassSDKConstants.OPENAPI_APPID);
+            req.setPrivateKeyData(AlipassSDKConstants.PRIVATE_KEY);
+
+            AlipayPassSyncUpdateResponse updateResponse = transferService.updateAlipass(req);
+
+            System.out.println("文件方式更新卡券返回结果--" + updateResponse);*/
+
+        }
+
+    }
+
+    /**AlipayPassCodeAddRequest codeAddRequest = new AlipayPassCodeAddRequest();
+            codeAddRequest.setFileContent(generateResponse.getAlipass());
+            codeAddRequest.setRecognitionType(RecognitionTypeEnum.USERID.getCode());
+            codeAddRequest.setRecognitionInfo(recognitionInfo);
+     * 组装BoardingPass类型的alipass生成请求
+     * 
+     * @param alipassModel
+     * @param picMap
+     * @param platform
+     * @return
+     */
+    private AlipassModel fillPass() {
+
+        /**
+         * EVoucher信息，包含EInfo数据、操作信息、位置信息、提醒信息，以及一些基础信息 -- 开始
+         */
+        EVoucherInfoModel voucher = new EVoucherInfoModel();
+
+        // 基础信息
+        // 商品ID，非必传
+        voucher.setGoodsId("sgodd--001");
+        // 卡券显示名称，非必传
+        voucher.setTitle("汽车票");
+        // 卡券模板类型，coupon、boardingPass、eventTicket三种类型，从PassType中选择，必传
+        voucher.setType(PassType.boardingPass);
+        // 业务类型，从ProductType枚举类型中选择，必传
+        voucher.setProduct(ProductType.bus);
+        // 开始时间，对于机票、车票等类型，就是 起飞|发车 时间，必传
+        // voucher.setStartDate("2013-09-17 21:35:00");
+        voucher.setStartDate("2014-12-30 20:00:00");
+        // 结束时间，对于机票、车票等类型，就是 到达时间，必传
+        voucher.setEndDate("2014-12-31 07:30:00");
+
+        /**
+         * 先构造EInfo数据,EInfo必传，但是里面具体传递的值，由商户决定l EInfo信息构造 --开始
+         */
+        EInfoModel einfo = new EInfoModel();
+        // logoText必传,商户根据需要制定说明内容,在这里使用业务类型作为测试
+        einfo.setLogoText("汽车票测试-3");
+        // secondLogoText，补充说明，非必传
+        einfo.setSecondLogoText("extend description");
+
+        /**
+         * EInfo各区域均为一个List列表，如果列表中有数据则显示，无voucher数据则此区域留白。
+         * 每个列表中包含数据条数不限，由商家自由填充。
+         * 
+         * 因部分业务需要，除基础属性外在einfo同样有部分特有的关键属性信息(key值固定且必传，label\value必传,但值不做限制)
+         * 不得为空， 并且需要保证在einfo中关键业务的key值没有重复，但并不限制排版位置. 1 train(火车票) 出发地key: from
+         * 目的地key: to 列车号key: trainNo 2 boarding（登机牌） 出发地key: from 目的地key: to
+         * 航班号key: fltNo 3 air(机票) 出发地key: from 目的地key: to 航班号key: fltNo 4
+         * bus(汽车票) 出发地key: from 目的地key: to 汽车号key: busNo
+         */
+        // 头部区域
+        List<EInfoUnitModel> headFields = new ArrayList<EInfoUnitModel>();
+        // 第一区域
+        List<EInfoUnitModel> primaryFields = new ArrayList<EInfoUnitModel>();
+        // 第二区域
+        List<EInfoUnitModel> secondaryFields = new ArrayList<EInfoUnitModel>();
+        // 背部区域
+        List<EInfoUnitModel> backFields = new ArrayList<EInfoUnitModel>();
+        // 辅助区域
+        List<EInfoUnitModel> auxiliaryFields = new ArrayList<EInfoUnitModel>();
+
+        /**
+         * EInfoUnitModel为一个信息块，包含key、value、label、type四个信息字段。
+         * 其中key必传，value与label二者至少传递一个，type为非必传。 具体信息由商户指定，支付宝不做限制
+         */
+        // 主要区域数据-1，由商家决定需要显示什么内容，在这里仅填充测试内容。
+        /*EInfoUnitModel primary1 = new EInfoUnitModel();
+        primary1.setKey("primary1-key");
+        primary1.setLabel("primary1-label");
+        primary1.setValue("primary1-value");
+        primary1.setType("primary1-type");*/
+
+        // 主要区域数据-2
+        // 对于EINFO中必穿的业务属性，可以使用此枚举中的数据
+        EInfoUnitModel from = new EInfoUnitModel();
+        from.setKey(EInfoBizFieldEnums.from.getTypeName());
+        from.setLabel("北京");
+        from.setValue("北京客运西站");
+
+        EInfoUnitModel to = new EInfoUnitModel();
+        to.setKey(EInfoBizFieldEnums.to.getTypeName());
+        to.setLabel("大连");
+        to.setValue("大連客运東站");
+
+        EInfoUnitModel fltNo = new EInfoUnitModel();
+        fltNo.setKey(EInfoBizFieldEnums.busNo.getTypeName());
+        fltNo.setLabel("汽车车次");
+        fltNo.setValue("K681");
+
+        // 次要区域数据，可填充多条数据，在此仅填充一条。商户根据自己实际情况填充即可。
+        EInfoUnitModel second1 = new EInfoUnitModel();
+        second1.setKey("boardingTime");
+        second1.setLabel("出发时间");
+        second1.setValue("20:00");
+        second1.setType("text");
+
+        EInfoUnitModel second2 = new EInfoUnitModel();
+        second2.setKey("arriveTime");
+        second2.setLabel("日期");
+        second2.setValue("2014-12-31");
+        second2.setType("text");
+
+        EInfoUnitModel second3 = new EInfoUnitModel();
+        second3.setKey("arriveURL");
+        second3.setLabel("URL");
+        second3.setValue("http://www.alipay.com");
+        second3.setType("url");
+
+        // 辅助区域数据，可填充多条数据，在此仅填充一条。商户根据自己实际情况填充即可。
+        EInfoUnitModel auxiliary1 = new EInfoUnitModel();
+        auxiliary1.setKey("peoper");
+        auxiliary1.setLabel("乘车人");
+        auxiliary1.setValue("陈默");
+
+        EInfoUnitModel auxiliary2 = new EInfoUnitModel();
+        auxiliary2.setKey("seat");
+        auxiliary2.setLabel("座位");
+        auxiliary2.setValue("F27");
+
+        // 头部区域，可填充多条数据，在此仅填充一条。商户根据自己实际情况填充即可。
+        /*EInfoUnitModel head = new EInfoUnitModel();
+        head.setKey("gate");
+        head.setLabel("登机口");
+        head.setValue("55");*/
+
+        // 背部区域，可填充多条数据，在此仅填充一条。商户根据自己实际情况填充即可。
+        EInfoUnitModel back = new EInfoUnitModel();
+        back.setKey("Back-key");
+        back.setLabel("Back-label");
+        back.setValue("Back value Info about the coupon");
+
+        EInfoUnitModel back1 = new EInfoUnitModel();
+        back1.setKey("arriveURL");
+        back1.setLabel("URL");
+        back1.setValue("https://alipass.alipay.com");
+        back1.setType("url");
+
+        /*// 将单元数据填充到区域中
+        headFields.add(head);
+        primaryFields.add(primary1);*/
+        primaryFields.add(from);
+        primaryFields.add(to);
+        primaryFields.add(fltNo);
+        secondaryFields.add(second1);
+        secondaryFields.add(second2);
+        secondaryFields.add(second3);
+        auxiliaryFields.add(auxiliary1);
+        auxiliaryFields.add(auxiliary2);
+        backFields.add(back);
+        backFields.add(back1);
+
+        // 将区域数据填充到EInfo中
+        einfo.setPrimaryFields(primaryFields);
+        einfo.setSecondaryFields(secondaryFields);
+        einfo.setBackFields(backFields);
+        einfo.setAuxiliaryFields(auxiliaryFields);
+        einfo.setHeadFields(headFields);
+
+        // 把Einfo数据放入EVoucherInfo中
+        voucher.setEinfo(einfo);
+        /**
+         * EINfo信息构造 --结束
+         */
+
+        /**
+         * operation信息, 1、如果Format类型为
+         * app，则message类型为AppDetailModel,对应AppMessage.
+         * 2、如果Format类型为Text，那么message类型为List<TextMessageModel>,对应TextMessage.
+         * 3、如果Format类型为img，那么message类型为ImgModel,对应imgMessage.
+         * 4、Format为其他类型，则message类型为String,对应opMessage.
+         */
+        List<OperationModel> operations = new ArrayList<OperationModel>();
+
+        // Format类型为 app，则message类型为AppDetailModel
+        OperationModel operationApp = new OperationModel();
+
+        operationApp.setOpLabel("App Operation");
+        operationApp.setOpMessageEncoding("UTF-8");
+        operationApp.setOpFormat(OperationFormatType.app.getTypeName());
+        AppDetailModel appDetailModel = new AppDetailModel();
+        appDetailModel.setAndroid_appid("com.airXXXXXXXXX");
+        appDetailModel
+            .setAndroid_download("http://pnew AlipassSDKOPenAPITest()latformxxx/xxxx/xxxxx");
+        appDetailModel.setAndroid_launch("alipay://platformxxx/xxxx/xxxxx");
+        appDetailModel.setIos_appid("8192731923");
+        appDetailModel.setIos_download("itunes://platformxxx/xxxx/xxxxx");
+        appDetailModel.setIos_launch("alipay://platformxxx/xxxx/xxxxx");
+        operationApp.setAppMessage(appDetailModel);
+
+        // 2、如果Format类型为Text，那么message类型为List<TextMessageModel>
+        OperationModel operationText = new OperationModel();
+
+        operationText.setOpFormat(OperationFormatType.text.getTypeName());
+        operationText.setOpLabel("label-text");
+        operationText.setOpMessageEncoding("UTF-8");
+        List<TextMessageModel> messages = new ArrayList<TextMessageModel>();
+        TextMessageModel t1 = new TextMessageModel();
+        t1.setLabel("key1");
+        t1.setValue("value1");
+
+        TextMessageModel t2 = new TextMessageModel();
+        t2.setLabel("key2");
+        t2.setValue("value2");
+
+        messages.add(t1);
+        messages.add(t2);
+        operationText.setTextMessage(messages);
+
+        // 如果Format类型为img，那么message类型为ImgModel
+        OperationModel operationImg = new OperationModel();
+        operationImg.setOpFormat(OperationFormatType.img.getTypeName());
+        operationImg.setOpLabel("label-img");
+        operationImg.setOpMessageEncoding("UTF-8");
+
+        ImgModel imgMessage = new ImgModel();
+        // img file url
+        imgMessage.setImg("http://www.alipayobjects.com/wap/1s1232323");
+        // 运营链接地址，非必传
+        imgMessage.setTarget("http://m.alipay.com/wap/welcome.htm");
+        operationImg.setImgMessage(imgMessage);
+
+        // 其他格式的Format，Message为普通的String字符串
+        OperationModel operationOthers = new OperationModel();
+        operationOthers.setOpLabel("label-others");
+        operationOthers.setOpMessageEncoding("UTF-8");
+        operationOthers.setOpFormat(OperationFormatType.barcode.getTypeName());
+        operationOthers.setOpMessage("barcode-info");
+
+        // 把所有的Operation放到Evoucher中
+        operations.add(operationApp);
+        operations.add(operationOthers);
+        operations.add(operationText);
+        operations.add(operationImg);
+
+        // 将操作信息放入EVoucher信息
+        voucher.setOperation(operations);
+
+        /**
+         * 位置信息设置 --开始 option
+         */
+        // 位置信息为一个列表，商户可传递多个门店位置信息
+        List<LocationModel> locations = new ArrayList<LocationModel>();
+
+        // LocationModel 为位置信息单元，里面包含经度、维度、地址、联系方式等
+        // 位置1
+        ShopInfoModel shopInfo1 = new ShopInfoModel();
+        shopInfo1.setShopId("1000001");
+        shopInfo1.setLocAddress("重庆市渝中区大同路111号中平大厦");
+        // 维度
+        shopInfo1.setLocLatitude("29.116723449714");
+        // 经度
+        shopInfo1.setLocLongitude("107.002651691400");
+        // 联系方式
+        shopInfo1.setLocTel("13623816949");
+        // 其他说明
+        shopInfo1.setLocRelevantText("连锁1号店位置信息");
+
+        // 位置2
+        ShopInfoModel shopInfo2 = new ShopInfoModel();
+        shopInfo2.setShopId("2000001");
+        shopInfo2.setLocAddress("武汉市武昌区丁字桥路37号");
+        // 维度
+        shopInfo2.setLocLatitude("30.261777839913");
+        // 经度
+        shopInfo2.setLocLongitude("114.604348540300");
+        // 联系方式
+        shopInfo2.setLocTel("13523665676");
+        // 其他说明
+        shopInfo2.setLocRelevantText("连锁2号店位置信息");
+
+        LocationModel location1 = new LocationModel();
+        location1.setCity("杭州");
+        location1.setCityId("0001");
+        List<ShopInfoModel> shops = new ArrayList<ShopInfoModel>();
+        shops.add(shopInfo1);
+        shops.add(shopInfo2);
+        location1.setShops(shops);
+
+        LocationModel location2 = new LocationModel();
+        location2.setCity("北京");
+        location2.setCityId("0002");
+        location2.setShops(shops);
+
+        locations.add(location1);
+        locations.add(location2);
+
+        // 将位置信息放入EVoucher信息
+        voucher.setLocations(locations);
+        /**
+         * 位置信息设置 --结束
+         */
+
+        /**
+         * 提醒信息--开始 option
+         * 主要设置提醒提前时间，不同的卡券类型有不同的提醒时间，比如机票与电影票，提前提醒的时间肯定不同。商户根据实际情况设置。
+         */
+        RemindInfoModel remindInfo = new RemindInfoModel();
+        // 单位为小时
+        remindInfo.setOffset("3");
+
+        // 将提醒信息放入EVoucher
+        voucher.setRemindInfo(remindInfo);
+
+        /**
+         * Voucher信息构造 --结束
+         */
+
+        /**
+         * 商户信息构造--开始 商户信息包括商户全称（merName,必填）、商户简称(merShortName,选填)、
+         * 商户地址(merAddres，选填)、商户电话(merTel，选填)、商户简介（merInfo,选填）
+         */
+        MerchantModel merchant = new MerchantModel();
+        merchant.setMerName("支付宝（中国）网络技术有限公司");
+        merchant.setMerShortName("支付宝");
+        merchant.setMerAddres("浙江省杭州市西湖区黄龙时代广场B座");
+        merchant.setMerTel("(0571)88156688");
+        merchant.setMerInfo("www.alipay.com");
+
+        /**
+         * 商户信息构造 --结束
+         */
+
+        /**
+         * 文件信息构造--开始
+         * 
+         * formatVersion，版本信息，必传，目前值固定为2。后续可能会有更新。
+         * canShare，共享属性，非必传，默认为false，即不可共享。 serialNumber，交易唯一标识，必传
+         */
+        FileInfoModel fileInfo = new FileInfoModel();
+        // 交易序列号，由商户保证唯一性,out_trade_no。在支付宝端，根据serialNumber及channelID作为组合条件唯一确定一条pass记录。
+        // 在这里随机生成一个12位的数据。最长32位。
+        // one order mapping to many pass,using out_trade_no+suffix -1 -2 -3
+        fileInfo.setSerialNumber(generateNumber(12));
+        // 文件版本信息
+        fileInfo.setFormatVersion("2");
+        // 是否支持共享
+        fileInfo.setCanShare(false);
+
+        /**
+         * 文件信息构造--结束
+         */
+
+        /**
+         * 渠道属性构造--开始
+         * 
+         * channelID：渠道ID，在这里即为商户在开放平台创建应用时，所分配到的APP ID,必传
+         * webServiceUrl:渠道商服务url，回调地址。用于将支付宝相关的信息同步给渠道商，非必传
+         */
+        PlatformModel platform = new PlatformModel();
+        // 从OPENAPI接入的，必须要把appID设置为渠道ID
+        platform.setChannelID(AlipassSDKConstants.OPENAPI_APPID);
+        // 可为空
+        platform.setWebServiceUrl(" ");
+        /**
+         * 渠道属性构造--结束
+         */
+
+        /**
+         * 交易属性构造--开始 交易属性为选传属性,商户根据自身需要填写即可. tradeNo 支付宝交易号 perVoucherBuyAmount
+         * 单张实际支付额 perVoucherAmount 凭证单张面额 voucherBuyCount 购买份数 buyerUserId 买家id
+         * manualRefundRatio 手动退款比例 autoRefundRatio 系统退款比例
+         */
+        TradeInfoModel tradeInfo = new TradeInfoModel();
+        tradeInfo.setAutoRefundRatio("0.8");
+        tradeInfo.setBuyerUserId("2088002562932768");
+        tradeInfo.setManualRefundRatio("1.0");
+        tradeInfo.setPerVoucherAmount("45");
+        tradeInfo.setPerVoucherBuyAmount("43");
+        tradeInfo.setTradeNo("2013082141745388");
+        tradeInfo.setVoucherBuyCount("4");
+        /**
+         * 交易属性构造--结束
+         */
+
+        /**
+         * 样式属性构造--开始 样式属性为选传属性 backgroundColor必填，用rgb方式指定卡全背景颜色
+         */
+        StyleModel style = new StyleModel();
+        style.setBackgroundColor("rgb(235,168,188)");
+        /**
+         * 样式属性构造--结束
+         */
+
+        /**
+         * 应用属性构造--开始 应用属性为选传属性 label:在pass中显示的应用名称.
+         * message:应用的简短描述，会出现在pass展示的应用信息区。 app:AppDetailModel类型.
+         */
+        AppInfoModel appInfo = new AppInfoModel();
+        appInfo.setAppLabel("DemoApp");
+        appInfo.setAppMessage("Demo App Introduce");
+
+        AppDetailModel appDetailInfo = new AppDetailModel();
+        appDetailInfo.setAndroid_appid("com.airXXXXXXXXX");
+        appDetailInfo.setAndroid_download("http://platformxxx/xxxx/xxxxx");
+        appDetailInfo.setAndroid_launch("alipay://platformxxx/xxxx/xxxxx");
+        appDetailInfo.setIos_appid("8192731923");
+        appDetailInfo.setIos_download("itunes://platformxxx/xxxx/xxxxx");
+        appDetailInfo.setIos_launch("alipay://platformxxx/xxxx/xxxxx");
+        appInfo.setApp(appDetailInfo);
+
+        /**
+         * 应用属性构造--结束
+         */
+
+        // alipassModel
+        AlipassModel alipassModel = new AlipassModel();
+        alipassModel.setFileInfo(fileInfo);
+        alipassModel.setPlatform(platform);
+        alipassModel.setMerchant(merchant);
+        alipassModel.setEvoucherInfo(voucher);
+        alipassModel.setAppInfo(appInfo);
+        alipassModel.setStyle(style);
+        alipassModel.setTradeInfo(tradeInfo);
+
+        return alipassModel;
+    }
+
+    /**
+     * 生成随机数字，用于生成随机Serialnumber
+     * 
+     * @param codeLength
+     * @return
+     */
+    public static String generateNumber(int codeLength) {
+        // 10个数字
+        final int maxNum = 8;
+        int i; // 生成的随机数
+        int count = 0; // 生成的密码的长度
+        char[] str = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+
+        StringBuffer pwd = new StringBuffer("");
+        Random r = new Random();
+        while (count < codeLength) {
+            // 生成随机数，取绝对值，防止生成负数
+            i = Math.abs(r.nextInt(maxNum)); // 生成的数最大为36-1
+
+            if (i >= 0 && i < str.length) {
+                pwd.append(str[i]);
+                count++;
+            }
+        }
+
+        return pwd.toString();
+    }
+
+    public String getTemplateId() {
+        return templateId;
+    }
+
+    public void setTemplateId(String templateId) {
+        this.templateId = templateId;
+    }
+
+}

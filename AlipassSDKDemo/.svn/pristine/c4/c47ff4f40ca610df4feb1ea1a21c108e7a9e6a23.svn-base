@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="resources/" kind="src" path="src"/>
+	<classpathentry kind="src" path="src/resources"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry exported="true" kind="lib" path="lib/commons-logging-1.1.3.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/toolkit-common-lang-1.1.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jackson-annotations-2.1.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jackson-core-2.1.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jackson-databind-2.1.4.jar" sourcepath="E:/m2/com/fasterxml/jackson/core/jackson-databind/2.1.4/jackson-databind-2.1.4-sources.jar"/>
+	<classpathentry kind="lib" path="lib/alipass-sdk-1.3.6.jar" sourcepath="D:/opensource/alipaysrc/alipass_sdk/target/alipass-sdk-1.3.6-sources.jar">
+		<attributes>
+			<attribute name="source_encoding" value="UTF-8"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/alipay-sdk-java20150226120059.jar" sourcepath="D:/opensource/alipaysrc/alipay-sdk-java20150226120059-source.jar">
+		<attributes>
+			<attribute name="source_encoding" value="UTF-8"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
