@@ -15,8 +15,8 @@ public class RemoteAkkaServer {
 	private static final Logger logger = LoggerFactory.getLogger(AkkaService.class);
 	
 	public static void main(String[] args) {
-		AkkaService remoteService = AkkaService.getInstance(10002, "remoteServer", "remoteActor");
-		remoteService.init();
+		AkkaService remoteService = AkkaService.getInstance();
+		remoteService.init(10002, "remoteServer", "remoteActor");
 		logger.info("remoteServer启动成功");
 	}
 }

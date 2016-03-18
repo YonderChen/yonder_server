@@ -34,11 +34,7 @@ import com.typesafe.config.ConfigFactory;
 public class AkkaService {
 	private static final Logger logger = LoggerFactory.getLogger(AkkaService.class);
 	
-	private AkkaService(int port, String serverName, String actorName) {
-		this.host = getAddress();
-		this.port = port;
-		this.serverName = serverName;
-		this.actorName = actorName;
+	private AkkaService() {
 	}
 	
 	private ActorSystem actorSystem;
@@ -80,11 +76,16 @@ public class AkkaService {
 	 * @param actorName	接收消息Actor名称
 	 * @return
 	 */
-	public static AkkaService getInstance(int port, String serverName, String actorName){
-		return new AkkaService(port, serverName, actorName);
+	public static AkkaService getInstance(){
+		return new AkkaService();
 	}
 	
-	public void init() {
+	public void init(int port, String serverName, String actorName) {
+		this.host = "110.20.30.10";//getAddress();
+		this.port = port;
+		this.serverName = serverName;
+		this.actorName = actorName;
+		
 		logger.info("Start ActorSystem...");
 		actorSystem = ActorSystem.create(serverName, createConfig());
 		logger.info("Start ActorSystem...OK");
