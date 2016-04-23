@@ -17,10 +17,10 @@ public class LocalAkkaServer {
 	
 	public static void main(String[] args) {
 		AkkaService localService = AkkaService.getInstance();
-		localService.init(10001, "localServer", "localActor");
+		localService.init(10001, "localServer", "localhost", "localActor");
 		logger.info("localServer启动成功");
 		//由于在同一台机器上测试，所以直接取localService的ip
-		String str = localService.visitService("remoteServer", localService.getHost(), 10002, "remoteActor", "Hello I'm local!");
+		String str = localService.visitService("remoteServer", "www.bj.ddd", 10012, "remoteActor", "Hello I'm local!");
 		logger.info("reply:" + str);
 	}
 }

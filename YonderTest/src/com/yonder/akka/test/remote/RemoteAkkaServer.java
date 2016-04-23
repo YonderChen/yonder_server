@@ -16,7 +16,7 @@ public class RemoteAkkaServer {
 	
 	public static void main(String[] args) {
 		AkkaService remoteService = AkkaService.getInstance();
-		remoteService.init(10002, "remoteServer", "remoteActor");
+		remoteService.init(10002, "remoteServer", "localhost", "remoteActor");
 		logger.info("remoteServer启动成功");
 	}
 }

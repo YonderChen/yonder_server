@@ -80,8 +80,8 @@ public class AkkaService {
 		return new AkkaService();
 	}
 	
-	public void init(int port, String serverName, String actorName) {
-		this.host = "110.20.30.10";//getAddress();
+	public void init(int port, String serverName, String host, String actorName) {
+		this.host = host;//getAddress();
 		this.port = port;
 		this.serverName = serverName;
 		this.actorName = actorName;
@@ -105,8 +105,12 @@ public class AkkaService {
 		remoteTransports.add("akka.remote.netty.tcp");
 		map.put("akka.remote.enabled-transports", remoteTransports);
 		
-		map.put("akka.remote.netty.tcp.hostname", host);
+//		map.put("akka.remote.netty.tcp.hostname", host);
+//		map.put("akka.remote.netty.tcp.port", port);
+		map.put("akka.remote.netty.tcp.hostname", "www.bj.ddd");
 		map.put("akka.remote.netty.tcp.port", port);
+//		map.put("akka.remote.netty.tcp.bind-hostname", "www.bj.dddd");
+//		map.put("akka.remote.netty.tcp.bind-port", port + 10);
 		
 		map.put("akka.remote.netty.tcp.maximum-frame-size", 100 * 1024 * 1024);
 		

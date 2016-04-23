@@ -8,6 +8,8 @@ public class TestCharMain {
 		System.out.println("b" + (char)65530 + "a");
 		System.out.println("ba".equals("ba"));
 		System.out.println("b￹a".equals("ba"));
+		System.out.println("ba".length());
+		System.out.println("b￹a".length());
 		int b￹a = 1;
 		int ba = 2;
 		System.out.println(b￹a);
