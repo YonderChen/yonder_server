@@ -7,8 +7,12 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.elasticsearch.action.ListenableActionFuture;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.bulk.BulkResponse;
+import org.elasticsearch.action.exists.ExistsRequestBuilder;
+import org.elasticsearch.action.exists.ExistsResponse;
+import org.elasticsearch.action.index.IndexRequestBuilder;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
@@ -43,8 +47,12 @@ public class ESTest {
 		client_write.addTransportAddress(new InetSocketTransportAddress("192.168.2.15", 9300));
         
 		String index_name = "tesssssssst__";
+//		String index_name = "register_user_log";
+
+//		SearchRequestBuilder request = client_read.prepareSearch(index_name).setTypes("json").setSearchType(SearchType.COUNT).setTimeout(new TimeValue(60000));
+		client_write.admin().indices().prepareCreate(index_name).get();
 //		String index_name_temp = index_name + "_temp";
-		insert(index_name, client_write, client_read);
+//		insert(index_name, client_write, client_read);
 //		query(index_name, client_read);
 		
 		
@@ -54,7 +62,7 @@ public class ESTest {
 //		delIndex(index_name_temp, client_read);
 		
 		client_write.close();
-//		client_read.close();
+		client_read.close();
 	}
 	
 	public static void insert(String index_name, TransportClient client_write, TransportClient client_read) {
