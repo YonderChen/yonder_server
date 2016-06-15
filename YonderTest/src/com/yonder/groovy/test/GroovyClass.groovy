@@ -1,5 +1,7 @@
 package com.yonder.groovy.test
 
+import com.yonder.java8.test.Test;
+
 class GroovyClass {
 
 	int count;
@@ -9,7 +11,9 @@ class GroovyClass {
 	}
 	
 	def test2() {
-		return count + 100;
+//		ScriptTest.testjava();
+//		Test.main(null);
+		return count++;
 	}
 	
 	static def test3() {

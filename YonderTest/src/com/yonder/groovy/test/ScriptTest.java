@@ -6,6 +6,8 @@ import groovy.lang.GroovyShell;
 import groovy.lang.Script;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
@@ -31,37 +33,37 @@ public class ScriptTest {
 
 	public static void main(String[] args) throws Exception {
 		test1();
-		test2();
 		eval();
+		test1();
+//		test2();
 		shell();
 		classLoad();
 		testjava();
 	}
 	
 	public static void classLoad() throws Exception {
-		ClassLoader loader = ScriptTest.class.getClassLoader();
-		//通过java类加载器构建一个groovyclass加载器
-		GroovyClassLoader groovyClassLoader = new GroovyClassLoader(loader);
-		//动态解析加载指定的groovy脚本文件
-		Class groovyClz = groovyClassLoader.parseClass(new File("src/com/yonder/groovy/test/GroovyClass.groovy"));
+		Class groovyClz = GroovyScriptTools.classLoad("src/com/yonder/groovy/test/GroovyClass.groovy");
 		//构建一个groovyobject实例
-		GroovyObject groovyObject = (GroovyObject) groovyClz.newInstance();
+		GroovyObject groovyObject = GroovyScriptTools.getGroovyObj("src/com/yonder/groovy/test/GroovyClass.groovy");
 		groovyObject.setProperty("count", 1);
 //		System.out.println(groovyObject.getProperty("count"));
 
-//		long a = System.currentTimeMillis();
-//		for (int i = 0; i < 1000; i++) {
-//			groovyObject.invokeMethod("test2", null);
-//		}
-//		long b = System.currentTimeMillis();
-//		System.out.println(b - a );
+		long a = System.currentTimeMillis();
+		for (int i = 0; i < 1000; i++) {
+			groovyObject.invokeMethod("test2", null);
+		}
+		long b = System.currentTimeMillis();
+		System.out.println("classload:" + (b - a));
 
-		long bb = System.currentTimeMillis();
-		System.out.println(groovyObject.invokeMethod("test3", null));
-	
-		System.out.println(groovyClz.getMethod("test3").invoke(groovyClz));
+//		long bb = System.currentTimeMillis();
+//		System.out.println(groovyObject.invokeMethod("test3", null));
+//	
+//		System.out.println(groovyClz.getMethod("test3").invoke(groovyClz));
 //		Object obj = groovyObject.invokeMethod("test2", null);//动态执行test2方法(私有也行)
 //		System.out.println(obj);
+//		Object obj1 = groovyObject.invokeMethod("test1", 500);//动态执行test2方法(私有也行)
+//		System.out.println(obj1);
+		
 	}
 	
 	public static void shell() throws Exception {
@@ -71,13 +73,15 @@ public class ScriptTest {
 		JavaObj obj = new JavaObj();
 		shell.setVariable("obj", obj);
 		shell.setVariable("ScriptTest", ScriptTest.class);
-		Script script = shell.parse(new File("src/com/yonder/groovy/test/GroovyScript.groovy"));
+		Script script = shell.parse(new File("src/com/yonder/groovy/test/GroovyTestScript.groovy"));
+//		Object result = script.run();
+//		System.out.println(result);
 		long a = System.currentTimeMillis();
 		for (int i = 0; i < 1000; i++) {
 			script.invokeMethod("test2", null);
 		}
 		long b = System.currentTimeMillis();
-		System.out.println(b - a );
+		System.out.println("shell:" + (b - a));
 	}
 	
 	public static void eval() {
@@ -88,7 +92,7 @@ public class ScriptTest {
 		try {
 			long a = System.currentTimeMillis();
 			for (int i = 0; i < 1000; i++) {
-				engine.eval("count + 100");
+				engine.eval("count++");
 			}
 			long b = System.currentTimeMillis();
 			System.out.println("eval:" + (b - a));
@@ -97,17 +101,20 @@ public class ScriptTest {
 		}
 	}
 
-	public static void testjava() {
+	public static Map<String, String> testjava() {
 		long a = System.currentTimeMillis();
-		for (int i = 0; i < 1000; i++) {
+		for (int i = 0; i < 10000; i++) {
 			test(1);
 		}
 		long b = System.currentTimeMillis();
-		System.out.println(b - a );
+		System.out.println("java:" + (b - a));
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("a", "bb");
+		return map;
 	}
 	
 	public static int test(int count) {
-		return count + 100;
+		return count++;
 	}
 	
 	public static void test1() {
@@ -118,12 +125,12 @@ public class ScriptTest {
 			int count = 0;
 			engine.put("count", count);
 			long a = System.currentTimeMillis();
-			for (int i = 0; i < 1000; i++) {
+			for (int i = 0; i < 10000; i++) {
 				engine.eval("count++");
 			}
 			long b = System.currentTimeMillis();
-			System.out.println(b - a );
-			System.out.println(engine.eval("count"));
+			System.out.println("ScriptEngine:" + (b - a ));
+//			System.out.println(engine.eval("count"));
 //			System.out.println(engine.get("name"));
 //			System.out.println("calling groovy from java end");
 //			engine.eval("");
@@ -139,7 +146,7 @@ public class ScriptTest {
 //			engine.put("name", "VerRan");
 			int count = 0;
 			long a = System.currentTimeMillis();
-			for (int i = 0; i < 1000; i++) {
+			for (int i = 0; i < 10000; i++) {
 				count++;
 			}
 			long b = System.currentTimeMillis();

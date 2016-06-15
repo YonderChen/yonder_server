@@ -18,7 +18,7 @@ class Main {
 		
 		number1 = 10
 		number2 = 10
-		def val = number2?.
+		def val = number2
 		println eagerGString
 		println lazyGString.call(number1, number2);
 		
