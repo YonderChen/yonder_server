@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<project name="bccs-java-sdk-api-lib-2.0.1" default="all">
+
+	<property name="src.dir" value="src"/>
+	<property name="core.dir" value="core"/>
+	<property name="classes.dir" value="my_classes"/>
+	<property name="libs.dir" value="libs"/>
+	<property name="dist.dir" value="dist"/>
+	<property name="doc.dir" value="doc"/>
+	<property name="output.dir" value="output"/>
+	
+	<path id="classpath">
+		<fileset dir="{libs.dir}">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+	<!-- ================================= 
+          target: init              
+         ================================= -->
+	<target name="init" description="Initialize Environment">
+
+	</target>
+
+
+	<!-- ================================= 
+          target: clean              
+         ================================= -->
+	<target name="clean" description="description">
+
+	</target>
+
+
+	<!-- ================================= 
+          target: compile              
+         ================================= -->
+	<target name="compile" description="description">
+		<mkdir dir="${classes.dir}"/>
+		<delete verbose="true" includeemptydirs="true">
+			<fileset dir="${classes.dir}">
+				<include name="**/*" />
+			</fileset>
+		</delete>
+		<copy todir="${core.dir}/com/baidu/yun/core/copyfile/" file="${src.dir}/com/baidu/yun/push/exception/PushClientException.java" />
+		<copy todir="${core.dir}/com/baidu/yun/core/copyfile/" file="${src.dir}/com/baidu/yun/push/constants/BaiduPushConstants.java" />
+		<copy todir="${core.dir}/com/baidu/yun/core/copyfile/" file="${src.dir}/com/baidu/yun/push/model/KeyValueForAck.java" />
+		<copy todir="${core.dir}/com/baidu/yun/core/copyfile/" file="${src.dir}/com/baidu/yun/push/model/KeyValueForMsg.java" />
+		<copy todir="${core.dir}/com/baidu/yun/core/copyfile/" file="${src.dir}/com/baidu/yun/push/model/KeyValueForTopic.java" />
+		<copy todir="${core.dir}/com/baidu/yun/core/copyfile/" file="${src.dir}/com/baidu/yun/push/model/KeyValueForDevice.java" />
+		<copy todir="${core.dir}/com/baidu/yun/core/copyfile/" file="${src.dir}/com/baidu/yun/push/model/MsgStatUnit.java" />
+		<copy todir="${core.dir}/com/baidu/yun/core/copyfile/" file="${src.dir}/com/baidu/yun/push/model/TopicStatUnit.java" />
+		<copy todir="${core.dir}/com/baidu/yun/core/copyfile/" file="${src.dir}/com/baidu/yun/push/model/DeviceStatUnit.java" />
+		<javac srcdir="${core.dir}" destdir="${classes.dir}" source="1.6" target="1.6" includeantruntime="false" />
+		<javac srcdir="${src.dir}" destdir="${classes.dir}" source="1.6" target="1.6" includeantruntime="false">
+			<classpath refid="classpath" />
+			<include name="**/*.jar" />
+		</javac>
+		<delete dir="${core.dir}/com/baidu/yun/core/copyfile/" />
+	</target>
+
+
+	<!-- ================================= 
+          target: doc              
+         ================================= -->
+
+	<target name="doc" depends="jar" description="description">
+		<delete dir="${doc.dir}" />
+		<mkdir dir="${doc.dir}"/>
+		<javadoc destdir="${doc.dir}" version="true" use="true">
+			<packageset dir="${src.dir}" defaultexcludes="yes">
+			</packageset>
+			<doctitle>
+				<![CDATA[<h1>BCCS-JAVA-API Project</h1>]]></doctitle>
+		<bottom>
+			<![CDATA[<i>Document by com@baidu.com 2011.</i>]]></bottom>
+	    </javadoc>
+    </target>
+
+<!-- ================================= 
+          target: jar              
+         ================================= -->
+<target name="jar" depends="compile" description="description">
+<mkdir dir="${dist.dir}"/>
+<mkdir dir="${output.dir}"/>
+<jar destfile="${dist.dir}/bccs-api-lib-2.0.1.jar" basedir="${classes.dir}"/>
+<copy todir="${output.dir}" file="${dist.dir}/bccs-api-lib-2.0.1.jar" overwrite="true"/>
+</target>
+
+
+<!-- ================================= 
+          target: sample              
+         ================================= -->
+<target name="sample" description="description">
+<mkdir dir="${output.dir}/sample"/>
+<copy todir="${output.dir}/sample">
+	<fileset dir="sample">
+		<include name="**/*.java"/>
+	</fileset>
+</copy>
+</target>
+
+
+<!-- ================================= 
+          target: all              
+         ================================= -->
+<target name="all" depends="jar,sample" description="description">
+
+</target>
+
+
+</project>

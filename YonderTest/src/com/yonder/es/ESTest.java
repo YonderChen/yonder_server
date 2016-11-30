@@ -46,15 +46,29 @@ public class ESTest {
 		client_read.addTransportAddress(new InetSocketTransportAddress("192.168.2.15", 9300));
 		client_write.addTransportAddress(new InetSocketTransportAddress("192.168.2.15", 9300));
         
-		String index_name = "tesssssssst__";
+		String index_name = "abcccccccc";
 //		String index_name = "register_user_log";
 
 //		SearchRequestBuilder request = client_read.prepareSearch(index_name).setTypes("json").setSearchType(SearchType.COUNT).setTimeout(new TimeValue(60000));
-		client_write.admin().indices().prepareCreate(index_name).get();
+//		client_write.admin().indices().prepareCreate(index_name).get();
 //		String index_name_temp = index_name + "_temp";
 //		insert(index_name, client_write, client_read);
 //		query(index_name, client_read);
 		
+
+		SearchRequestBuilder request = client_read.prepareSearch(index_name).setTypes("json").setSearchType(SearchType.COUNT).setTimeout(new TimeValue(60000));
+		
+
+		request.addAggregation(AggregationBuilders.terms("terms").field("a").size(0));
+		System.out.println(request.toString());
+		SearchResponse response = request.execute().actionGet();
+//		Filter filter = response.getAggregations().get("filter");
+		Terms terms = response.getAggregations().get("terms");
+		System.out.println(terms.getBuckets().size());
+		System.out.println("剩余个数:" + terms.getSumOfOtherDocCounts());
+//		for (Bucket bucket : terms.getBuckets()) {
+//			System.out.println(bucket.getKey());
+//		}
 		
 //		copyIndex(client_read, client_write, index_name, index_name_temp);
 //		delIndex(index_name, client_read);
@@ -78,12 +92,10 @@ public class ESTest {
 
 		long length = 0;
 		List<JsonObject> dataList = new ArrayList<JsonObject>();
-		for (int i = 0; i < 10000; i++) {
+		for (int i = 100; i < 100000; i++) {
 			JsonObject jo = new JsonObject();
-			for (int j = 0; j < 6; j++) {
-				jo.addProperty("col_" + j, "val_" + j + "_" + UUID.randomUUID().toString());
-			}
-			length += jo.toString().length();
+			jo.addProperty("a", i);
+			jo.addProperty("b", i/10);
 			dataList.add(jo);
 		}
 		System.out.println(length);

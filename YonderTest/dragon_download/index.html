@@ -1,0 +1,113 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>龙痕守护</title>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+	<link rel="icon" href="favicon.ico" type="image/x-icon" />
+	<link type="text/css" href="jquery.mobile-1.4.5.min.css" rel="stylesheet"/>
+	<link type="text/css" href="css/swiper.min.css" rel="stylesheet"/>
+  	<script type="text/javascript" src="jquery.js"></script>
+  	<script type="text/javascript" src="jquery.mobile-1.4.5.min.js"></script>
+	<script src="js/swiper.min.js"></script>
+	<script type="text/javascript">
+	$('document').ready(function() {
+		$(window).scroll(function() {
+			document.getElementById('guidePic').style.top = $(this).scrollTop() + "px";
+		});
+		//Initialize Swiper
+   		var swiper = new Swiper('.swiper-container', {
+	        //pagination: '.swiper-pagination',
+	        slidesPerView: 2,
+	        paginationClickable: true,
+	        spaceBetween: 30,
+	        freeMode: true,
+	        cssWidthAndHeight : true
+	    });
+	});
+	
+	var u = navigator.userAgent, app = navigator.appVersion;
+	var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //android终端
+	var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+	
+	function download() {
+		if(!isiOS){//目前只开放android版本下载
+			if (isWeiXin()) {
+				$(".download_pic").show();
+			} else {
+				window.location.href="http://dragoncdn.appcup.com/client_resource/dragon_release_110.apk";
+			}
+		} else{
+			alert("目前只支持android版本下载。ios版本暂未上线，敬请期待！");
+		}
+	}
+	
+	function hideDownload() {
+		$(".download_pic").hide();
+	}
+	
+	function isWeiXin() {
+		var ua = window.navigator.userAgent.toLowerCase();
+		if (ua.indexOf("micromessenger") != -1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	</script>
+	<style type="text/css">
+
+	</style>
+  </head>
+  <body>
+  	<div data-role="page">
+  		<div data-role="header" data-position="fixed" style="background-color: #018cb4;z-index: 999;">
+			<h1 style="padding:0;margin: 0;"><a href="javascript:download();"><img src="app_title.png" style="width:100%;"></a></h1>
+		</div>
+    	<div role="main" class="ui-content" style="padding:0;">	
+			<img id="guidePic" class="download_pic" src="download_guide.png" style="width:100%;z-index: 1001;position: absolute;display:none;top:0;left:0;" onclick="hideDownload();">
+			<img class="download_pic" src="download_shield.png" style="width:100%;height:100%;z-index: 1000;position: absolute;display:none;top:0;left:0;" onclick="hideDownload();">
+			<div class="swiper-container" style="padding:10px;">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide">
+						<a href="#popupParis" data-rel="popup" data-position-to="window" data-transition="fade"><img class="popphoto" src="yyxc_1.png" style="width:100%"></a>
+					</div>
+					<div class="swiper-slide">
+						<a href="#popupParis" data-rel="popup" data-position-to="window" data-transition="fade"><img class="popphoto" src="yyxc_2.png" style="width:100%"></a>
+					</div>
+					<div class="swiper-slide">
+						<a href="#popupParis" data-rel="popup" data-position-to="window" data-transition="fade"><img class="popphoto" src="yyxc_3.png" style="width:100%"></a>
+					</div>
+					<div class="swiper-slide">
+						<a href="#popupParis" data-rel="popup" data-position-to="window" data-transition="fade"><img class="popphoto" src="yyxc_4.png" style="width:100%"></a>
+					</div>
+				</div>
+			<!-- Add Pagination -->
+			<!-- <div class="swiper-pagination"></div> -->
+			</div>
+			<div style="padding:10px;">
+			<label style="font-weight:bold">游戏说明：</label>
+			《龙痕守护》是北欧神话题材的角色扮演游戏，结合精灵养成和套装搜集玩法。但是和市面上大部分同类型游戏不同，《龙痕守护》开辟独特的套装变身战斗玩法，让套装搜集的效果直接体现在游戏战斗中，多种多样的套装，酷炫的外观，神奇的变身，强大的特效，让玩家在游戏中随心所欲地培养出属于自己的超级英雄！
+《龙痕守护》的游戏界面简单明了，操作简便，上手容易，亲和力强，所有的界面一目了然，几乎不需要任何介绍，玩家都可理解并快速上手操作。多样的玩法，多种界面，却不繁杂，各有特色。看似庞大的培养系统，却是仅仅结合在核心玩法周围，为核心玩法增添色彩，达到万剑归宗的效果。同时也减少了玩家需要理解的内容，让玩家轻松增添游戏乐趣，减少疲劳感，快速融入游戏世界，体验北欧风情。
+《龙痕守护》的画面采用U3D制作，次世代建模效果，震憾特效表现，技能效果绚丽，家园场景逼真，战斗环环相扣，紧张刺激。数万字级别剧情，构架丰满世界观，数十只栩栩如生的精灵，时刻陪伴玩家，让玩家拥有绝佳代入感，身临其境！
+			</div>
+			<div data-role="popup" id="popupParis" data-overlay-theme="b" data-theme="b" data-corners="false">
+			    <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a><img class="popphoto" src="yyxc_1.png" style="max-height:480px;">
+			</div>
+			<div data-role="popup" id="popupSydney" data-overlay-theme="b" data-theme="b" data-corners="false">
+			    <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a><img class="popphoto" src="yyxc_2.png" style="max-height:480px;">
+			</div>
+			<div data-role="popup" id="popupNYC" data-overlay-theme="b" data-theme="b" data-corners="false">
+			    <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a><img class="popphoto" src="yyxc_3.png" style="max-height:480px;">
+			</div>
+			<div data-role="popup" id="popupNYC" data-overlay-theme="b" data-theme="b" data-corners="false">
+			    <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a><img class="popphoto" src="yyxc_4.png" style="max-height:480px;">
+			</div>
+    	</div>
+		<div data-role="footer" data-position="fixed" style="background-color: #018cb4;z-index: 999;">
+	    	<h4 style="padding:0;margin: 0;"><a href="javascript:download();"><img src="app_bottom.png" style="width:100%;"></a></h4>
+		</div>
+	</div>
+</body>
+</html>

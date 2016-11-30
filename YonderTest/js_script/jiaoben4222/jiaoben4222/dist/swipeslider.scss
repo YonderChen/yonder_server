@@ -1,0 +1,131 @@
+$control-bg-color: rgba(255, 255, 255, 0);
+$control-bg-color-hover: rgba(255, 255, 255, 0.74);
+$control-bg-color-active: rgba(255, 255, 255, 0.5);
+$control-color: rgba(160, 160, 160, 0.53);
+
+.swipslider {
+  position: relative;
+  overflow: hidden;
+  display: block;
+  padding-top: 60%;
+  user-select: none;
+  
+  .sw-slides {
+  display: block;
+  padding: 0;
+  
+  list-style: none;
+  width: 100%;
+  height: 100%;
+  white-space: nowrap;
+  font-size: 0;
+  transform: translateX(0);
+  position: absolute;
+  bottom: 0;
+}
+
+.sw-slide {
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  display: inline-block;
+  position: relative;
+  
+  & > img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-height: 100%;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    user-select: none;
+    
+  }
+  
+  .sw-content {
+    width: 100%;
+    height: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    font-size: 14px;
+  }
+}
+}
+
+.sw-next-prev {
+  font-family: "Courier New", Courier, monospace;
+  height: 50px;
+  width: 50px;
+  text-align: center;
+  vertical-align: middle;
+  position: absolute;
+  line-height: 50px;
+  font-size: 30px;
+  font-weight: bolder;
+  color: $control-color;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: $control-bg-color;
+  border-radius: 50%;
+  text-decoration: none;
+  transition: all .2s ease-out;
+  cursor: pointer;
+  user-select: none;
+  
+  &:hover {
+    background-color: $control-bg-color-hover;
+  }
+  
+  &:active {
+    background-color: $control-bg-color-active;
+  }
+}
+
+.sw-prev {
+  left: 2%;
+  &::after{
+    content: '<';
+  }
+}
+
+.sw-next {
+  right: 2%;
+  &::after {
+    content: '>';
+  }
+}
+
+.sw-bullet {
+  position: absolute;
+  bottom: 2%;
+  list-style: none;
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  li {
+    width: 10px;
+    height: 10px;
+    background-color: $control-color;
+    border-radius: 50%;
+    display: inline-block;
+    cursor: pointer;
+    transition: all .2s ease-out;
+    
+    &:hover {
+      background-color: $control-bg-color-hover;
+    }
+    
+    &.active {
+      background-color: $control-bg-color-active;
+      box-shadow: 0 0 2px $control-color;
+    }
+    
+    &:not(:last-child){
+      margin-right: 5px;
+    }
+  }
+}
