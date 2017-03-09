@@ -56,14 +56,14 @@ public class MinaServer {
 		
         //MagellanPluginConfig.sharedMagellanPluginConfig().start();//启动插件 
         socketAcceptor = new NioSocketAcceptor();
-        socketAcceptor.getSessionConfig().setIdleTime(IdleStatus.BOTH_IDLE, 60);
+        socketAcceptor.getSessionConfig().setIdleTime(IdleStatus.BOTH_IDLE, 5);
         socketAcceptor.setReuseAddress(true);//设置的是主服务监听的端口可以重用
         socketAcceptor.getSessionConfig().setReuseAddress(true);//设置每一个非主监听连接的端口可以重用
         //设置为非延迟发送，为true则不组装成大包发送，收到东西马上发出
         socketAcceptor.getSessionConfig().setTcpNoDelay(true);
         socketAcceptor.getSessionConfig().setMaxReadBufferSize(1024*1024);
         //设置主服务监听端口的监听队列的最大值为100，如果当前已经有100个连接，再新的连接来将被服务器拒绝
-        socketAcceptor.setBacklog(100);
+        socketAcceptor.setBacklog(2);
         
         DefaultIoFilterChainBuilder chain = socketAcceptor.getFilterChain();
         

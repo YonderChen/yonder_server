@@ -18,9 +18,11 @@ public class SocketServerHandler extends IoHandlerAdapter {
 	public void messageReceived(IoSession session, Object message) {
 		try {
         	//正常处理业务（）
-			System.out.println(message.toString());
-        	session.write("1server received."); 
-        	session.write("2server received."); 
+//			System.out.println(message.toString());
+//        	session.write("1server received.\r\n"); 
+//        	Thread.sleep(500000);
+//        	System.out.println("aaaaaaaaaa");
+//        	session.write("2server received.\r\n"); 
         } catch(Exception ex){  
         	ex.printStackTrace();
         	logger.error("error",ex);
@@ -32,11 +34,13 @@ public class SocketServerHandler extends IoHandlerAdapter {
 	@Override
 	public void sessionOpened(IoSession session) throws Exception {
 		super.sessionOpened(session);
+		System.out.println("opened----------------------------------------------" + System.currentTimeMillis());
 	}
 
 	@Override
 	public void sessionCreated(IoSession session) throws Exception {
 		super.sessionCreated(session);
+		System.out.println("created----------------------------------------------" + System.currentTimeMillis());
 	}
 
 	@Override
@@ -56,6 +60,7 @@ public class SocketServerHandler extends IoHandlerAdapter {
 	public void messageSent(IoSession session, Object message) throws Exception {
 		super.messageSent(session, message);
 		//session.close(true);
+		System.out.println("sent----------------------------------------------" + System.currentTimeMillis());
 	}
 
 	@Override
@@ -63,6 +68,7 @@ public class SocketServerHandler extends IoHandlerAdapter {
 			throws Exception {
 		super.sessionIdle(session, status);
 		session.close(true);
+		System.out.println("idle----------------------------------------------" + System.currentTimeMillis());
 	}
 
 }

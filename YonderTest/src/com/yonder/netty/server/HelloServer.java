@@ -1,78 +1,96 @@
 package com.yonder.netty.server;
 
-import java.net.InetSocketAddress;
-import java.util.concurrent.Executors;
 
-import org.jboss.netty.bootstrap.ServerBootstrap;
-import org.jboss.netty.channel.ChannelHandlerContext;
-import org.jboss.netty.channel.ChannelPipeline;
-import org.jboss.netty.channel.ChannelPipelineFactory;
-import org.jboss.netty.channel.ChannelStateEvent;
-import org.jboss.netty.channel.Channels;
-import org.jboss.netty.channel.MessageEvent;
-import org.jboss.netty.channel.SimpleChannelHandler;
-import org.jboss.netty.channel.socket.nio.NioServerSocketChannelFactory;
-import org.jboss.netty.handler.codec.string.StringDecoder;
-import org.jboss.netty.handler.codec.string.StringEncoder;
+import io.netty.bootstrap.ServerBootstrap;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelPipeline;
+import io.netty.channel.EventLoopGroup;
+import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.SocketChannel;
+import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.DelimiterBasedFrameDecoder;
+import io.netty.handler.codec.Delimiters;
+import io.netty.handler.codec.string.StringDecoder;
+import io.netty.handler.codec.string.StringEncoder;
 
-/**
- * Netty 服务端代码
- * 
- * @author lihzh
- * @alia OneCoder
- * @blog http://www.coderli.com
- */
+import java.net.InetAddress;
+
 public class HelloServer {
+    
+    /**
+     * 服务端监听的端口地址
+     */
+    private static final int portNumber = 7878;
+    
+    public static void main(String[] args) throws InterruptedException {
+        EventLoopGroup bossGroup = new NioEventLoopGroup();
+        EventLoopGroup workerGroup = new NioEventLoopGroup();
+        try {
+            ServerBootstrap b = new ServerBootstrap();
+            b.group(bossGroup, workerGroup);
+            b.channel(NioServerSocketChannel.class);
+            b.childHandler(new HelloServerInitializer());
 
-	public static void main(String args[]) {
-		// Server服务启动器
-		ServerBootstrap bootstrap = new ServerBootstrap(
-				new NioServerSocketChannelFactory(
-						Executors.newCachedThreadPool(),
-						Executors.newCachedThreadPool()));
-		// 设置一个处理客户端消息和各种消息事件的类(Handler)
-		bootstrap
-				.setPipelineFactory(new ChannelPipelineFactory() {
-					@Override
-					public ChannelPipeline getPipeline()
-							throws Exception {
-						ChannelPipeline p = Channels.pipeline();
-						p.addLast("encode", new StringEncoder());
-						p.addLast("decode", new StringDecoder());
-						p.addLast("handler", new HelloServerHandler());
-						return p;
-					}
-				});
-		// 开放8000端口供客户端访问。
-		bootstrap.bind(new InetSocketAddress(8000));
-	}
+            // 服务器绑定端口监听
+            ChannelFuture f = b.bind(portNumber).sync();
+            // 监听服务器关闭监听
+            f.channel().closeFuture().sync();
 
-	private static class HelloServerHandler extends
-			SimpleChannelHandler {
+            // 可以简写为
+            /* b.bind(portNumber).sync().channel().closeFuture().sync(); */
+        } finally {
+            bossGroup.shutdownGracefully();
+            workerGroup.shutdownGracefully();
+        }
+    }
+    
 
-		/**
-		 * 当有客户端绑定到服务端的时候触发，打印"Hello world, I'm server."
-		 * 
-		 * @alia OneCoder
-		 * @author lihzh
-		 */
-		@Override
-		public void channelConnected(
-				ChannelHandlerContext ctx,
-				ChannelStateEvent e) {
-			System.out.println("client connected...");
-		}
-		
-		@Override
-		public void messageReceived(ChannelHandlerContext ctx, MessageEvent e) throws Exception {
-			// TODO Auto-generated method stub
-			super.messageReceived(ctx, e);
-			System.out.println("from client:" + e.getMessage());
-			System.out.println("send message to client...");
-			for (int i = 0; i < 100; i++) {
-				e.getChannel().write("nice to meet you too!");
-				//如何flush数据
-			}
-		}
-	}
+    public static class HelloServerInitializer extends ChannelInitializer<SocketChannel> {
+
+        @Override
+        protected void initChannel(SocketChannel ch) throws Exception {
+            ChannelPipeline pipeline = ch.pipeline();
+
+            // 以("\n")为结尾分割的 解码器
+            pipeline.addLast("framer", new DelimiterBasedFrameDecoder(8192, Delimiters.lineDelimiter()));
+
+            // 字符串解码 和 编码
+            pipeline.addLast("decoder", new StringDecoder());
+            pipeline.addLast("encoder", new StringEncoder());
+
+            // 自己的逻辑Handler
+            pipeline.addLast("handler", new HelloServerHandler());
+        }
+    }
+    
+    public static class HelloServerHandler extends SimpleChannelInboundHandler<String> {
+        
+        @Override
+        protected void channelRead0(ChannelHandlerContext ctx, String msg) throws Exception {
+            // 收到消息直接打印输出
+            System.out.println(ctx.channel().remoteAddress() + " Say : " + msg);
+            
+            // 返回客户端消息 - 我已经接收到了你的消息
+            ctx.writeAndFlush("Received your message !\n");
+        }
+        
+        /*
+         * 
+         * 覆盖 channelActive 方法 在channel被启用的时候触发 (在建立连接的时候)
+         * 
+         * channelActive 和 channelInActive 在后面的内容中讲述，这里先不做详细的描述
+         * */
+        @Override
+        public void channelActive(ChannelHandlerContext ctx) throws Exception {
+            
+            System.out.println("RamoteAddress : " + ctx.channel().remoteAddress() + " active !");
+            
+            ctx.writeAndFlush( "Welcome to " + InetAddress.getLocalHost().getHostName() + " service!\n");
+            
+            super.channelActive(ctx);
+        }
+    }
 }
