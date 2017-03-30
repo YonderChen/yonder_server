@@ -4,10 +4,8 @@ import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
-import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -33,6 +31,8 @@ import com.typesafe.config.ConfigFactory;
 
 public class AkkaService {
 	private static final Logger logger = LoggerFactory.getLogger(AkkaService.class);
+
+	private static AkkaService instance = new AkkaService();
 	
 	private AkkaService() {
 	}
@@ -77,7 +77,7 @@ public class AkkaService {
 	 * @return
 	 */
 	public static AkkaService getInstance(){
-		return new AkkaService();
+		return instance;
 	}
 	
 	public void init(int port, String serverName, String host, String actorName) {
@@ -88,6 +88,7 @@ public class AkkaService {
 		
 		logger.info("Start ActorSystem...");
 		actorSystem = ActorSystem.create(serverName, createConfig());
+		System.out.println(actorSystem);
 		logger.info("Start ActorSystem...OK");
 		ActorRef act = actorSystem.actorOf(Props.create(ReceiveActor.class), actorName);
 		act.tell(actorName + "已监听成功.", ActorRef.noSender());
@@ -99,16 +100,16 @@ public class AkkaService {
 		map.put("akka.stdout-loglevel", "ERROR");
 
 		//开启akka远程调用
-		map.put("akka.actor.provider", "akka.remote.RemoteActorRefProvider");
+//		map.put("akka.actor.provider", "akka.remote.RemoteActorRefProvider");
 		
-		List<String> remoteTransports = new ArrayList<String>();
-		remoteTransports.add("akka.remote.netty.tcp");
-		map.put("akka.remote.enabled-transports", remoteTransports);
+//		List<String> remoteTransports = new ArrayList<String>();
+//		remoteTransports.add("akka.remote.netty.tcp");
+//		map.put("akka.remote.enabled-transports", remoteTransports);
 		
 //		map.put("akka.remote.netty.tcp.hostname", host);
 //		map.put("akka.remote.netty.tcp.port", port);
-		map.put("akka.remote.netty.tcp.hostname", "www.bj.ddd");
-		map.put("akka.remote.netty.tcp.port", port);
+//		map.put("akka.remote.netty.tcp.hostname", "www.bj.ddd");
+//		map.put("akka.remote.netty.tcp.port", port);
 //		map.put("akka.remote.netty.tcp.bind-hostname", "www.bj.dddd");
 //		map.put("akka.remote.netty.tcp.bind-port", port + 10);
 		
@@ -162,6 +163,7 @@ public class AkkaService {
 	}
 	
 	public ActorSystem getActorSystem(){
+		System.out.println(actorSystem);
 		return actorSystem;
 	}
 

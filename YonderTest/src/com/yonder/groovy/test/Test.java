@@ -13,12 +13,14 @@ import javax.script.ScriptException;
 public class Test {
 
 	public static void main(String[] args) throws Exception {
-		int testNum = 1000000;
-		eval(testNum);
-		engine(testNum);
-		shell(testNum);
-		classLoad(testNum);
-		java(testNum);
+		for (int i = 0; i < 100; i++) {
+			int testNum = 10000;
+			eval(testNum);
+			engine(testNum);
+			shell(testNum);
+			classLoad(testNum);
+			java(testNum);
+		}
 	}
 	public static void eval(int testNum) throws ScriptException {
 		ScriptEngineManager manager = new ScriptEngineManager();

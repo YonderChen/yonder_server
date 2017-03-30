@@ -33,6 +33,21 @@ public class MinaServer {
 
 	public static void main(String[] args) {
 		try {
+			new Thread(new Runnable() {
+				
+				@Override
+				public void run() {
+					while (true) {
+						System.out.println("map size:" + SocketServerHandler.SessionMap.size());
+						try {
+							Thread.sleep(2000);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}
+			}).start();
 			new MinaServer().start();
 		} catch (Exception e) {
 			e.printStackTrace();

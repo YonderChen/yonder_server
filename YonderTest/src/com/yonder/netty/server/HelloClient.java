@@ -49,7 +49,7 @@ public class HelloClient {
             
             // 控制台输入
             BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-            for (;;) {
+            while (ch.isOpen()) {
                 String line = in.readLine();
                 if (line == null) {
                     continue;
@@ -59,11 +59,16 @@ public class HelloClient {
                  * 之所以用\r\n结尾 是因为我们在handler中添加了 DelimiterBasedFrameDecoder 帧解码。
                  * 这个解码器是一个根据\n符号位分隔符的解码器。所以每条消息的最后必须加上\n否则无法识别和解码
                  * */
-                ch.writeAndFlush(line + "\r\n");
+    	        System.out.println("1:" + ch.isOpen());
+                ch.writeAndFlush(line + "\r\n").sync();
+                ch.close();
+    	        System.out.println("2:" + ch.isOpen());
             }
         } finally {
             // The connection is closed automatically on shutdown.
+            System.out.println("close...");
             group.shutdownGracefully();
+            System.out.println("close!");
         }
     }
 
@@ -100,12 +105,17 @@ public class HelloClient {
 	    public void channelActive(ChannelHandlerContext ctx) throws Exception {
 	        System.out.println("Client active ");
 	        super.channelActive(ctx);
+	        System.out.println("3:" + ctx.channel().isOpen());
 	    }
 
 	    @Override
 	    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
 	        System.out.println("Client close ");
 	        super.channelInactive(ctx);
+	        System.out.println("4:" + ctx.channel().isOpen());
+	        ctx.channel().close();
+	        System.out.println("5:" + ctx.channel().isOpen());
+	        ctx.disconnect();
 	    }
 	}
 }

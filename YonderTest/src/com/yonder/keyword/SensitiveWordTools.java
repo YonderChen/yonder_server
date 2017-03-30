@@ -9,7 +9,7 @@ import java.util.Set;
 /**
  * 敏感词过滤工具类
  */
-@SuppressWarnings({"unchecked", "rawtypes"})
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class SensitiveWordTools {
 	private Map sensitiveWordMap = null;
 	public static final int MinMatchTYpe = 1;      //最小匹配规则
@@ -58,7 +58,7 @@ public class SensitiveWordTools {
 			key = iterator.next();    //关键字
 			nowMap = sensitiveWordMap;
 			for(int i = 0 ; i < key.length() ; i++){
-				char keyChar = key.charAt(i);       //转换成char型
+				char keyChar = Character.toLowerCase(key.charAt(i));       //转换成char型（统一转成小写，让检测程序大小写通配）
 				Object wordMap = nowMap.get(keyChar);       //获取
 				
 				if(wordMap != null){        //如果存在该key，直接赋值
@@ -152,24 +152,28 @@ public class SensitiveWordTools {
 		int matchFlag = 0;     //匹配标识数默认为0
 		char word = 0;
 		Map nowMap = sensitiveWordMap;
+		boolean isAllLetter = true;//判断匹配的部分是否全部是字母
+		int matchFirstIndex = 0;
 		for(int i = beginIndex; i < txt.length() ; i++){
-			word = txt.charAt(i);
+			word = Character.toLowerCase(txt.charAt(i));
+			if (isAllLetter) {
+				isAllLetter = isLetter(word) || ' ' == word;
+			}
 			nowMap = (Map) nowMap.get(word);     //获取指定key
 			if(nowMap != null){     //存在，则判断是否为最后一个
-				if (matchFlag == 0 && !isFirstLetterInWord(txt, i)) {//判断是否是单词首字母。(如果lish是敏感词汇的话，English不能被匹配到)
-					break;
+				if (matchFlag == 0) {
+					matchFirstIndex = i;
 				}
 				matchFlag++;     //找到相应key，匹配标识+1 
 				if("1".equals(nowMap.get("isEnd"))){       //如果为最后一个匹配规则,结束循环，返回匹配标识数
-					if (isLastLetterInWord(txt, i)) {//判断是否是单词结束字母。(如果Eng是敏感词汇的话，English不能被匹配到)
+					if (!isAllLetter || (isFirstLetterInWord(txt, matchFirstIndex) && isLastLetterInWord(txt, i))) {//判断是否是单词首字母。(如果lish是敏感词汇的话，English不能被匹配到)、判断是否是单词结束字母。(如果Eng是敏感词汇的话，English不能被匹配到)
 						flag = true;       //结束标志位为true
 						if(SensitiveWordTools.MinMatchTYpe == matchType){    //最小规则，直接返回,最大规则还需继续查找
 							break;
 						}
 					}
 				}
-			}
-			else{     //不存在，直接返回
+			} else {     //不存在，直接返回
 				break;
 			}
 		}
@@ -180,7 +184,7 @@ public class SensitiveWordTools {
 	}
 
 	/**
-	 * 是否是字母语言中单次的字母
+	 * 是否是字母语言中单词的首字母
 	 * @param txt
 	 * @param index
 	 * @return
@@ -214,5 +218,4 @@ public class SensitiveWordTools {
 		}
 		return false;
 	}
-	
 }
