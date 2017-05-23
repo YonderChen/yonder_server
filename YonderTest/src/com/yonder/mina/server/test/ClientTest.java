@@ -1,8 +1,11 @@
 package com.yonder.mina.server.test;
 
+import java.io.ByteArrayOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ClientTest {
 
@@ -29,22 +32,35 @@ public class ClientTest {
 			Writer writer = new OutputStreamWriter(client.getOutputStream());
 			writer.write("Hello Server.\r\n");
 			writer.flush();
-
-			StringBuffer sb = new StringBuffer();
-			byte[] buf = new byte[8192];
+			
+			ByteArrayOutputStream out = new ByteArrayOutputStream();
+			byte[] buf = new byte[2];
 			int len;
-			int index = 0;
 			while ((len = client.getInputStream().read(buf)) != -1) {
-				String str = new String(buf, index, len);
-				index = len;
-				sb.append(str);
-				if (str.endsWith("\r\n") || str.endsWith("\n")) {
-//					System.out.println("str:" + str);
-					buf = new byte[8192];
-					index = 0;
+				boolean isEnd = false;
+				for (int i = 0; i < buf.length; i++) {
+					if (buf[i] == 10) {//换行
+						isEnd = true;
+						break;
+					}
 				}
+				out.write(buf, 0, len);
+				if (isEnd) {
+					break;
+				}
+				buf = new byte[2];
+//				String str = new String(buf, index, len);
+//				index = len;
+//				sb.append(str);
+//				if (str.endsWith("\r\n") || str.endsWith("\n")) {
+////					System.out.println("str:" + str);
+//					buf = new byte[8192];
+//					index = 0;
+//				}
 			}
-			System.out.println(sb.toString());
+			System.out.println(out.toByteArray().length);
+			String str = new String(out.toByteArray());
+			System.out.println(str);
 			 Thread.sleep(50000000);
 			// client.close();
 		} catch (Exception e) {
