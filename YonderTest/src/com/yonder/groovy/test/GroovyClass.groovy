@@ -13,7 +13,10 @@ class GroovyClass {
 	def test2() {
 //		ScriptTest.testjava();
 //		Test.main(null);
-		return count++;
+        for (int i = 0; i < 1000000; i++) {
+            count++
+        }
+		return 0;
 	}
 	
 	static def test3() {

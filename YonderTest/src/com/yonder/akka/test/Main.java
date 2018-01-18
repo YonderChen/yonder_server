@@ -10,9 +10,13 @@ public class Main {
 	
 	public static void main(String[] args) {
 		ActorSystemTools.start();
-		ActorRef angryFoalActor = ActorSystemTools.actorOf(AngryFoalActor.class);
 		ActorRef helloWorld = ActorSystemTools.actorOf(LazyFoalActor.class);
-		angryFoalActor.tell("hello! I am  LazyFoalActor!", helloWorld);
+		long begin = System.currentTimeMillis();
+		for (int i = 0; i < 10000000; i++) {
+		    helloWorld.tell("", ActorRef.noSender());
+        }
+		long end = System.currentTimeMillis();
+		System.out.println(end - begin);
 	}
 
 }

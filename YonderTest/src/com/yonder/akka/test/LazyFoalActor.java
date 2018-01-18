@@ -9,14 +9,17 @@ import akka.actor.UntypedActor;
 
 public class LazyFoalActor extends UntypedActor {
 
+    public static int i = 0;
+    public static long begin = System.currentTimeMillis();
+    
 	@Override
 	public void onReceive(Object message) throws Exception {
-		System.out.println("LazyFoalActor receive message : " + message);
-		for (int i = 0; i < 10; i++) {
-			Thread.sleep(1000);
-			System.out.println("LazyFoalActor thinking... " + i);
-		}
-		
-		ActorSystemTools.shutdown();
+	    i++;
+	    if (i == 100) {
+            begin = System.currentTimeMillis();
+        }
+	    if (i == 1000000) {
+            System.out.println("akka:" + (System.currentTimeMillis() - begin));
+        }
 	}
 }

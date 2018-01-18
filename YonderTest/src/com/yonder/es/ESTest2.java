@@ -44,8 +44,8 @@ public class ESTest2 {
 				.put("cluster.name", "elasticsearch_dragon").build();
 		TransportClient client_read = new TransportClient(settings);
 		TransportClient client_write = new TransportClient(settings);
-		client_read.addTransportAddress(new InetSocketTransportAddress("115.28.46.216", 9300));
-		client_write.addTransportAddress(new InetSocketTransportAddress("115.28.46.216", 9300));
+		client_read.addTransportAddress(new InetSocketTransportAddress("118.89.52.228", 9300));
+		client_write.addTransportAddress(new InetSocketTransportAddress("118.89.52.228", 9300));
         
 		String index_name = "user_login_log";
 

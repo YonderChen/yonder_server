@@ -46,10 +46,11 @@ public class ScriptTest {
 		//构建一个groovyobject实例
 		GroovyObject groovyObject = GroovyScriptTools.getGroovyObj("src/com/yonder/groovy/test/GroovyClass.groovy");
 		groovyObject.setProperty("count", 1);
+        groovyObject.invokeMethod("test2", null);
 //		System.out.println(groovyObject.getProperty("count"));
 
 		long a = System.currentTimeMillis();
-		for (int i = 0; i < 1000; i++) {
+		for (int i = 0; i < 1000000; i++) {
 			groovyObject.invokeMethod("test2", null);
 		}
 		long b = System.currentTimeMillis();
@@ -76,8 +77,10 @@ public class ScriptTest {
 		Script script = shell.parse(new File("src/com/yonder/groovy/test/GroovyTestScript.groovy"));
 //		Object result = script.run();
 //		System.out.println(result);
+        script.invokeMethod("test2", null);
+        script.invokeMethod("test2", null);
 		long a = System.currentTimeMillis();
-		for (int i = 0; i < 1000; i++) {
+		for (int i = 0; i < 10000; i++) {
 			script.invokeMethod("test2", null);
 		}
 		long b = System.currentTimeMillis();
@@ -90,8 +93,10 @@ public class ScriptTest {
 		int count = 1;
 		engine.put("count", count);
 		try {
+            engine.eval("count++");
+            engine.eval("count++");
 			long a = System.currentTimeMillis();
-			for (int i = 0; i < 1000; i++) {
+			for (int i = 0; i < 10000; i++) {
 				engine.eval("count++");
 			}
 			long b = System.currentTimeMillis();
@@ -121,6 +126,8 @@ public class ScriptTest {
 		ScriptEngineManager manager = new ScriptEngineManager();
 		ScriptEngine engine = manager.getEngineByName("groovy");
 		try {
+            engine.eval("");
+            engine.eval("");
 //			System.out.println("calling groovy from java start");
 			int count = 0;
 			engine.put("count", count);
@@ -142,11 +149,13 @@ public class ScriptTest {
 		ScriptEngineManager manager = new ScriptEngineManager();
 		ScriptEngine engine = manager.getEngineByName("groovy");
 		try {
+		    engine.eval("");
+            engine.eval("");
 //			System.out.println("calling groovy from java start");
 //			engine.put("name", "VerRan");
 			int count = 0;
 			long a = System.currentTimeMillis();
-			for (int i = 0; i < 10000; i++) {
+			for (int i = 0; i < 1000000; i++) {
 				count++;
 			}
 			long b = System.currentTimeMillis();
