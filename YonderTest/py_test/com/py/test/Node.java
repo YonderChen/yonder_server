@@ -2,12 +2,13 @@ package com.py.test;
 
 public class Node<T extends PObj> {
 	private int id;
-	private T obj;
-	private byte[] data; 
+	private transient T obj;
+	private transient byte[] data; 
 	public Node() {
 	}
-	public Node(int id) {
-		this.id = -1;
+	public Node(int id, T obj) {
+		this.id = id;
+		this.obj = obj;
 	}
 	public int getId() {
 		return id;

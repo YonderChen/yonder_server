@@ -20,9 +20,8 @@ public class Chat implements PObj {
 	}
 	@Override
 	public byte[] toByte(int id) {
-		byte[] data = new byte[1];
-		//TODO 序列化成二进制
+		//TODO 转化为二进制
 		
-		return data;
+		return new byte[0];
 	}
 }

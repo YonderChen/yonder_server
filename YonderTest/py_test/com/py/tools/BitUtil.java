@@ -12,62 +12,76 @@ public class BitUtil {
 		return x &= 0x003f;
 	}
 	
-	public static int BitCount5(int n) 
-	{
-	    int tmp = n - ((n >>1) &033333333333) - ((n >>2) &011111111111);
-	    return ((tmp + (tmp >>3)) &030707070707) %63;
+	public static int ones(byte x) {
+		x -= ((x >> 1) & 0x55);
+		x  = (byte)(((x >> 2) & 0x33) + (x & 0x33));
+		return (byte)(((x >> 4) + x) & 0x0f);
+	}
+	
+	public static int ones(short x) {
+		x -= ((x >> 1) & 0x5555);
+		x  = (short)(((x >> 2) & 0x3333) + (x & 0x3333));
+		x  = (short)(((x >> 4) + x) & 0x0f0f);
+		x += (x >> 8);
+		return x &= 0x001f;
+	}
+	
+	public static long ones(long x) {
+		x -= ((x >> 1) & 0x5555555555555555L);
+		x  = (((x >> 2) & 0x3333333333333333L) + (x & 0x3333333333333333L));
+		x  = (((x >> 4) + x) & 0x0f0f0f0f0f0f0f0fL);
+		x  = (((x >> 8) + x) & 0x00ff00ff00ff00ffL);
+		x += (x >> 16);
+		x += (x >> 32);
+		return x &= 0x007f;
+	}
+	
+	public static int ccc(int n) {
+        n = (n & 0x55555555) + ((n >> 1) & 0x55555555);
+        n = (n & 0x33333333) + ((n >> 2) & 0x33333333);
+        n = (n & 0x0f0f0f0f) + ((n >> 4) & 0x0f0f0f0f);
+        n = (n & 0x00ff00ff) + ((n >> 8) & 0x00ff00ff);
+        n = (n & 0x0000ffff) + ((n >> 16) & 0x0000ffff);
+        return n;
 	}
 
 	public static void main(String[] args) {
-//		int n = Integer.MIN_VALUE;
-//		while (true) {
-//			if (ones(n) != ccc(n)) {
-//				System.out.println("error n:" + n);
-//			}
-//			if (n == Integer.MAX_VALUE) {
-//				break;
-//			}
-//			n++;
-//		}
-//		System.out.println("success");
+		long initN = Long.MAX_VALUE - 156151215;
+		long maxN = Long.MAX_VALUE;
+		long n = initN;
+		long maxWileCount = 1;
+		long a = System.currentTimeMillis();
 		long count = 0;
-		long a1 = System.currentTimeMillis();
-		int n1 = 0;
+		long whileCount = 0;
 		while (true) {
-			count += ones(n1);
-			if (n1 == 100000000) {
-				break;
-			}
-			n1++;
-		}
-		long b1 = System.currentTimeMillis();
-		System.out.println("ones:" + (b1 - a1));
-		System.out.println(count);
-		count = 0;
-		long a2 = System.currentTimeMillis();
-		int n2 = 0;
-		while (true) {
-			count += ccc(n2);
-			if (n2 == 100000000) {
+			count += ones(n);
+			if (n == maxN) {
+				whileCount++;
+				if (whileCount >= maxWileCount) {
 					break;
+				}
 			}
-			n2++;
+			n++;
 		}
-		long b2 = System.currentTimeMillis();
-		System.out.println("ccc:" + (b2 - a2));
+		long b = System.currentTimeMillis();
+		System.out.println("ones:" + (b - a));
 		System.out.println(count);
 		count = 0;
-		long a3 = System.currentTimeMillis();
-		int n3 = 0;
+		a = System.currentTimeMillis();
+		n = initN;
+		whileCount = 0;
 		while (true) {
-			count += ttt(n3);
-			if (n3 == 100000000) {
-				break;
+			count += uuu(n);
+			if (n == maxN) {
+				whileCount++;
+				if (whileCount >= maxWileCount) {
+					break;
+				}
 			}
-			n3++;
+			n++;
 		}
-		long b3 = System.currentTimeMillis();
-		System.out.println("ttt:" + (b3 - a3));
+		b = System.currentTimeMillis();
+		System.out.println("ccc:" + (b - a));
 		System.out.println(count);
 	}
 	
@@ -96,28 +110,25 @@ public class BitUtil {
         return (int)n;
 	}
 	
-	public static int ccc(int n) {
-        n = (n & 0x55555555) + ((n >> 1) & 0x55555555);
-        n = (n & 0x33333333) + ((n >> 2) & 0x33333333);
-        n = (n & 0x0f0f0f0f) + ((n >> 4) & 0x0f0f0f0f);
-        n = (n & 0x00ff00ff) + ((n >> 8) & 0x00ff00ff);
-        n = (n & 0x0000ffff) + ((n >> 16) & 0x0000ffff);
-        return n;
-	}
-	
     public static int ttt(int k) {
     	int count=0;
-		while(k > 0){  
+    	if (k == 0) {
+			return count;
+		}
+		while(k != 0){  
 	        k=k&(k-1);  
 	        count++;  
-		}  
+		}
 		return count;
     }
 
     public static int ttt(byte k) {
     	int count=0;
-		while(k > 0){  
-	        k=(byte) (k&(k-(byte)1));  
+    	if (k == 0) {
+			return count;
+		}
+		while(k != 0){  
+	        k=(byte) (k&(k-1));  
 	        count++;  
 		}  
 		return count;
@@ -125,8 +136,11 @@ public class BitUtil {
 
     public static int ttt(short k) {
     	int count=0;
-		while(k > 0){  
-	        k=(short) (k&(k-(short)1));  
+    	if (k == 0) {
+			return count;
+		}
+		while(k != 0){  
+	        k=(short) (k&(k-1));  
 	        count++;  
 		}  
 		return count;
@@ -134,10 +148,85 @@ public class BitUtil {
 
     public static int ttt(long k) {
     	int count=0;
-		while(k > 0){  
+    	if (k == 0) {
+			return count;
+		}
+		while(k != 0){  
 	        k=k&(k-1);  
 	        count++;  
 		}  
+		return count;
+    }
+
+    public static int uuu(byte k) {
+    	int count=0;
+    	if (k == 0) {
+			return count;
+		}
+    	if (k < 0) {
+			k = (byte) (k & 0x7f);
+			count++;
+		}
+    	if (k > 0) {
+    		while(k != 0){
+    			count += k&1;
+    	        k=(byte) (k>>1);
+    		}  
+		}
+		return count;
+    }
+
+    public static int uuu(short k) {
+    	int count=0;
+    	if (k == 0) {
+			return count;
+		}
+    	if (k < 0) {
+			k = (short) (k & 0x7fff);
+			count++;
+		}
+    	if (k > 0) {
+    		while(k != 0){
+    			count += k&1;
+    	        k=(short) (k>>1);
+    		}  
+		}
+		return count;
+    }
+
+    public static int uuu(int k) {
+    	int count=0;
+    	if (k == 0) {
+			return count;
+		}
+    	if (k < 0) {
+			k = k & 0x7fffffff;
+			count++;
+		}
+    	if (k > 0) {
+    		while(k != 0){
+    			count += k&1;
+    	        k=k>>1;
+    		}  
+		}
+		return count;
+    }
+
+    public static int uuu(long k) {
+    	int count=0;
+    	if (k == 0) {
+			return count;
+		}
+    	if (k < 0) {
+			k = k & 0x7fffffffffffffffL;
+			count++;
+		}
+    	if (k > 0) {
+    		while(k != 0){
+    			count += k&1;
+    	        k=k>>1;
+    		}  
+		}
 		return count;
     }
 
