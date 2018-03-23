@@ -368,7 +368,6 @@ public class Test3List<T> implements Iterable<T> {
 			return;
 		}
 		if (!inclusive) {//不包含preNode
-			printNodeArray();
 			if (comparator.compare(nodes[index], preNode) == 0) {//存在preNode
 				index--;
 				if (index < 0) {
