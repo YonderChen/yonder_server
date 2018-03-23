@@ -21,7 +21,7 @@ public class TestMain3 {
 		List<Chat> list00 = chatList.loadNodeList(1);
 		int maxId = list00.get(0).getId();
 		long a2 = System.currentTimeMillis();
-		for (int i = 0; i < 1000000; i++) {
+		for (int i = 0; i < 10000000; i++) {
 			chatList.forEachNodeList(maxId+1-(i%500), 20, e->{});
 		}
 		long b2 = System.currentTimeMillis();

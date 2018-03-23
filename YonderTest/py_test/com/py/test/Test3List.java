@@ -26,6 +26,8 @@ public class Test3List<T extends Node> implements Iterable<T> {
 	
 	private int count = 0;
 
+	private int minIndex = 0;
+
 	/**
 	 * 创建节点列表
 	 * @param maxSize 节点个数上限
@@ -60,9 +62,9 @@ public class Test3List<T extends Node> implements Iterable<T> {
 				count++;
 			}
 			nodes[curIndex] = node;
+			minIndex = curIndex;
 		} else {
-			int minIndex = getRefIndex(0);
-			int maxIndex = getRefIndex(count - 1);
+			int maxIndex = curIndex;
 			@SuppressWarnings("unchecked")
 			T minNode = (T) nodes[minIndex];
 			if (node.getId() == minNode.getId()) {
@@ -75,10 +77,6 @@ public class Test3List<T extends Node> implements Iterable<T> {
 				nodes[maxIndex] = node;
 				return;
 			}
-			int minPreIndex = minIndex - 1;
-			if (minPreIndex < 0) {
-				minPreIndex = nodes.length - 1;
-			}
 			if (node.getId() > maxNode.getId()) {//往后添加节点
 				curIndex++;
 				if (curIndex >= nodes.length) {
@@ -88,19 +86,29 @@ public class Test3List<T extends Node> implements Iterable<T> {
 					count++;
 				}
 				nodes[curIndex] = node;
+				minIndex = getRefIndex(0);
 			} else if (node.getId() < minNode.getId()) {//往前添加节点，如果已经满员了就无法添加
+				int minPreIndex = minIndex - 1;
+				if (minPreIndex < 0) {
+					minPreIndex = nodes.length - 1;
+				}
 				if (nodes[minPreIndex] != null) {//已经满了
 					return;
 				}
 				nodes[minPreIndex] = node;
+				minIndex = minPreIndex;
 			} else {//在中间插入节点
 				int hitNodeIndex = findIndex(nodes, node.getId(), false);
-				if (hitNodeIndex < 0) {//id重复
+				if (hitNodeIndex < 0) {//找不到位置
 					return;
 				}
 				if (nodes[hitNodeIndex].getId() == node.getId()) {//id匹配直接覆盖
 					nodes[hitNodeIndex] = node;
 				} else {
+					int minPreIndex = minIndex - 1;
+					if (minPreIndex < 0) {
+						minPreIndex = nodes.length - 1;
+					}
 					if (nodes[minPreIndex] == null) {
 						nodes[minPreIndex] = nodes[minIndex];
 						count++;
@@ -119,6 +127,7 @@ public class Test3List<T extends Node> implements Iterable<T> {
 						}
 					}
 					nodes[hitNodeIndex] = node;
+					minIndex = minPreIndex;
 				}
 			}
 		}
@@ -298,7 +307,7 @@ public class Test3List<T extends Node> implements Iterable<T> {
 			}
 			count++;
 			consumer.accept(node);
-			if (i == ((curIndex + 1) % nodes.length)) {
+			if (i == minIndex) {
 				return;
 			}
 		}
@@ -313,7 +322,7 @@ public class Test3List<T extends Node> implements Iterable<T> {
 			}
 			count++;
 			consumer.accept(node);
-			if (i == ((curIndex + 1) % nodes.length)) {
+			if (i == minIndex) {
 				return;
 			}
 		}
