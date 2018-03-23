@@ -15,14 +15,14 @@ import java.util.function.Consumer;
  *
  * @param <T>
  */
-public class Test2List<T extends PObj> implements Iterable<Node<T>> {
+public class Test2List<T extends Node> implements Iterable<T> {
 	
 	private int maxSize = 500;
 	
-	private TreeSet<Node<T>> nodeSet = new TreeSet<Node<T>>(new Comparator<Node<T>>() {
+	private TreeSet<Node> nodeSet = new TreeSet<Node>(new Comparator<Node>() {
 
 		@Override
-		public int compare(Node<T> o1, Node<T> o2) {
+		public int compare(Node o1, Node o2) {
 			return o1.getId() - o2.getId();
 		}
 	});
@@ -44,7 +44,7 @@ public class Test2List<T extends PObj> implements Iterable<Node<T>> {
 	 * 添加节点
 	 * @param node
 	 */
-	public void addNode(Node<T> node) {
+	public void addNode(T node) {
 		nodeSet.add(node);
 		if (nodeSet.size() > maxSize) {
 			nodeSet.pollFirst();
@@ -55,14 +55,15 @@ public class Test2List<T extends PObj> implements Iterable<Node<T>> {
 	 * @param index
 	 * @return
 	 */
-	public Node<T> get(int index) {
+	public T get(int index) {
 		if (index < 0 || index >= nodeSet.size()) {
 			throw new IndexOutOfBoundsException("max:" + (nodeSet.size() - 1));
 		}
-		Iterator<Node<T>> it = nodeSet.descendingIterator();
+		Iterator<Node> it = nodeSet.descendingIterator();
 		int i = 0;
 		while (it.hasNext()) {
-			Node<T> node = it.next();
+			@SuppressWarnings("unchecked")
+			T node = (T) it.next();
 			if (i == index) {
 				return node;
 			}
@@ -78,7 +79,7 @@ public class Test2List<T extends PObj> implements Iterable<Node<T>> {
 		if (index < 0 || index >= nodeSet.size()) {
 			throw new IndexOutOfBoundsException("max:" + (nodeSet.size() - 1));
 		}
-		Iterator<Node<T>> it = nodeSet.descendingIterator();
+		Iterator<Node> it = nodeSet.descendingIterator();
 		int i = 0;
 		while (it.hasNext()) {
 			it.next();
@@ -93,7 +94,7 @@ public class Test2List<T extends PObj> implements Iterable<Node<T>> {
 	 * 移除节点
 	 * @param node
 	 */
-	public void remove(Node<T> node) {
+	public void remove(T node) {
 		nodeSet.remove(node);
 	}
 	/**
@@ -101,8 +102,7 @@ public class Test2List<T extends PObj> implements Iterable<Node<T>> {
 	 * @param id
 	 */
 	public void removeNode(int id) {
-		Node<T> tempNode = new Node<T>();
-		tempNode.setId(id);
+		Node tempNode = new Node(id);
 		nodeSet.remove(tempNode);
 	}
 	/**
@@ -110,14 +110,15 @@ public class Test2List<T extends PObj> implements Iterable<Node<T>> {
 	 * @param size
 	 * @param consumer
 	 */
-	public void forEachNodeList(int size, Consumer<Node<T>> consumer) {
+	public void forEachNodeList(int size, Consumer<T> consumer) {
 		if (size <= 0) {
 			return;
 		}
-		Iterator<Node<T>> it = nodeSet.descendingIterator();
+		Iterator<Node> it = nodeSet.descendingIterator();
 		int count = 0;
 		while (it.hasNext()) {
-			Node<T> node = it.next();
+			@SuppressWarnings("unchecked")
+			T node = (T) it.next();
 			consumer.accept(node);
 			count++;
 			if (count >= size) {
@@ -130,8 +131,8 @@ public class Test2List<T extends PObj> implements Iterable<Node<T>> {
 	 * @param size
 	 * @return
 	 */
-	public List<Node<T>> loadNodeList(int size) {
-		List<Node<T>> list = new ArrayList<Node<T>>();
+	public List<T> loadNodeList(int size) {
+		List<T> list = new ArrayList<T>();
 		forEachNodeList(size, c -> list.add(c));
 		return list;
 	}
@@ -141,16 +142,16 @@ public class Test2List<T extends PObj> implements Iterable<Node<T>> {
 	 * @param size
 	 * @param consumer
 	 */
-	public void forEachNodeList(int preId, int size, Consumer<Node<T>> consumer) {
+	public void forEachNodeList(int preId, int size, Consumer<T> consumer) {
 		if (size <= 0) {
 			return;
 		}
-		Node<T> tempNode = new Node<T>();
-		tempNode.setId(preId);
-		Iterator<Node<T>> it = nodeSet.headSet(tempNode, true).descendingIterator();
+		Node tempNode = new Node(preId);
+		Iterator<Node> it = nodeSet.headSet(tempNode, true).descendingIterator();
 		int count = 0;
 		while (it.hasNext()) {
-			Node<T> node = it.next();
+			@SuppressWarnings("unchecked")
+			T node = (T) it.next();
 			consumer.accept(node);
 			count++;
 			if (count >= size) {
@@ -164,8 +165,8 @@ public class Test2List<T extends PObj> implements Iterable<Node<T>> {
 	 * @param size
 	 * @return
 	 */
-	public List<Node<T>> loadNodeList(int preId, int size) {
-		List<Node<T>> list = new ArrayList<Node<T>>();
+	public List<T> loadNodeList(int preId, int size) {
+		List<T> list = new ArrayList<T>();
 		forEachNodeList(preId, size, c -> list.add(c));
 		return list;
 	}
@@ -185,8 +186,9 @@ public class Test2List<T extends PObj> implements Iterable<Node<T>> {
 	}
 
 	@Override
-	public Iterator<Node<T>> iterator() {
-		return nodeSet.descendingIterator();
+	@SuppressWarnings("unchecked")
+	public Iterator<T> iterator() {
+		return (Iterator<T>) nodeSet.descendingIterator();
 	}
 	
 }

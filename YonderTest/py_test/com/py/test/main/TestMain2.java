@@ -2,7 +2,6 @@ package com.py.test.main;
 
 import java.util.List;
 
-import com.py.test.Node;
 import com.py.test.Test2List;
 import com.py.test.obj.Chat;
 import com.py.tools.GsonTools;
@@ -13,13 +12,13 @@ public class TestMain2 {
 		Test2List<Chat> chatList = new Test2List<Chat>(500);
 		long a1 = System.currentTimeMillis();
 		for (int i = 1; i < 1000008; i++) {
-			chatList.addNode(new Node<Chat>(i, new Chat("aaa" + i)));
+			chatList.addNode(new Chat(i, "aaa" + i));
 		}
 		long b1 = System.currentTimeMillis();
 		System.out.println(b1 - a1);
 		System.out.println("size:" + chatList.getCount());
 
-		List<Node<Chat>> list00 = chatList.loadNodeList(1);
+		List<Chat> list00 = chatList.loadNodeList(1);
 		int maxId = list00.get(0).getId();
 		long a2 = System.currentTimeMillis();
 		for (int i = 0; i < 1000000; i++) {
@@ -30,7 +29,7 @@ public class TestMain2 {
 		System.out.println("size:" + chatList.getCount());
 
 		
-		List<Node<Chat>> list2 = chatList.loadNodeList(1);
+		List<Chat> list2 = chatList.loadNodeList(1);
 		System.out.println(list2);
 
 		chatList.removeNode(1000005);
@@ -41,13 +40,13 @@ public class TestMain2 {
 		chatList.removeNode(999998);
 		System.out.println("size:" + chatList.getCount());
 
-		chatList.addNode(new Node<Chat>(1000001, new Chat("aaa11111")));
+		chatList.addNode(new Chat(1000001, "aaa11111"));
 
 		System.out.println("size:" + chatList.getCount());
-		List<Node<Chat>> list = chatList.loadNodeList(1000006, 20);
+		List<Chat> list = chatList.loadNodeList(1000006, 20);
 		System.out.println(list);
 		
-		List<Node<Chat>> list3 = chatList.loadNodeList(20);
+		List<Chat> list3 = chatList.loadNodeList(20);
 		System.out.println(list3);
 	}
 }

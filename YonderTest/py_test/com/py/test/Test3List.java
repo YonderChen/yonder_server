@@ -18,11 +18,11 @@ import com.py.tools.GsonTools;
  *
  * @param <T>
  */
-public class Test3List<T extends PObj> implements Iterable<Node<T>> {
+public class Test3List<T extends Node> implements Iterable<T> {
 	
 	private int curIndex = -1;
 	
-	private Node<T>[] nodes;
+	private Node[] nodes;
 	
 	private int count = 0;
 
@@ -32,7 +32,7 @@ public class Test3List<T extends PObj> implements Iterable<Node<T>> {
 	 */
 	@SuppressWarnings("unchecked")
 	public Test3List(int maxSize) {
-		nodes = (Node<T>[])new Node[maxSize];
+		nodes = (T[])new Node[maxSize];
 	}
 	/**
 	 * 打印当前内部数组情况
@@ -50,7 +50,7 @@ public class Test3List<T extends PObj> implements Iterable<Node<T>> {
 	 * 添加节点
 	 * @param node
 	 */
-	public void addNode(Node<T> node) {
+	public void addNode(T node) {
 		if (count == 0) {
 			curIndex++;
 			if (curIndex >= nodes.length) {
@@ -63,12 +63,14 @@ public class Test3List<T extends PObj> implements Iterable<Node<T>> {
 		} else {
 			int minIndex = getRefIndex(0);
 			int maxIndex = getRefIndex(count - 1);
-			Node<T> minNode = nodes[minIndex];
+			@SuppressWarnings("unchecked")
+			T minNode = (T) nodes[minIndex];
 			if (node.getId() == minNode.getId()) {
 				nodes[minIndex] = node;
 				return;
 			}
-			Node<T> maxNode = nodes[maxIndex];
+			@SuppressWarnings("unchecked")
+			T maxNode = (T) nodes[maxIndex];
 			if (node.getId() == maxNode.getId()) {
 				nodes[maxIndex] = node;
 				return;
@@ -126,12 +128,13 @@ public class Test3List<T extends PObj> implements Iterable<Node<T>> {
 	 * @param index
 	 * @return
 	 */
-	public Node<T> get(int index) {
+	@SuppressWarnings("unchecked")
+	public T get(int index) {
 		if (index < 0 || index >= count) {
 			throw new IndexOutOfBoundsException("max:" + (count - 1));
 		}
 		int refIndex = getDescRefIndex(index);
-		return nodes[refIndex];
+		return (T) nodes[refIndex];
 	}
 	/**
 	 * 移除指定位置节点
@@ -148,7 +151,7 @@ public class Test3List<T extends PObj> implements Iterable<Node<T>> {
 	 * 移除节点
 	 * @param node
 	 */
-	public void remove(Node<T> node) {
+	public void remove(T node) {
 		removeNode(node.getId());
 	}
 
@@ -159,7 +162,7 @@ public class Test3List<T extends PObj> implements Iterable<Node<T>> {
 	 * @param needHit 是否需要命中, false如果没有命中返回小于指定id并且最接近的位置索引
 	 * @return
 	 */
-	private int findIndex(Node<T>[] nodes, int id, boolean needHit) {
+	private int findIndex(Node[] nodes, int id, boolean needHit) {
 //		System.out.println("id:" + id);
 //		System.out.println("nodes:" + GsonTools.toJsonString(nodes));
 		int index = findIndex(nodes, 0, count - 1, id, needHit);
@@ -179,7 +182,7 @@ public class Test3List<T extends PObj> implements Iterable<Node<T>> {
 		return (curIndex - index  + nodes.length) % nodes.length;
 	}
 	
-	private int findIndex(Node<T>[] nodes, int beginIndex, int endIndex, int id, boolean needHit) {
+	private int findIndex(Node[] nodes, int beginIndex, int endIndex, int id, boolean needHit) {
 //		System.out.println("beginIndex:" + beginIndex);
 //		System.out.println("endIndex:" + endIndex);
 		int refBeginIndex = getRefIndex(beginIndex);
@@ -279,7 +282,7 @@ public class Test3List<T extends PObj> implements Iterable<Node<T>> {
 		}
 	}
 	
-	private void forEachNodeListByTargetIndex(int targetIndex, int size, Consumer<Node<T>> consumer) {
+	private void forEachNodeListByTargetIndex(int targetIndex, int size, Consumer<T> consumer) {
 		if (size <= 0) {
 			return;
 		}
@@ -288,7 +291,8 @@ public class Test3List<T extends PObj> implements Iterable<Node<T>> {
 			if (count >= size) {
 				return;
 			}
-			Node<T> node = nodes[i];
+			@SuppressWarnings("unchecked")
+			T node = (T) nodes[i];
 			if (node == null) {
 				return;
 			}
@@ -302,7 +306,8 @@ public class Test3List<T extends PObj> implements Iterable<Node<T>> {
 			if (count >= size) {
 				return;
 			}
-			Node<T> node = nodes[i];
+			@SuppressWarnings("unchecked")
+			T node = (T) nodes[i];
 			if (node == null) {
 				return;
 			}
@@ -318,7 +323,7 @@ public class Test3List<T extends PObj> implements Iterable<Node<T>> {
 	 * @param size
 	 * @param consumer
 	 */
-	public void forEachNodeList(int size, Consumer<Node<T>> consumer) {
+	public void forEachNodeList(int size, Consumer<T> consumer) {
 		loadNodeListByTargetIndex(curIndex, size, consumer);
 	}
 	/**
@@ -326,8 +331,8 @@ public class Test3List<T extends PObj> implements Iterable<Node<T>> {
 	 * @param size
 	 * @return
 	 */
-	public List<Node<T>> loadNodeList(int size) {
-		List<Node<T>> list = new ArrayList<Node<T>>();
+	public List<T> loadNodeList(int size) {
+		List<T> list = new ArrayList<T>();
 		forEachNodeList(size, c -> list.add(c));
 		return list;
 	}
@@ -337,7 +342,7 @@ public class Test3List<T extends PObj> implements Iterable<Node<T>> {
 	 * @param size
 	 * @param consumer
 	 */
-	public void forEachNodeList(int preId, int size, Consumer<Node<T>> consumer) {
+	public void forEachNodeList(int preId, int size, Consumer<T> consumer) {
 		int index = findIndex(nodes, preId, false);
 		if (index < 0) {
 			return;
@@ -350,13 +355,13 @@ public class Test3List<T extends PObj> implements Iterable<Node<T>> {
 	 * @param size
 	 * @return
 	 */
-	public List<Node<T>> loadNodeList(int preId, int size) {
-		List<Node<T>> list = new ArrayList<Node<T>>();
+	public List<T> loadNodeList(int preId, int size) {
+		List<T> list = new ArrayList<T>();
 		forEachNodeList(preId, size, c -> list.add(c));
 		return list;
 	}
 	
-	private void loadNodeListByTargetIndex(int targetIndex, int size, Consumer<Node<T>> consumer) {
+	private void loadNodeListByTargetIndex(int targetIndex, int size, Consumer<T> consumer) {
 		forEachNodeListByTargetIndex(targetIndex, size, consumer);
 	}
 	/**
@@ -375,7 +380,7 @@ public class Test3List<T extends PObj> implements Iterable<Node<T>> {
 	}
 
 	@Override
-	public Iterator<Node<T>> iterator() {
+	public Iterator<T> iterator() {
 		return new Itr();
 	}
 
@@ -383,7 +388,7 @@ public class Test3List<T extends PObj> implements Iterable<Node<T>> {
     /**
      * An optimized version of AbstractList.Itr
      */
-    private class Itr implements Iterator<Node<T>> {
+    private class Itr implements Iterator<T> {
         int cursor = curIndex;       // index of next element to return
         int lastRet = -1; // index of last element returned; -1 if no such
         boolean isEnd = false;
@@ -392,11 +397,13 @@ public class Test3List<T extends PObj> implements Iterable<Node<T>> {
         	if (isEnd) {
 				return false;
 			}
-        	Node<T> node = nodes[cursor];
+        	@SuppressWarnings("unchecked")
+			T node = (T) nodes[cursor];
 			return node != null;
         }
 
-		public Node<T> next() {
+		@SuppressWarnings("unchecked")
+		public T next() {
             int i = cursor;
             if (i < 0 || i >= nodes.length || !hasNext())
                 throw new NoSuchElementException();
@@ -407,7 +414,7 @@ public class Test3List<T extends PObj> implements Iterable<Node<T>> {
             if (nodes[lastRet = cursor] == null || cursor == curIndex) {
 				isEnd = true;
 			}
-            return nodes[lastRet = i];
+            return (T) nodes[lastRet = i];
         }
 
         public void remove() {
@@ -424,10 +431,10 @@ public class Test3List<T extends PObj> implements Iterable<Node<T>> {
         }
 
         @Override
-        public void forEachRemaining(Consumer<? super Node<T>> consumer) {
+        public void forEachRemaining(Consumer<? super T> consumer) {
             Objects.requireNonNull(consumer);
             while (hasNext()) {
-            	Node<T> node = next();
+            	T node = next();
 				consumer.accept(node);
 			}
         }
