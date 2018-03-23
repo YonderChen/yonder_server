@@ -27,7 +27,7 @@ public class TestMain3 {
 		int maxId = list00.get(0);
 		long a2 = System.currentTimeMillis();
 		for (int i = 0; i < 1000000; i++) {
-			chatList.forEachNodeList(maxId+1-(i%1000), 500, e->{});
+			chatList.forEachNodeList(maxId+1-(i%1000), true, 500, e->{});
 		}
 		long b2 = System.currentTimeMillis();
 		System.out.println(b2 - a2);
@@ -48,7 +48,9 @@ public class TestMain3 {
 		chatList.addNode(1000001);
 
 		System.out.println("size:" + chatList.getCount());
-		List<Integer> list = chatList.loadNodeList(1000006, 20);
+		List<Integer> list = chatList.loadNodeList(1000006, true, 20);
+		System.out.println(list);
+		list = chatList.loadNodeList(1000006, false, 20);
 		System.out.println(list);
 		
 		List<Integer> list3 = chatList.loadNodeList(20);

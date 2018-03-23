@@ -29,6 +29,8 @@ public class Test3List<T> implements Iterable<T> {
 	
 	private Comparator<T> comparator;
 	
+	private int modCount = 0;
+	
 	/**
 	 * 创建节点列表
 	 * @param maxSize 节点个数上限
@@ -70,6 +72,7 @@ public class Test3List<T> implements Iterable<T> {
 	 * @param node
 	 */
 	public void addNode(T node) {
+        modCount++;
 		if (count == 0) {
 			curIndex = 0;
 			minIndex = 0;
@@ -264,6 +267,7 @@ public class Test3List<T> implements Iterable<T> {
 	
 	private void removeNodeByIndex(int remIndex) {
 		if (remIndex >= 0 && remIndex < nodes.length) {
+	        modCount++;
 			if (remIndex == curIndex) {
 				nodes[remIndex] = null;
 				curIndex--;
@@ -353,26 +357,40 @@ public class Test3List<T> implements Iterable<T> {
 	}
 	/**
 	 * 遍历小于目标id的指定个节点
-	 * @param preId
+	 * @param preNode
+	 * @param inclusive
 	 * @param size
 	 * @param consumer
 	 */
-	public void forEachNodeList(T preNode, int size, Consumer<T> consumer) {
+	public void forEachNodeList(T preNode, boolean inclusive, int size, Consumer<T> consumer) {
 		int index = findIndex(nodes, preNode, false);
 		if (index < 0) {
 			return;
+		}
+		if (!inclusive) {//不包含preNode
+			printNodeArray();
+			if (comparator.compare(nodes[index], preNode) == 0) {//存在preNode
+				index--;
+				if (index < 0) {
+					index = nodes.length - 1;
+				}
+				if (nodes[index] == null) {//上一个不存在
+					return;
+				}
+			}
 		}
 		loadNodeListByTargetIndex(index, size, consumer);
 	}
 	/**
 	 * 加载小于指定id的指定个节点
-	 * @param preId
+	 * @param preNode
+	 * @param inclusive
 	 * @param size
 	 * @return
 	 */
-	public List<T> loadNodeList(T preNode, int size) {
+	public List<T> loadNodeList(T preNode, boolean inclusive, int size) {
 		List<T> list = new ArrayList<T>();
-		forEachNodeList(preNode, size, c -> list.add(c));
+		forEachNodeList(preNode, inclusive, size, c -> list.add(c));
 		return list;
 	}
 	
@@ -398,6 +416,7 @@ public class Test3List<T> implements Iterable<T> {
 	 * 清空列表
 	 */
 	public void clear() {
+        modCount++;
 		for (int i = 0; i < nodes.length; i++) {
 			nodes[i] = null;
 		}
@@ -419,6 +438,7 @@ public class Test3List<T> implements Iterable<T> {
         int cursor = curIndex;       // index of next element to return
         int lastRet = -1; // index of last element returned; -1 if no such
         boolean isEnd = false;
+        int expectedModCount = modCount;
 
         public boolean hasNext() {
         	if (isEnd) {
@@ -431,6 +451,7 @@ public class Test3List<T> implements Iterable<T> {
         }
 
 		public T next() {
+            checkForComodification();
             int i = cursor;
             if (i < 0 || i >= nodes.length || !hasNext())
                 throw new NoSuchElementException();
@@ -452,6 +473,7 @@ public class Test3List<T> implements Iterable<T> {
             	removeNodeByIndex(lastRet);
 //                cursor = lastRet;
                 lastRet = -1;
+                expectedModCount = modCount;
             } catch (IndexOutOfBoundsException ex) {
                 throw new ConcurrentModificationException();
             }
@@ -460,10 +482,16 @@ public class Test3List<T> implements Iterable<T> {
         @Override
         public void forEachRemaining(Consumer<? super T> consumer) {
             Objects.requireNonNull(consumer);
-            while (hasNext()) {
+            while (hasNext() && modCount == expectedModCount) {
             	T node = next();
 				consumer.accept(node);
 			}
+            checkForComodification();
+        }
+
+        final void checkForComodification() {
+            if (modCount != expectedModCount)
+                throw new ConcurrentModificationException();
         }
     }
 	

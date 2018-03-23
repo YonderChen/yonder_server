@@ -55,7 +55,7 @@ public class TestMain22 {
 		
 		List<Integer> list1 = chatList.loadNodeList(20);
 		System.out.println(list1);
-		List<Integer> list2 = chatList.loadNodeList(1000002, 20);
+		List<Integer> list2 = chatList.loadNodeList(1000001, false, 20);
 		System.out.println(list2);
 	}
 }

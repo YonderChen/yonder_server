@@ -144,15 +144,16 @@ public class Test2List<T> implements Iterable<T> {
 	}
 	/**
 	 * 遍历小于目标id的指定个节点
-	 * @param preId
+	 * @param preNode
+	 * @param inclusive
 	 * @param size
 	 * @param consumer
 	 */
-	public void forEachNodeList(T preNode, int size, Consumer<T> consumer) {
+	public void forEachNodeList(T preNode, boolean inclusive, int size, Consumer<T> consumer) {
 		if (size <= 0) {
 			return;
 		}
-		Iterator<T> it = nodes.headSet(preNode, true).descendingIterator();
+		Iterator<T> it = nodes.headSet(preNode, inclusive).descendingIterator();
 		int count = 0;
 		while (it.hasNext()) {
 			T node = it.next();
@@ -165,13 +166,14 @@ public class Test2List<T> implements Iterable<T> {
 	}
 	/**
 	 * 加载小于指定id的指定个节点
-	 * @param preId
+	 * @param preNode
+	 * @param inclusive
 	 * @param size
 	 * @return
 	 */
-	public List<T> loadNodeList(T preNode, int size) {
+	public List<T> loadNodeList(T preNode, boolean inclusive, int size) {
 		List<T> list = new ArrayList<T>();
-		forEachNodeList(preNode, size, c -> list.add(c));
+		forEachNodeList(preNode, inclusive, size, c -> list.add(c));
 		return list;
 	}
 	/**

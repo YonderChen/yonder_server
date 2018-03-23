@@ -1,6 +1,7 @@
 package com.py.test.main;
 
-import java.util.Random;
+import java.util.Iterator;
+import java.util.List;
 
 import com.py.test.Test3List;
 
@@ -10,62 +11,51 @@ public class TestMain33 {
 		Test3List<Integer> chatList = new Test3List<Integer>(10, (o1, o2) -> {
 			return o1.compareTo(o2);
 		});
-		Random r = new Random();
-		for (int i = 0; i < 100000; i++) {
-			int id = r.nextInt(100);
-			chatList.addNode(id);
+		for (int i = 1; i < 1000006; i++) {
+			chatList.addNode(i);
 		}
-		chatList.printNodeArray();
-		chatList.clear();
-		chatList.printNodeArray();
-		
-		
-        for (int i = 0; i < 1000006; i++) {
-            chatList.addNode(i);
-        }
+		chatList.printNodeList();
+		chatList.removeNode(1000002);
+		chatList.printNodeList();
+		System.out.println(chatList.loadNodeList(20));
+		System.out.println(chatList.get(5));
 
-        chatList.printNodeArray();
-        chatList.removeNode(999996);
-        chatList.printNodeArray();
-        chatList.removeNode(999997);
-        chatList.printNodeArray();
-        chatList.removeNode(1000005);
-        chatList.printNodeArray();
-        chatList.removeNode(999999);
-        chatList.printNodeArray();
-        chatList.removeNode(999998);
-        chatList.printNodeArray();
-        chatList.removeNode(999997);
-        chatList.printNodeArray();
-        chatList.removeNode(1000002);
-        chatList.printNodeArray();
-        chatList.addNode(999998);
-        chatList.printNodeArray();
-        chatList.addNode(999999);
-        chatList.printNodeArray();
-        chatList.addNode(1000008);
-        chatList.printNodeArray();
-        chatList.addNode(1000009);
-        chatList.printNodeArray();
-        chatList.addNode(1000018);
-        chatList.printNodeArray();
-        chatList.addNode(1000015);
-        chatList.printNodeArray();
-        chatList.removeNode(999999);
-        chatList.printNodeArray();
-        chatList.addNode(1000020);
-        chatList.printNodeArray();
-        chatList.addNode(1000025);
-        chatList.printNodeArray();
-        chatList.addNode(1000030);
-        chatList.printNodeArray();
-        chatList.removeNode(1000003);
-        chatList.printNodeArray();
-        chatList.removeNode(1000008);
-        chatList.printNodeArray();
-        chatList.addNode(1000021);
-        chatList.printNodeArray();
-        chatList.printNodeList();
+		System.out.println(chatList.loadNodeList(20));
+		
+		chatList.removeNode(999996);
+		System.out.println(chatList.loadNodeList(20));
 
+		chatList.removeNode(999997);
+		System.out.println(chatList.loadNodeList(20));
+
+		chatList.removeNode(1000005);
+		System.out.println(chatList.loadNodeList(20));
+
+		System.out.println(chatList.loadNodeList(20));
+		System.out.println(chatList.get(5));
+		Iterator<Integer> it = chatList.iterator();
+		int node1 = it.next();
+		System.out.println(node1);
+		int node2 = it.next();
+		System.out.println(node2);
+		it.forEachRemaining((c) -> {
+			System.out.println("forEachRemaining:" + c);
+		});
+		System.out.println(chatList.loadNodeList(20));
+		System.out.println(chatList.loadNodeList(20));
+		System.out.println(chatList.get(5));
+
+		for (int node : chatList) {
+			System.out.println(node);
+		}
+		chatList.removeNode(999999);
+		chatList.removeNode(999998);
+		chatList.removeNode(999997);
+		chatList.removeNode(999991);
+		
+		List<Integer> list1 = chatList.loadNodeList(20);
+		System.out.println(list1);
+		List<Integer> list2 = chatList.loadNodeList(1000001, true, 20);
+		System.out.println(list2);
 	}
 }
