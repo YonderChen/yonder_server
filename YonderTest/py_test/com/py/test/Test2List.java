@@ -15,39 +15,55 @@ import java.util.function.Consumer;
  *
  * @param <T>
  */
-public class Test2List<T extends Node> implements Iterable<T> {
+public class Test2List<T> implements Iterable<T> {
 	
 	private int maxSize;
 	
-	private TreeSet<Node> nodeSet = new TreeSet<Node>(new Comparator<Node>() {
-
-		@Override
-		public int compare(Node o1, Node o2) {
-			return o1.getId() - o2.getId();
-		}
-	});
+	private TreeSet<T> nodes;
 	
 	/**
 	 * 创建节点列表
 	 * @param maxSize 节点个数上限
 	 */
-	public Test2List(int maxSize) {
+	public Test2List(int maxSize, Comparator<T> comparator) {
 		this.maxSize = maxSize;
+		nodes = new TreeSet<T>(comparator);
+	}
+	/**
+	 * 打印当前内部数组情况
+	 */
+	public void printNodeArray() {
+		StringBuilder sb = new StringBuilder();
+		for (T node : nodes) {
+			if (sb.length() > 0) {
+				sb.append(", ");
+			}
+			sb.append(node);
+		}
+		System.out.println(sb.toString());
+//		System.out.println("count:" + nodes.size());
 	}
 	/**
 	 * 打印当前所有节点
 	 */
 	public void printNodeList() {
-		System.out.println(nodeSet.descendingSet());
+		StringBuilder sb = new StringBuilder();
+		forEachNodeList(nodes.size(), node ->{
+			if (sb.length() > 0) {
+				sb.append(", ");
+			}
+			sb.append(node);
+		});
+		System.out.println(sb.toString());
 	}
 	/**
 	 * 添加节点
 	 * @param node
 	 */
 	public void addNode(T node) {
-		nodeSet.add(node);
-		if (nodeSet.size() > maxSize) {
-			nodeSet.pollFirst();
+		nodes.add(node);
+		if (nodes.size() > maxSize) {
+			nodes.pollFirst();
 		}
 	}
 	/**
@@ -56,14 +72,13 @@ public class Test2List<T extends Node> implements Iterable<T> {
 	 * @return
 	 */
 	public T get(int index) {
-		if (index < 0 || index >= nodeSet.size()) {
-			throw new IndexOutOfBoundsException("max:" + (nodeSet.size() - 1));
+		if (index < 0 || index >= nodes.size()) {
+			throw new IndexOutOfBoundsException("max:" + (nodes.size() - 1));
 		}
-		Iterator<Node> it = nodeSet.descendingIterator();
+		Iterator<T> it = nodes.descendingIterator();
 		int i = 0;
 		while (it.hasNext()) {
-			@SuppressWarnings("unchecked")
-			T node = (T) it.next();
+			T node = it.next();
 			if (i == index) {
 				return node;
 			}
@@ -76,10 +91,10 @@ public class Test2List<T extends Node> implements Iterable<T> {
 	 * @param index
 	 */
 	public void remove(int index) {
-		if (index < 0 || index >= nodeSet.size()) {
-			throw new IndexOutOfBoundsException("max:" + (nodeSet.size() - 1));
+		if (index < 0 || index >= nodes.size()) {
+			throw new IndexOutOfBoundsException("max:" + (nodes.size() - 1));
 		}
-		Iterator<Node> it = nodeSet.descendingIterator();
+		Iterator<T> it = nodes.descendingIterator();
 		int i = 0;
 		while (it.hasNext()) {
 			it.next();
@@ -94,16 +109,8 @@ public class Test2List<T extends Node> implements Iterable<T> {
 	 * 移除节点
 	 * @param node
 	 */
-	public void remove(T node) {
-		nodeSet.remove(node);
-	}
-	/**
-	 * 移除指定id节点
-	 * @param id
-	 */
-	public void removeNode(int id) {
-		Node tempNode = new Node(id);
-		nodeSet.remove(tempNode);
+	public void removeNode(T node) {
+		nodes.remove(node);
 	}
 	/**
 	 * 循环遍历指定个节点
@@ -114,11 +121,10 @@ public class Test2List<T extends Node> implements Iterable<T> {
 		if (size <= 0) {
 			return;
 		}
-		Iterator<Node> it = nodeSet.descendingIterator();
+		Iterator<T> it = nodes.descendingIterator();
 		int count = 0;
 		while (it.hasNext()) {
-			@SuppressWarnings("unchecked")
-			T node = (T) it.next();
+			T node = it.next();
 			consumer.accept(node);
 			count++;
 			if (count >= size) {
@@ -142,16 +148,14 @@ public class Test2List<T extends Node> implements Iterable<T> {
 	 * @param size
 	 * @param consumer
 	 */
-	public void forEachNodeList(int preId, int size, Consumer<T> consumer) {
+	public void forEachNodeList(T preNode, int size, Consumer<T> consumer) {
 		if (size <= 0) {
 			return;
 		}
-		Node tempNode = new Node(preId);
-		Iterator<Node> it = nodeSet.headSet(tempNode, true).descendingIterator();
+		Iterator<T> it = nodes.headSet(preNode, true).descendingIterator();
 		int count = 0;
 		while (it.hasNext()) {
-			@SuppressWarnings("unchecked")
-			T node = (T) it.next();
+			T node = it.next();
 			consumer.accept(node);
 			count++;
 			if (count >= size) {
@@ -165,9 +169,9 @@ public class Test2List<T extends Node> implements Iterable<T> {
 	 * @param size
 	 * @return
 	 */
-	public List<T> loadNodeList(int preId, int size) {
+	public List<T> loadNodeList(T preNode, int size) {
 		List<T> list = new ArrayList<T>();
-		forEachNodeList(preId, size, c -> list.add(c));
+		forEachNodeList(preNode, size, c -> list.add(c));
 		return list;
 	}
 	/**
@@ -175,7 +179,7 @@ public class Test2List<T extends Node> implements Iterable<T> {
 	 * @return
 	 */
 	public int getCount() {
-		return nodeSet.size();
+		return nodes.size();
 	}
 	/**
 	 * 节点个数上限
@@ -189,13 +193,12 @@ public class Test2List<T extends Node> implements Iterable<T> {
 	 * 清空列表
 	 */
 	public void clear() {
-		nodeSet.clear();
+		nodes.clear();
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
 	public Iterator<T> iterator() {
-		return (Iterator<T>) nodeSet.descendingIterator();
+		return nodes.descendingIterator();
 	}
 	
 }

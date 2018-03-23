@@ -1,13 +1,21 @@
 package com.py.test.obj;
 
-import com.py.test.Node;
-
-public class Chat extends Node {
+public class Chat {
+	private int id;
 	private transient String msg;
 	private transient byte[] data; 
+	public Chat(int id) {
+		this.id = id;
+	}
 	public Chat(int id, String msg) {
-		super(id);
+		this.id = id;
 		this.msg = msg;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 	public String getMsg() {
 		return msg;
