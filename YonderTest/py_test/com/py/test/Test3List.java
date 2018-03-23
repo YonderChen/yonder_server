@@ -26,21 +26,21 @@ public class Test3List<T extends Node> implements Iterable<T> {
 	
 	private int count = 0;
 
-	private int minIndex = 0;
+	private int minIndex = -1;
 
 	/**
 	 * 创建节点列表
 	 * @param maxSize 节点个数上限
 	 */
-	@SuppressWarnings("unchecked")
 	public Test3List(int maxSize) {
-		nodes = (T[])new Node[maxSize];
+		nodes = new Node[maxSize];
 	}
 	/**
 	 * 打印当前内部数组情况
 	 */
 	public void printNodeArray() {
 		System.out.println(GsonTools.toJsonString(nodes));
+		System.out.println("minIndex:" + minIndex  + " _ curIndex:" + curIndex + " _ count:" + count);
 	}
 	/**
 	 * 打印当前所有节点
@@ -54,27 +54,19 @@ public class Test3List<T extends Node> implements Iterable<T> {
 	 */
 	public void addNode(T node) {
 		if (count == 0) {
-			curIndex++;
-			if (curIndex >= nodes.length) {
-				curIndex = 0;
-			}
-			if (nodes[curIndex] == null) {
-				count++;
-			}
+			curIndex = 0;
+			minIndex = 0;
 			nodes[curIndex] = node;
-			minIndex = curIndex;
+			count++;
 		} else {
-			int maxIndex = curIndex;
-			@SuppressWarnings("unchecked")
-			T minNode = (T) nodes[minIndex];
+			Node minNode = nodes[minIndex];
 			if (node.getId() == minNode.getId()) {
 				nodes[minIndex] = node;
 				return;
 			}
-			@SuppressWarnings("unchecked")
-			T maxNode = (T) nodes[maxIndex];
+			Node maxNode = nodes[curIndex];
 			if (node.getId() == maxNode.getId()) {
-				nodes[maxIndex] = node;
+				nodes[curIndex] = node;
 				return;
 			}
 			if (node.getId() > maxNode.getId()) {//往后添加节点
@@ -84,9 +76,13 @@ public class Test3List<T extends Node> implements Iterable<T> {
 				}
 				if (nodes[curIndex] == null) {
 					count++;
+				} else {
+					minIndex++;
+					if (minIndex >= nodes.length) {
+						minIndex = 0;
+					}
 				}
 				nodes[curIndex] = node;
-				minIndex = getRefIndex(0);
 			} else if (node.getId() < minNode.getId()) {//往前添加节点，如果已经满员了就无法添加
 				int minPreIndex = minIndex - 1;
 				if (minPreIndex < 0) {
@@ -97,6 +93,7 @@ public class Test3List<T extends Node> implements Iterable<T> {
 				}
 				nodes[minPreIndex] = node;
 				minIndex = minPreIndex;
+				count++;
 			} else {//在中间插入节点
 				int hitNodeIndex = findIndex(nodes, node.getId(), false);
 				if (hitNodeIndex < 0) {//找不到位置
@@ -111,6 +108,7 @@ public class Test3List<T extends Node> implements Iterable<T> {
 					}
 					if (nodes[minPreIndex] == null) {
 						nodes[minPreIndex] = nodes[minIndex];
+						minIndex = minPreIndex;
 						count++;
 					}
 					if (hitNodeIndex >= minIndex) {
@@ -127,7 +125,6 @@ public class Test3List<T extends Node> implements Iterable<T> {
 						}
 					}
 					nodes[hitNodeIndex] = node;
-					minIndex = minPreIndex;
 				}
 			}
 		}
@@ -278,6 +275,11 @@ public class Test3List<T extends Node> implements Iterable<T> {
 				}
 				count--;
 			}
+			if (count <= 0) {
+				curIndex = -1;
+				minIndex = -1;
+				count = 0;
+			}
 		}
 	}
 	/**
@@ -300,12 +302,12 @@ public class Test3List<T extends Node> implements Iterable<T> {
 			if (count >= size) {
 				return;
 			}
-			@SuppressWarnings("unchecked")
-			T node = (T) nodes[i];
-			if (node == null) {
+			if (nodes[i] == null) {
 				return;
 			}
 			count++;
+			@SuppressWarnings("unchecked")
+			T node = (T) nodes[i];
 			consumer.accept(node);
 			if (i == minIndex) {
 				return;
@@ -315,12 +317,12 @@ public class Test3List<T extends Node> implements Iterable<T> {
 			if (count >= size) {
 				return;
 			}
-			@SuppressWarnings("unchecked")
-			T node = (T) nodes[i];
-			if (node == null) {
+			if (nodes[i] == null) {
 				return;
 			}
 			count++;
+			@SuppressWarnings("unchecked")
+			T node = (T) nodes[i];
 			consumer.accept(node);
 			if (i == minIndex) {
 				return;
@@ -387,6 +389,18 @@ public class Test3List<T extends Node> implements Iterable<T> {
 	public int getMaxSize() {
 		return nodes.length;
 	}
+	
+	/**
+	 * 清空列表
+	 */
+	public void clear() {
+		for (int i = 0; i < nodes.length; i++) {
+			nodes[i] = null;
+		}
+		curIndex = -1;
+		minIndex = -1;
+		count = 0;
+	}
 
 	@Override
 	public Iterator<T> iterator() {
@@ -406,9 +420,10 @@ public class Test3List<T extends Node> implements Iterable<T> {
         	if (isEnd) {
 				return false;
 			}
-        	@SuppressWarnings("unchecked")
-			T node = (T) nodes[cursor];
-			return node != null;
+        	if (count == 0 || cursor < 0 || cursor > nodes.length) {
+				return false;
+			}
+			return nodes[cursor] != null;
         }
 
 		@SuppressWarnings("unchecked")

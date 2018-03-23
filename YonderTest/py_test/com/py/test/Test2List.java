@@ -17,7 +17,7 @@ import java.util.function.Consumer;
  */
 public class Test2List<T extends Node> implements Iterable<T> {
 	
-	private int maxSize = 500;
+	private int maxSize;
 	
 	private TreeSet<Node> nodeSet = new TreeSet<Node>(new Comparator<Node>() {
 
@@ -183,6 +183,13 @@ public class Test2List<T extends Node> implements Iterable<T> {
 	 */
 	public int getMaxSize() {
 		return maxSize;
+	}
+	
+	/**
+	 * 清空列表
+	 */
+	public void clear() {
+		nodeSet.clear();
 	}
 
 	@Override
